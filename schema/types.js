@@ -200,6 +200,7 @@ const ResumeType = new GraphQLObjectType({
   name: 'Resume',
   fields: () => ({
     id: { type: GraphQLID },
+    name: { type: GraphQLString },
     personalDetails: {
       type: PersonalDetailsType,
       resolve(parent) {
