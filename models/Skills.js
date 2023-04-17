@@ -9,6 +9,10 @@ const SkillsSchema = new mongoose.Schema({
       values: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert'],
     },
   },
+  resume: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Resume',
+  },
 });
 
 module.exports = mongoose.model('Skills', SkillsSchema);

@@ -2,10 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
-  GraphQLSchema,
   GraphQLList,
-  GraphQLNonNull,
-  GraphQLEnumType,
 } = require('graphql');
 
 //Mongoose models
@@ -16,6 +13,9 @@ const Profile = require('../models/Profile');
 const Language = require('../models/Language');
 const Skills = require('../models/Skills');
 const ProfessionalExperience = require('../models/ProfessionalExperience');
+const Resume = require('../models/Resume');
+const Links = require('../models/Links');
+const AdditionalInfo = require('../models/AdditionalInfo');
 
 //Project Type
 const ProjectType = new GraphQLObjectType({
@@ -26,6 +26,12 @@ const ProjectType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
   }),
 });
 
@@ -41,25 +47,12 @@ const EducationType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
-  }),
-});
-
-const AdditionalInfoType = new GraphQLObjectType({
-  name: 'AdditionalInfo',
-  fields: () => ({
-    dateOfBirth: { type: GraphQLString },
-    drivingLicense: { type: GraphQLString },
-    gender: { type: GraphQLString },
-  }),
-});
-
-const LinksType = new GraphQLObjectType({
-  name: 'Links',
-  fields: () => ({
-    website: { type: GraphQLString },
-    github: { type: GraphQLString },
-    skype: { type: GraphQLString },
-    telegram: { type: GraphQLString },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
   }),
 });
 
@@ -72,8 +65,59 @@ const PersonalDetailsType = new GraphQLObjectType({
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
     address: { type: GraphQLString },
-    additionalInfo: { type: AdditionalInfoType },
-    links: { type: LinksType },
+    additionalInfo: {
+      type: AdditionalInfoType,
+      resolve(parent) {
+        return AdditionalInfo.findOne({
+          personalDetails: parent.personalDetailsId,
+        });
+      },
+    },
+    links: {
+      type: LinksType,
+      resolve(parent) {
+        return Links.findOne({ personalDetails: parent.personalDetailsId });
+      },
+    },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
+  }),
+});
+
+//AdditionalInfo Type
+const AdditionalInfoType = new GraphQLObjectType({
+  name: 'AdditionalInfo',
+  fields: () => ({
+    dateOfBirth: { type: GraphQLString },
+    drivingLicense: { type: GraphQLString },
+    gender: { type: GraphQLString },
+    personalDetails: {
+      type: PersonalDetailsType,
+      resolve(parent, args) {
+        return PersonalDetails.findById(parent.personalDetailsId);
+      },
+    },
+  }),
+});
+
+//Links Type
+const LinksType = new GraphQLObjectType({
+  name: 'Links',
+  fields: () => ({
+    website: { type: GraphQLString },
+    github: { type: GraphQLString },
+    skype: { type: GraphQLString },
+    telegram: { type: GraphQLString },
+    personalDetails: {
+      type: PersonalDetailsType,
+      resolve(parent, args) {
+        return PersonalDetails.findById(parent.personalDetailsId);
+      },
+    },
   }),
 });
 
@@ -89,6 +133,12 @@ const ProfessionalExperienceType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
   }),
 });
 
@@ -101,6 +151,12 @@ const SkillsType = new GraphQLObjectType({
     info: { type: GraphQLString },
     skillLevel: {
       type: GraphQLString,
+    },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
     },
   }),
 });
@@ -115,6 +171,12 @@ const LanguageType = new GraphQLObjectType({
     languageLevel: {
       type: GraphQLString,
     },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
   }),
 });
 
@@ -122,7 +184,14 @@ const LanguageType = new GraphQLObjectType({
 const ProfileType = new GraphQLObjectType({
   name: 'Profile',
   fields: () => ({
+    id: { type: GraphQLID },
     text: { type: GraphQLString },
+    resume: {
+      type: ResumeType,
+      resolve(parent, args) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
   }),
 });
 
@@ -134,43 +203,43 @@ const ResumeType = new GraphQLObjectType({
     personalDetails: {
       type: PersonalDetailsType,
       resolve(parent) {
-        return PersonalDetails.findById(parent.personalDetailsId);
+        return PersonalDetails.findOne({ resume: parent.resumeId });
       },
     },
     skills: {
-      type: SkillsType,
-      resolve(parent) {
-        return Skills.findById(parent.skillsId);
+      type: new GraphQLList(SkillsType),
+      resolve() {
+        return Skills.find();
       },
     },
     language: {
-      type: LanguageType,
-      resolve(parent) {
-        return Language.findById(parent.languageId);
+      type: new GraphQLList(LanguageType),
+      resolve() {
+        return Language.find();
       },
     },
     professionalExperience: {
-      type: ProfessionalExperienceType,
-      resolve(parent) {
-        return ProfessionalExperience.findById(parent.professionalExperienceId);
+      type: new GraphQLList(ProfessionalExperienceType),
+      resolve() {
+        return ProfessionalExperience.find();
       },
     },
     profile: {
-      type: ProfileType,
-      resolve(parent) {
-        return Profile.findById(parent.profileId);
+      type: new GraphQLList(ProfileType),
+      async resolve(parent) {
+        return await Profile.find();
       },
     },
     education: {
-      type: EducationType,
-      resolve(parent) {
-        return Education.findById(parent.educationId);
+      type: new GraphQLList(EducationType),
+      resolve() {
+        return Education.find();
       },
     },
     project: {
-      type: ProjectType,
-      resolve(parent) {
-        return Project.findById(parent.projectId);
+      type: new GraphQLList(ProjectType),
+      resolve() {
+        return Project.find();
       },
     },
   }),

@@ -17,6 +17,10 @@ const PersonalDetailsSchema = new mongoose.Schema({
     skype: { type: String },
     telegram: { type: String },
   },
+  resume: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Resume',
+  },
 });
 
 module.exports = mongoose.model('PersonalDetails', PersonalDetailsSchema);

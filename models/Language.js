@@ -15,6 +15,10 @@ const LanguageSchema = new mongoose.Schema({
       ],
     },
   },
+  resume: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Resume',
+  },
 });
 
 module.exports = mongoose.model('Language', LanguageSchema);
