@@ -6,9 +6,7 @@ exports.additionalInfoMutations = {
   addAdditionalInfo: {
     type: AdditionalInfoType,
     args: {
-      dateOfBirth: { type: GraphQLString },
-      drivingLicense: { type: GraphQLString },
-      gender: { type: GraphQLString },
+      info: { type: GraphQLString },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
     resolve(parent, args) {
@@ -31,17 +29,13 @@ exports.additionalInfoMutations = {
     type: AdditionalInfoType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      dateOfBirth: { type: GraphQLString },
-      drivingLicense: { type: GraphQLString },
-      gender: { type: GraphQLString },
+      info: { type: GraphQLString },
     },
     resolve(parent, args) {
       return AdditionalInfo.findByIdAndUpdate(
         args.id,
         {
-          dateOfBirth: args.dateOfBirth,
-          drivingLicense: args.drivingLicense,
-          gender: args.gender,
+          info: args.info,
         },
         { new: true }
       );

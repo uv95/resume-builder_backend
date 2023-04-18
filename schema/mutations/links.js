@@ -3,13 +3,10 @@ const Links = require('../../models/Links');
 const { LinksType } = require('../types');
 
 exports.linksMutations = {
-  addLinks: {
+  addLink: {
     type: LinksType,
     args: {
-      website: { type: GraphQLString },
-      github: { type: GraphQLString },
-      skype: { type: GraphQLString },
-      telegram: { type: GraphQLString },
+      link: { type: GraphQLString },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
     resolve(parent, args) {
@@ -18,7 +15,7 @@ exports.linksMutations = {
     },
   },
 
-  deleteLinks: {
+  deleteLink: {
     type: LinksType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
@@ -28,23 +25,17 @@ exports.linksMutations = {
     },
   },
 
-  updateLinks: {
+  updateLink: {
     type: LinksType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      website: { type: GraphQLString },
-      github: { type: GraphQLString },
-      skype: { type: GraphQLString },
-      telegram: { type: GraphQLString },
+      link: { type: GraphQLString },
     },
     resolve(parent, args) {
       return Links.findByIdAndUpdate(
         args.id,
         {
-          website: args.website,
-          github: args.github,
-          skype: args.skype,
-          telegram: args.telegram,
+          link: args.link,
         },
         { new: true }
       );

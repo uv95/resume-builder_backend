@@ -60,6 +60,7 @@ const EducationType = new GraphQLObjectType({
 const PersonalDetailsType = new GraphQLObjectType({
   name: 'PersonalDetails',
   fields: () => ({
+    id: { type: GraphQLID },
     fullName: { type: GraphQLString },
     jobTitle: { type: GraphQLString },
     email: { type: GraphQLString },
@@ -92,9 +93,8 @@ const PersonalDetailsType = new GraphQLObjectType({
 const AdditionalInfoType = new GraphQLObjectType({
   name: 'AdditionalInfo',
   fields: () => ({
-    dateOfBirth: { type: GraphQLString },
-    drivingLicense: { type: GraphQLString },
-    gender: { type: GraphQLString },
+    id: { type: GraphQLID },
+    info: { type: GraphQLString },
     personalDetails: {
       type: PersonalDetailsType,
       resolve(parent, args) {
@@ -108,10 +108,8 @@ const AdditionalInfoType = new GraphQLObjectType({
 const LinksType = new GraphQLObjectType({
   name: 'Links',
   fields: () => ({
-    website: { type: GraphQLString },
-    github: { type: GraphQLString },
-    skype: { type: GraphQLString },
-    telegram: { type: GraphQLString },
+    id: { type: GraphQLID },
+    link: { type: GraphQLString },
     personalDetails: {
       type: PersonalDetailsType,
       resolve(parent, args) {

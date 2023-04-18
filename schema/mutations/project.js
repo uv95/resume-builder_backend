@@ -6,7 +6,7 @@ exports.projectMutations = {
   addProject: {
     type: ProjectType,
     args: {
-      title: { type: GraphQLString },
+      title: { type: GraphQLNonNull(GraphQLString) },
       startDate: { type: GraphQLString },
       endDate: { type: GraphQLString },
       description: { type: GraphQLString },
