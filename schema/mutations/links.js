@@ -6,7 +6,7 @@ exports.linksMutations = {
   addLink: {
     type: LinksType,
     args: {
-      link: { type: GraphQLString },
+      link: { type: GraphQLNonNull(GraphQLString) },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
     resolve(parent, args) {

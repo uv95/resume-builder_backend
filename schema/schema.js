@@ -1,4 +1,9 @@
-const { GraphQLObjectType, GraphQLID, GraphQLSchema } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLSchema,
+  GraphQLList,
+} = require('graphql');
 
 const Resume = require('../models/Resume');
 const { ResumeType } = require('./types');
@@ -13,6 +18,12 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Resume.findById(args.id);
+      },
+    },
+    resumes: {
+      type: new GraphQLList(ResumeType),
+      resolve(parent, args) {
+        return Resume.find();
       },
     },
   },
