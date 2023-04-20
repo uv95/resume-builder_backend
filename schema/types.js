@@ -94,6 +94,7 @@ const AdditionalInfoType = new GraphQLObjectType({
   name: 'AdditionalInfo',
   fields: () => ({
     id: { type: GraphQLID },
+    name: { type: GraphQLString },
     info: { type: GraphQLString },
     personalDetails: {
       type: PersonalDetailsType,
@@ -109,6 +110,7 @@ const LinksType = new GraphQLObjectType({
   name: 'Links',
   fields: () => ({
     id: { type: GraphQLID },
+    name: { type: GraphQLString },
     link: { type: GraphQLString },
     personalDetails: {
       type: PersonalDetailsType,

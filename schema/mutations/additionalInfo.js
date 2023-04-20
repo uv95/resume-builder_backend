@@ -6,6 +6,7 @@ exports.additionalInfoMutations = {
   addAdditionalInfo: {
     type: AdditionalInfoType,
     args: {
+      name: { type: GraphQLNonNull(GraphQLString) },
       info: { type: GraphQLNonNull(GraphQLString) },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
@@ -29,12 +30,14 @@ exports.additionalInfoMutations = {
     type: AdditionalInfoType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
       info: { type: GraphQLString },
     },
     resolve(parent, args) {
       return AdditionalInfo.findByIdAndUpdate(
         args.id,
         {
+          name: args.name,
           info: args.info,
         },
         { new: true }

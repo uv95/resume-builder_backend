@@ -6,6 +6,7 @@ exports.linksMutations = {
   addLink: {
     type: LinksType,
     args: {
+      name: { type: GraphQLNonNull(GraphQLString) },
       link: { type: GraphQLNonNull(GraphQLString) },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
@@ -29,12 +30,14 @@ exports.linksMutations = {
     type: LinksType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
       link: { type: GraphQLString },
     },
     resolve(parent, args) {
       return Links.findByIdAndUpdate(
         args.id,
         {
+          name: args.name,
           link: args.link,
         },
         { new: true }
