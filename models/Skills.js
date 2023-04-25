@@ -6,7 +6,7 @@ const SkillsSchema = new mongoose.Schema({
   skillLevel: {
     type: String,
     enum: {
-      values: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert'],
+      values: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert', ''],
     },
   },
   resume: {

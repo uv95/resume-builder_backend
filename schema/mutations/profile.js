@@ -1,6 +1,7 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 
 const Profile = require('../../models/Profile');
+const Resume = require('../../models/Resume');
 const { ProfileType } = require('../types');
 
 exports.profileMutations = {
@@ -10,8 +11,10 @@ exports.profileMutations = {
       text: { type: GraphQLNonNull(GraphQLString) },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
-    resolve(parent, args) {
+    async resolve(parent, args) {
       const profile = new Profile(args);
+      const resume = await Resume.findById(args.resumeId);
+      if (!resume) throw new Error('Resume does not exist!');
       return profile.save();
     },
   },

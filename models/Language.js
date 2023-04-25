@@ -12,6 +12,7 @@ const LanguageSchema = new mongoose.Schema({
         'Limited working proficiency (B1)',
         'Highly proficient (B2-C1)',
         'Native / full working proficiency (C2)',
+        '',
       ],
     },
   },

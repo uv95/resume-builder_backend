@@ -4,6 +4,7 @@ const {
   GraphQLID,
   GraphQLEnumType,
 } = require('graphql');
+const Resume = require('../../models/Resume');
 
 const Skills = require('../../models/Skills');
 const { SkillsType } = require('../types');
@@ -23,13 +24,21 @@ exports.skillsMutations = {
             skillful: { value: 'Skillful' },
             experienced: { value: 'Experienced' },
             expert: { value: 'Expert' },
+            default: { value: '' },
           },
         }),
       },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
-    resolve(parent, args) {
-      const skills = new Skills(args);
+    async resolve(parent, args) {
+      const skills = new Skills({
+        skill: args.skill,
+        info: args.info || '',
+        skillLevel: args.skillLevel || '',
+        resumeId: args.resumeId,
+      });
+      const resume = await Resume.findById(args.resumeId);
+      if (!resume) throw new Error('Resume does not exist!');
       return skills.save();
     },
   },
@@ -59,6 +68,7 @@ exports.skillsMutations = {
             skillful: { value: 'Skillful' },
             experienced: { value: 'Experienced' },
             expert: { value: 'Expert' },
+            default: { value: '' },
           },
         }),
       },

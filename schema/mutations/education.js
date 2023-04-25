@@ -1,5 +1,6 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const Education = require('../../models/Education');
+const Resume = require('../../models/Resume');
 const { EducationType } = require('../types');
 
 exports.educationMutations = {
@@ -15,8 +16,19 @@ exports.educationMutations = {
       description: { type: GraphQLString },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
-    resolve(parent, args) {
-      const education = new Education(args);
+    async resolve(parent, args) {
+      const education = new Education({
+        degree: args.degree,
+        school: args.school,
+        city: args.city || '',
+        country: args.country || '',
+        startDate: args.startDate || '',
+        endDate: args.endDate || '',
+        description: args.description || '',
+        resumeId: args.resumeId,
+      });
+      const resume = await Resume.findById(args.resumeId);
+      if (!resume) throw new Error('Resume does not exist!');
       return education.save();
     },
   },

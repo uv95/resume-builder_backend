@@ -6,6 +6,7 @@ const {
 } = require('graphql');
 
 const Language = require('../../models/Language');
+const Resume = require('../../models/Resume');
 const { LanguageType } = require('../types');
 
 exports.languageMutations = {
@@ -25,13 +26,21 @@ exports.languageMutations = {
             fullProficiency: {
               value: 'Native / full working proficiency (C2)',
             },
+            default: { value: '' },
           },
         }),
       },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
-    resolve(parent, args) {
-      const language = new Language(args);
+    async resolve(parent, args) {
+      const language = new Language({
+        language: args.language,
+        info: args.info || '',
+        languageLevel: args.languageLevel || '',
+        resumeId: args.resumeId,
+      });
+      const resume = await Resume.findById(args.resumeId);
+      if (!resume) throw new Error('Resume does not exist!');
       return language.save();
     },
   },
@@ -63,6 +72,7 @@ exports.languageMutations = {
             fullProficiency: {
               value: 'Native / full working proficiency (C2)',
             },
+            default: { value: '' },
           },
         }),
       },

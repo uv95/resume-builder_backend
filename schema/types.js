@@ -67,17 +67,15 @@ const PersonalDetailsType = new GraphQLObjectType({
     phone: { type: GraphQLString },
     address: { type: GraphQLString },
     additionalInfo: {
-      type: AdditionalInfoType,
+      type: new GraphQLList(AdditionalInfoType),
       resolve(parent) {
-        return AdditionalInfo.findOne({
-          personalDetails: parent.personalDetailsId,
-        });
+        return AdditionalInfo.find();
       },
     },
     links: {
-      type: LinksType,
+      type: new GraphQLList(LinksType),
       resolve(parent) {
-        return Links.findOne({ personalDetails: parent.personalDetailsId });
+        return Links.find();
       },
     },
     resume: {

@@ -1,5 +1,6 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const Links = require('../../models/Links');
+const PersonalDetails = require('../../models/PersonalDetails');
 const { LinksType } = require('../types');
 
 exports.linksMutations = {
@@ -10,8 +11,13 @@ exports.linksMutations = {
       link: { type: GraphQLNonNull(GraphQLString) },
       personalDetailsId: { type: GraphQLNonNull(GraphQLID) },
     },
-    resolve(parent, args) {
+    async resolve(parent, args) {
       const links = new Links(args);
+      const personalDetails = await PersonalDetails.findById(
+        args.personalDetailsId
+      );
+      if (!personalDetails)
+        throw new Error('Please add your full name and job title first!');
       return links.save();
     },
   },
