@@ -26,9 +26,12 @@ exports.languageMutations = {
             fullProficiency: {
               value: 'Native / full working proficiency (C2)',
             },
-            default: { value: '' },
+            default: {
+              value: '',
+            },
           },
         }),
+        defaultValue: '',
       },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
@@ -36,7 +39,7 @@ exports.languageMutations = {
       const language = new Language({
         language: args.language,
         info: args.info || '',
-        languageLevel: args.languageLevel || '',
+        languageLevel: args.languageLevel,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -72,7 +75,9 @@ exports.languageMutations = {
             fullProficiency: {
               value: 'Native / full working proficiency (C2)',
             },
-            default: { value: '' },
+            default: {
+              value: '',
+            },
           },
         }),
       },

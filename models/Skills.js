@@ -5,9 +5,8 @@ const SkillsSchema = new mongoose.Schema({
   info: { type: String },
   skillLevel: {
     type: String,
-    enum: {
-      values: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert', ''],
-    },
+    enum: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert', ''],
+    default: '',
   },
   resume: {
     type: mongoose.Schema.Types.ObjectId,

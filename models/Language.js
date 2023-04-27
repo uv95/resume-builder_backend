@@ -5,16 +5,15 @@ const LanguageSchema = new mongoose.Schema({
   info: { type: String },
   languageLevel: {
     type: String,
-    enum: {
-      values: [
-        'Beginner (A1)',
-        'Elementary (A2)',
-        'Limited working proficiency (B1)',
-        'Highly proficient (B2-C1)',
-        'Native / full working proficiency (C2)',
-        '',
-      ],
-    },
+    enum: [
+      'Beginner (A1)',
+      'Elementary (A2)',
+      'Limited working proficiency (B1)',
+      'Highly proficient (B2-C1)',
+      'Native / full working proficiency (C2)',
+      '',
+    ],
+    default: '',
   },
   resume: {
     type: mongoose.Schema.Types.ObjectId,

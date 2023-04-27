@@ -27,6 +27,7 @@ exports.skillsMutations = {
             default: { value: '' },
           },
         }),
+        defaultValue: '',
       },
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
@@ -34,7 +35,7 @@ exports.skillsMutations = {
       const skills = new Skills({
         skill: args.skill,
         info: args.info || '',
-        skillLevel: args.skillLevel || '',
+        skillLevel: args.skillLevel,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
