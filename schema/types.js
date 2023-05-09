@@ -17,6 +17,7 @@ const Resume = require('../models/Resume');
 const Links = require('../models/Links');
 const AdditionalInfo = require('../models/AdditionalInfo');
 const Settings = require('../models/Settings');
+const Content = require('../models/Content');
 
 //Project Type
 const ProjectType = new GraphQLObjectType({
@@ -153,11 +154,10 @@ const SkillsType = new GraphQLObjectType({
     skillLevel: {
       type: GraphQLString,
     },
-    resumeId: {
+    resume: {
       type: ResumeType,
-      async resolve(parent) {
-        console.log(await Resume.findById(parent.resumeId), '🌱');
-        return await Resume.findById(parent.resumeId);
+      resolve(parent) {
+        return Resume.findById(parent.resumeId);
       },
     },
   }),
@@ -212,52 +212,72 @@ const SettingsType = new GraphQLObjectType({
   }),
 });
 
+//Content Type
+const ContentType = new GraphQLObjectType({
+  name: 'Content',
+  fields: () => ({
+    id: { type: GraphQLID },
+    personalDetails: {
+      type: PersonalDetailsType,
+      resolve(parent) {
+        return PersonalDetails.findOne({ resumeId: parent.resumeId });
+      },
+    },
+    skills: {
+      type: new GraphQLList(SkillsType),
+      resolve(parent) {
+        return Skills.find({ resumeId: parent.resumeId });
+      },
+    },
+    language: {
+      type: new GraphQLList(LanguageType),
+      resolve(parent) {
+        return Language.find({ resumeId: parent.resumeId });
+      },
+    },
+    professionalExperience: {
+      type: new GraphQLList(ProfessionalExperienceType),
+      resolve(parent) {
+        return ProfessionalExperience.find({ resumeId: parent.resumeId });
+      },
+    },
+    profile: {
+      type: new GraphQLList(ProfileType),
+      resolve(parent) {
+        return Profile.find({ resumeId: parent.resumeId });
+      },
+    },
+    education: {
+      type: new GraphQLList(EducationType),
+      resolve(parent) {
+        return Education.find({ resumeId: parent.resumeId });
+      },
+    },
+    project: {
+      type: new GraphQLList(ProjectType),
+      resolve(parent) {
+        return Project.find({ resumeId: parent.resumeId });
+      },
+    },
+    resume: {
+      type: ResumeType,
+      resolve(parent) {
+        return Resume.findById(parent.resumeId);
+      },
+    },
+  }),
+});
+
 //Resume Type
 const ResumeType = new GraphQLObjectType({
   name: 'Resume',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    personalDetails: {
-      type: PersonalDetailsType,
+    content: {
+      type: ContentType,
       resolve(parent) {
-        return PersonalDetails.findOne({ resumeId: parent._id });
-      },
-    },
-    skills: {
-      type: new GraphQLList(SkillsType),
-      resolve(parent) {
-        return Skills.find({ resumeId: parent._id });
-      },
-    },
-    language: {
-      type: new GraphQLList(LanguageType),
-      resolve(parent) {
-        return Language.find({ resumeId: parent._id });
-      },
-    },
-    professionalExperience: {
-      type: new GraphQLList(ProfessionalExperienceType),
-      resolve(parent) {
-        return ProfessionalExperience.find({ resumeId: parent._id });
-      },
-    },
-    profile: {
-      type: new GraphQLList(ProfileType),
-      resolve(parent) {
-        return Profile.find({ resumeId: parent._id });
-      },
-    },
-    education: {
-      type: new GraphQLList(EducationType),
-      resolve(parent) {
-        return Education.find({ resumeId: parent._id });
-      },
-    },
-    project: {
-      type: new GraphQLList(ProjectType),
-      resolve(parent) {
-        return Project.find({ resumeId: parent._id });
+        return Content.findOne({ resumeId: parent._id });
       },
     },
     settings: {

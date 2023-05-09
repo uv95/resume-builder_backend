@@ -2,44 +2,10 @@ const mongoose = require('mongoose');
 
 const ResumeSchema = new mongoose.Schema({
   name: { type: String },
-  personalDetails: {
+  content: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'PersonalDetails',
+    ref: 'Content',
   },
-  skills: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Skills',
-    },
-  ],
-  language: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Language',
-    },
-  ],
-  professionalExperience: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ProfessionalExperience',
-    },
-  ],
-  profile: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Profile',
-  },
-  education: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Education',
-    },
-  ],
-  project: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Project',
-    },
-  ],
   settings: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Settings',

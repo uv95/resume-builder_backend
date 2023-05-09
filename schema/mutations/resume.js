@@ -1,4 +1,5 @@
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
+const Content = require('../../models/Content');
 const Education = require('../../models/Education');
 const Language = require('../../models/Language');
 const PersonalDetails = require('../../models/PersonalDetails');
@@ -21,6 +22,10 @@ exports.resumeMutations = {
         sectionsOrder: [],
         resumeId: resume._id,
       });
+      const content = new Content({
+        resumeId: resume._id,
+      });
+      content.save();
       settings.save();
       return resume.save();
     },
