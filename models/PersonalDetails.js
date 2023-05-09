@@ -18,7 +18,7 @@ const PersonalDetailsSchema = new mongoose.Schema({
       ref: 'Link',
     },
   ],
-  resume: {
+  resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
   },

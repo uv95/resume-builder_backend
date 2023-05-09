@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
   text: { type: String },
-  resume: {
+  resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
   },

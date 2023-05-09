@@ -40,6 +40,7 @@ exports.skillsMutations = {
       });
       const resume = await Resume.findById(args.resumeId);
       if (!resume) throw new Error('Resume does not exist!');
+      console.log(resume, 'resume');
       return skills.save();
     },
   },

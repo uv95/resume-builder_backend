@@ -40,6 +40,10 @@ const ResumeSchema = new mongoose.Schema({
       ref: 'Project',
     },
   ],
+  settings: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Settings',
+  },
 });
 
 module.exports = mongoose.model('Resume', ResumeSchema);

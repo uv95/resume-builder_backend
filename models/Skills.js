@@ -8,7 +8,7 @@ const SkillsSchema = new mongoose.Schema({
     enum: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert', ''],
     default: '',
   },
-  resume: {
+  resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
   },

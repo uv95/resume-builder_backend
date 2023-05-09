@@ -15,7 +15,7 @@ const LanguageSchema = new mongoose.Schema({
     ],
     default: '',
   },
-  resume: {
+  resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
   },
