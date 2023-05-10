@@ -14,7 +14,7 @@ exports.settingsMutations = {
     type: SettingsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      sectionsOrder: { type: GraphQLNonNull(GraphQLString) },
+      sectionsOrder: { type: new GraphQLList(GraphQLString) },
     },
     resolve(parent, args) {
       return Settings.findByIdAndUpdate(

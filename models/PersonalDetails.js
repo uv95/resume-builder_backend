@@ -6,18 +6,8 @@ const PersonalDetailsSchema = new mongoose.Schema({
   email: { type: String },
   phone: { type: String },
   address: { type: String },
-  additionalInfo: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'AdditionalInfo',
-    },
-  ],
-  links: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Link',
-    },
-  ],
+  additionalInfo: [{ name: { type: String }, info: { type: String } }],
+  links: [{ name: { type: String }, link: { type: String } }],
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',

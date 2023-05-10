@@ -14,8 +14,6 @@ const Language = require('../models/Language');
 const Skills = require('../models/Skills');
 const ProfessionalExperience = require('../models/ProfessionalExperience');
 const Resume = require('../models/Resume');
-const Links = require('../models/Links');
-const AdditionalInfo = require('../models/AdditionalInfo');
 const Settings = require('../models/Settings');
 const Content = require('../models/Content');
 
@@ -69,55 +67,31 @@ const PersonalDetailsType = new GraphQLObjectType({
     phone: { type: GraphQLString },
     address: { type: GraphQLString },
     additionalInfo: {
-      type: new GraphQLList(AdditionalInfoType),
-      resolve(parent) {
-        return AdditionalInfo.find({
-          personalDetailsId: parent._id,
-        });
-      },
+      type: new GraphQLList(
+        new GraphQLObjectType({
+          name: 'AdditionalInfo',
+          fields: () => ({
+            name: { type: GraphQLString },
+            info: { type: GraphQLString },
+          }),
+        })
+      ),
     },
     links: {
-      type: new GraphQLList(LinksType),
-      resolve(parent) {
-        return Links.find({ personalDetailsId: parent._id });
-      },
+      type: new GraphQLList(
+        new GraphQLObjectType({
+          name: 'Links',
+          fields: () => ({
+            name: { type: GraphQLString },
+            link: { type: GraphQLString },
+          }),
+        })
+      ),
     },
     resume: {
       type: ResumeType,
       resolve(parent) {
         return Resume.findById(parent.resumeId);
-      },
-    },
-  }),
-});
-
-//AdditionalInfo Type
-const AdditionalInfoType = new GraphQLObjectType({
-  name: 'AdditionalInfo',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    info: { type: GraphQLString },
-    personalDetails: {
-      type: PersonalDetailsType,
-      resolve(parent) {
-        return PersonalDetails.findById(parent.personalDetailsId);
-      },
-    },
-  }),
-});
-
-//Links Type
-const LinksType = new GraphQLObjectType({
-  name: 'Links',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    link: { type: GraphQLString },
-    personalDetails: {
-      type: PersonalDetailsType,
-      resolve(parent) {
-        return PersonalDetails.findById(parent.personalDetailsId);
       },
     },
   }),
@@ -292,8 +266,6 @@ const ResumeType = new GraphQLObjectType({
 module.exports = {
   ProjectType,
   EducationType,
-  AdditionalInfoType,
-  LinksType,
   PersonalDetailsType,
   ProfessionalExperienceType,
   SkillsType,

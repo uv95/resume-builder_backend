@@ -1,7 +1,5 @@
 const { GraphQLObjectType } = require('graphql');
-const { additionalInfoMutations } = require('./mutations/additionalInfo');
 const { educationMutations } = require('./mutations/education');
-const { linksMutations } = require('./mutations/links');
 const { profileMutations } = require('./mutations/profile');
 const { resumeMutations } = require('./mutations/resume');
 const { personalDetailsMutations } = require('./mutations/personalDetails');
@@ -17,8 +15,6 @@ const allMutations = {
   ...educationMutations,
   ...resumeMutations,
   ...profileMutations,
-  ...additionalInfoMutations,
-  ...linksMutations,
   ...personalDetailsMutations,
   ...skillsMutations,
   ...languageMutations,

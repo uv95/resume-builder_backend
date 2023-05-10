@@ -55,8 +55,8 @@ exports.resumeMutations = {
       Settings.find({ resumeId: args.id }).then((settings) =>
         settings.forEach((s) => s.deleteOne())
       );
-      Settings.find({ resumeId: args.id }).then((s) =>
-        s.forEach((p) => p.deleteOne())
+      Content.find({ resumeId: args.id }).then((content) =>
+        content.forEach((c) => c.deleteOne())
       );
       Project.find({ resumeId: args.id }).then((projects) =>
         projects.forEach((p) => p.deleteOne())
