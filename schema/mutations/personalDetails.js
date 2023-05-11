@@ -24,18 +24,7 @@ exports.personalDetailsMutations = {
             name: 'AdditionalInfoInput',
             fields: {
               name: { type: GraphQLString },
-              info: { type: GraphQLString },
-            },
-          })
-        ),
-      },
-      links: {
-        type: new GraphQLList(
-          new GraphQLInputObjectType({
-            name: 'LinksInput',
-            fields: {
-              name: { type: GraphQLString },
-              link: { type: GraphQLString },
+              input: { type: GraphQLString },
             },
           })
         ),
@@ -50,7 +39,6 @@ exports.personalDetailsMutations = {
         phone: args.phone || '',
         address: args.address || '',
         additionalInfo: args.additionalInfo || [],
-        links: args.links || [],
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -74,18 +62,7 @@ exports.personalDetailsMutations = {
             name: 'AdditionalInfoUpdate',
             fields: {
               name: { type: GraphQLString },
-              info: { type: GraphQLString },
-            },
-          })
-        ),
-      },
-      links: {
-        type: new GraphQLList(
-          new GraphQLInputObjectType({
-            name: 'LinksUpdate',
-            fields: {
-              name: { type: GraphQLString },
-              link: { type: GraphQLString },
+              input: { type: GraphQLString },
             },
           })
         ),
@@ -101,7 +78,6 @@ exports.personalDetailsMutations = {
           phone: args.phone,
           address: args.address,
           additionalInfo: args.additionalInfo,
-          links: args.links,
         },
         { new: true }
       );

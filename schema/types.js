@@ -72,18 +72,7 @@ const PersonalDetailsType = new GraphQLObjectType({
           name: 'AdditionalInfo',
           fields: () => ({
             name: { type: GraphQLString },
-            info: { type: GraphQLString },
-          }),
-        })
-      ),
-    },
-    links: {
-      type: new GraphQLList(
-        new GraphQLObjectType({
-          name: 'Links',
-          fields: () => ({
-            name: { type: GraphQLString },
-            link: { type: GraphQLString },
+            input: { type: GraphQLString },
           }),
         })
       ),

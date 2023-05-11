@@ -6,8 +6,7 @@ const PersonalDetailsSchema = new mongoose.Schema({
   email: { type: String },
   phone: { type: String },
   address: { type: String },
-  additionalInfo: [{ name: { type: String }, info: { type: String } }],
-  links: [{ name: { type: String }, link: { type: String } }],
+  additionalInfo: [{ name: { type: String }, input: { type: String } }],
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
