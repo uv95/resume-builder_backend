@@ -3,6 +3,7 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLList,
+  GraphQLInt,
 } = require('graphql');
 
 //Mongoose models
@@ -160,12 +161,52 @@ const ProfileType = new GraphQLObjectType({
   }),
 });
 
+//SectionsOrderType
+const SectionsOrderType = new GraphQLObjectType({
+  name: 'SectionsOrder',
+  fields: () => ({
+    top: { type: new GraphQLList(GraphQLString) },
+    left: {
+      type: new GraphQLObjectType({
+        name: 'SectionsOrderLeft',
+        fields: () => ({
+          leftSide: { type: new GraphQLList(GraphQLString) },
+          rightSide: { type: new GraphQLList(GraphQLString) },
+        }),
+      }),
+    },
+    right: {
+      type: new GraphQLObjectType({
+        name: 'SectionsOrderRight',
+        fields: () => ({
+          leftSide: { type: new GraphQLList(GraphQLString) },
+          rightSide: { type: new GraphQLList(GraphQLString) },
+        }),
+      }),
+    },
+  }),
+});
+
+//Layout type
+const LayoutType = new GraphQLObjectType({
+  name: 'Layout',
+  fields: () => ({
+    columns: { type: GraphQLInt },
+    position: { type: GraphQLString },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'ResumeSettings',
   fields: () => ({
     id: { type: GraphQLID },
-    sectionsOrder: { type: new GraphQLList(GraphQLString) },
+    sectionsOrder: {
+      type: SectionsOrderType,
+    },
+    layout: {
+      type: LayoutType,
+    },
     resume: {
       type: ResumeType,
       resolve(parent) {

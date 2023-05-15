@@ -19,7 +19,15 @@ exports.resumeMutations = {
         name: 'My Resume',
       });
       const settings = new Settings({
-        sectionsOrder: [],
+        sectionsOrder: {
+          top: [],
+          left: { leftSide: [], rightSide: [] },
+          right: { leftSide: [], rightSide: [] },
+        },
+        layout: {
+          columns: 1,
+          position: 'top',
+        },
         resumeId: resume._id,
       });
       const content = new Content({
