@@ -22,24 +22,8 @@ exports.settingsMutations = {
           name: 'SectionsOrderInput',
           fields: {
             top: { type: new GraphQLList(GraphQLString) },
-            left: {
-              type: new GraphQLInputObjectType({
-                name: 'SectionsOrderLeftInput',
-                fields: {
-                  leftSide: { type: new GraphQLList(GraphQLString) },
-                  rightSide: { type: new GraphQLList(GraphQLString) },
-                },
-              }),
-            },
-            right: {
-              type: new GraphQLInputObjectType({
-                name: 'SectionsOrderRightInput',
-                fields: {
-                  leftSide: { type: new GraphQLList(GraphQLString) },
-                  rightSide: { type: new GraphQLList(GraphQLString) },
-                },
-              }),
-            },
+            left: { type: new GraphQLList(GraphQLString) },
+            right: { type: new GraphQLList(GraphQLString) },
           },
         }),
       },

@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const SettingsSchema = new mongoose.Schema({
   sectionsOrder: {
     top: [{ type: String }],
-    left: { leftSide: [{ type: String }], rightSide: [{ type: String }] },
-    right: { leftSide: [{ type: String }], rightSide: [{ type: String }] },
+    left: [{ type: String }],
+    right: [{ type: String }],
   },
   layout: {
     columns: { type: Number, default: 1 },

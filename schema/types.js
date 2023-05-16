@@ -166,24 +166,8 @@ const SectionsOrderType = new GraphQLObjectType({
   name: 'SectionsOrder',
   fields: () => ({
     top: { type: new GraphQLList(GraphQLString) },
-    left: {
-      type: new GraphQLObjectType({
-        name: 'SectionsOrderLeft',
-        fields: () => ({
-          leftSide: { type: new GraphQLList(GraphQLString) },
-          rightSide: { type: new GraphQLList(GraphQLString) },
-        }),
-      }),
-    },
-    right: {
-      type: new GraphQLObjectType({
-        name: 'SectionsOrderRight',
-        fields: () => ({
-          leftSide: { type: new GraphQLList(GraphQLString) },
-          rightSide: { type: new GraphQLList(GraphQLString) },
-        }),
-      }),
-    },
+    left: { type: new GraphQLList(GraphQLString) },
+    right: { type: new GraphQLList(GraphQLString) },
   }),
 });
 
