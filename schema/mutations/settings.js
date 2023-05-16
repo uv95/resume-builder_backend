@@ -60,6 +60,15 @@ exports.settingsMutations = {
               }),
               defaultValue: 'top',
             },
+            columnWidth: {
+              type: new GraphQLInputObjectType({
+                name: 'ColumnWidthInput',
+                fields: {
+                  left: { type: GraphQLInt, defaultValue: 50 },
+                  right: { type: GraphQLInt, defaultValue: 50 },
+                },
+              }),
+            },
           },
         }),
       },

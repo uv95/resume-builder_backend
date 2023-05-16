@@ -27,6 +27,7 @@ exports.resumeMutations = {
         layout: {
           columns: 1,
           position: 'top',
+          columnWidth: { left: 50, right: 50 },
         },
         resumeId: resume._id,
       });

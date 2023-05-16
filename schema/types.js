@@ -193,6 +193,15 @@ const LayoutType = new GraphQLObjectType({
   fields: () => ({
     columns: { type: GraphQLInt },
     position: { type: GraphQLString },
+    columnWidth: {
+      type: new GraphQLObjectType({
+        name: 'ColumnWidth',
+        fields: () => ({
+          left: { type: GraphQLInt },
+          right: { type: GraphQLInt },
+        }),
+      }),
+    },
   }),
 });
 
