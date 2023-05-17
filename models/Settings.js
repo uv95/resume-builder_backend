@@ -17,6 +17,7 @@ const SettingsSchema = new mongoose.Schema({
   colors: {
     mode: { type: String, enum: ['basic', 'advanced'], default: 'basic' },
     basic: {
+      selected: { type: String, enum: ['accent', 'multicolor'], default: 'accent' },
       accent: { type: String },
       multicolor: {
         font: {
@@ -27,6 +28,7 @@ const SettingsSchema = new mongoose.Schema({
       },
     },
     advanced: {
+      selected: { type: String, enum: ['accent', 'multicolor'], default: 'accent' },
       accent: { type: String },
       multicolor: {
         font: {

@@ -117,6 +117,16 @@ exports.settingsMutations = {
               type: new GraphQLInputObjectType({
                 name: 'BasicInput',
                 fields: {
+                  selected:{
+                    type: new GraphQLEnumType({
+                      name: 'BasicSelected',
+                      values: {
+                        accent: { value: 'accent' },
+                        multicolor: { value: 'multicolor' },
+                      },
+                    }),
+                    defaultValue: 'accent',
+                  },
                   accent: { type: GraphQLString },
                   multicolor: {
                     type: BasicMulticolorInput,
@@ -129,6 +139,16 @@ exports.settingsMutations = {
               type: new GraphQLInputObjectType({
                 name: 'AdvancedInput',
                 fields: {
+                  selected:{
+                    type: new GraphQLEnumType({
+                      name: 'AdvancedSelected',
+                      values: {
+                        accent: { value: 'accent' },
+                        multicolor: { value: 'multicolor' },
+                      },
+                    }),
+                    defaultValue: 'accent',
+                  },
                   accent: { type: GraphQLString },
                   multicolor: {
                     type: AdvancedMulticolorInput,

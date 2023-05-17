@@ -199,6 +199,7 @@ const ColorsType = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'Basic',
         fields: () => ({
+          selected: { type: GraphQLString },
           accent: { type: GraphQLString },
           multicolor: {
             type: new GraphQLObjectType({
@@ -225,6 +226,7 @@ const ColorsType = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'Advanced',
         fields: () => ({
+          selected: { type: GraphQLString },
           accent: { type: GraphQLString },
           multicolor: {
             type: new GraphQLObjectType({

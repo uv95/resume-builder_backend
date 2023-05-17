@@ -32,6 +32,7 @@ exports.resumeMutations = {
         colors: {
           mode: 'basic',
           basic: {
+            selected: 'accent',
             accent: '#000000',
             multicolor: {
               font: {
@@ -42,6 +43,7 @@ exports.resumeMutations = {
             },
           },
           advanced: {
+            selected: 'accent',
             accent: '#000000',
             multicolor: {
               font: {
