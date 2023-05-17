@@ -189,6 +189,75 @@ const LayoutType = new GraphQLObjectType({
   }),
 });
 
+//Colors Type
+const ColorsType = new GraphQLObjectType({
+  name: 'Colors',
+  fields: () => ({
+    mode: { type: GraphQLString },
+    //basic
+    basic: {
+      type: new GraphQLObjectType({
+        name: 'Basic',
+        fields: () => ({
+          accent: { type: GraphQLString },
+          multicolor: {
+            type: new GraphQLObjectType({
+              name: 'BasicMulticolor',
+              fields: () => ({
+                font: {
+                  type: new GraphQLObjectType({
+                    name: 'BasicMulticolorFont',
+                    fields: () => ({
+                      accent: { type: GraphQLString },
+                      primary: { type: GraphQLString },
+                    }),
+                  }),
+                },
+                background: { type: GraphQLString },
+              }),
+            }),
+          },
+        }),
+      }),
+    },
+    //advanced
+    advanced: {
+      type: new GraphQLObjectType({
+        name: 'Advanced',
+        fields: () => ({
+          accent: { type: GraphQLString },
+          multicolor: {
+            type: new GraphQLObjectType({
+              name: 'AdvancedMulticolor',
+              fields: () => ({
+                font: {
+                  type: new GraphQLObjectType({
+                    name: 'AdvancedMulticolorFont',
+                    fields: () => ({
+                      accent: { type: GraphQLString },
+                      primary: { type: GraphQLString },
+                      secondary: { type: GraphQLString },
+                    }),
+                  }),
+                },
+                background: {
+                  type: new GraphQLObjectType({
+                    name: 'AdvancedMulticolorBackground',
+                    fields: () => ({
+                      primary: { type: GraphQLString },
+                      secondary: { type: GraphQLString },
+                    }),
+                  }),
+                },
+              }),
+            }),
+          },
+        }),
+      }),
+    },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'ResumeSettings',
@@ -199,6 +268,9 @@ const SettingsType = new GraphQLObjectType({
     },
     layout: {
       type: LayoutType,
+    },
+    colors: {
+      type: ColorsType,
     },
     resume: {
       type: ResumeType,

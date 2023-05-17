@@ -6,8 +6,8 @@ const {
   GraphQLInputObjectType,
 } = require('graphql');
 const PersonalDetails = require('../../models/PersonalDetails');
-const { PersonalDetailsType } = require('../types');
 const Resume = require('../../models/Resume');
+const { PersonalDetailsType } = require('../types');
 
 exports.personalDetailsMutations = {
   addPersonalDetails: {

@@ -29,6 +29,33 @@ exports.resumeMutations = {
           position: 'top',
           columnWidth: { left: 50, right: 50 },
         },
+        colors: {
+          mode: 'basic',
+          basic: {
+            accent: '#000000',
+            multicolor: {
+              font: {
+                accent: '#f55c69',
+                primary: '#323d5e',
+              },
+              background: '#ffffff',
+            },
+          },
+          advanced: {
+            accent: '#000000',
+            multicolor: {
+              font: {
+                accent: '#f55c69',
+                primary: '#fffcfa',
+                secondary: '#323d5e',
+              },
+              background: {
+                primary: '#323d5e',
+                secondary: '#fffcfa',
+              },
+            },
+          },
+        },
         resumeId: resume._id,
       });
       const content = new Content({

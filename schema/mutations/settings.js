@@ -11,6 +11,47 @@ const {
 const Settings = require('../../models/Settings');
 const { SettingsType } = require('../types');
 
+const BasicMulticolorInput = new GraphQLInputObjectType({
+  name: 'BasicMulticolorInput',
+  fields: {
+    font: {
+      type: new GraphQLInputObjectType({
+        name: 'BasicMulticolorFontInput',
+        fields: {
+          accent: { type: GraphQLString },
+          primary: { type: GraphQLString },
+        },
+      }),
+    },
+    background: { type: GraphQLString },
+  },
+});
+
+const AdvancedMulticolorInput = new GraphQLInputObjectType({
+  name: 'AdvancedMulticolorInput',
+  fields: {
+    font: {
+      type: new GraphQLInputObjectType({
+        name: 'AdvancedMulticolorFontInput',
+        fields: {
+          accent: { type: GraphQLString },
+          primary: { type: GraphQLString },
+          secondary: { type: GraphQLString },
+        },
+      }),
+    },
+    background: {
+      type: new GraphQLInputObjectType({
+        name: 'AdvancedMulticolorBackgroundInput',
+        fields: {
+          primary: { type: GraphQLString },
+          secondary: { type: GraphQLString },
+        },
+      }),
+    },
+  },
+});
+
 exports.settingsMutations = {
   updateSettings: {
     type: SettingsType,
@@ -56,6 +97,48 @@ exports.settingsMutations = {
           },
         }),
       },
+      //colors
+      colors: {
+        type: new GraphQLInputObjectType({
+          name: 'ColorsInput',
+          fields: {
+            mode: {
+              type: new GraphQLEnumType({
+                name: 'Mode',
+                values: {
+                  basic: { value: 'basic' },
+                  advanced: { value: 'advanced' },
+                },
+              }),
+              defaultValue: 'basic',
+            },
+            //basic
+            basic: {
+              type: new GraphQLInputObjectType({
+                name: 'BasicInput',
+                fields: {
+                  accent: { type: GraphQLString },
+                  multicolor: {
+                    type: BasicMulticolorInput,
+                  },
+                },
+              }),
+            },
+            //advanced
+            advanced: {
+              type: new GraphQLInputObjectType({
+                name: 'AdvancedInput',
+                fields: {
+                  accent: { type: GraphQLString },
+                  multicolor: {
+                    type: AdvancedMulticolorInput,
+                  },
+                },
+              }),
+            },
+          },
+        }),
+      },
       //resolve
     },
     resolve(parent, args) {
@@ -64,6 +147,7 @@ exports.settingsMutations = {
         {
           sectionsOrder: args.sectionsOrder,
           layout: args.layout,
+          colors: args.colors,
         },
         { new: true }
       );
