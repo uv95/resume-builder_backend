@@ -35,10 +35,8 @@ exports.resumeMutations = {
             selected: 'accent',
             accent: '#000000',
             multicolor: {
-              font: {
-                accent: '#f55c69',
-                primary: '#323d5e',
-              },
+              accent: '#f55c69',
+              font: '#323d5e',
               background: '#ffffff',
             },
           },
@@ -46,16 +44,26 @@ exports.resumeMutations = {
             selected: 'accent',
             accent: '#000000',
             multicolor: {
-              font: {
+              primary: {
                 accent: '#f55c69',
-                primary: '#fffcfa',
-                secondary: '#323d5e',
+                font: '#fffcfa',
+                background: '#323d5e',
               },
-              background: {
-                primary: '#323d5e',
-                secondary: '#fffcfa',
+              secondary: {
+                accent: '#f55c69',
+                font: '#323d5e',
+                background: '#fffcfa',
               },
             },
+          },
+          applyAccentColor: {
+            name: true,
+            dots: false,
+            headings: true,
+            dates: false,
+            headingsLine: true,
+            linkIcons: false,
+            headerIcons: false,
           },
         },
         resumeId: resume._id,

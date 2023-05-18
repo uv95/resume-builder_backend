@@ -4,6 +4,7 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLInt,
+  GraphQLBoolean,
 } = require('graphql');
 
 //Mongoose models
@@ -189,6 +190,57 @@ const LayoutType = new GraphQLObjectType({
   }),
 });
 
+//Basic Multicolor Type
+const BasicMulticolorType = new GraphQLObjectType({
+  name: 'BasicMulticolor',
+  fields: () => ({
+    accent: { type: GraphQLString },
+    font: { type: GraphQLString },
+    background: { type: GraphQLString },
+  }),
+});
+
+//Advanced Multicolor Type
+const AdvancedMulticolorType = new GraphQLObjectType({
+  name: 'AdvancedMulticolor',
+  fields: () => ({
+    primary: {
+      type: new GraphQLObjectType({
+        name: 'AdvancedMulticolorPrimary',
+        fields: () => ({
+          accent: { type: GraphQLString },
+          font: { type: GraphQLString },
+          background: { type: GraphQLString },
+        }),
+      }),
+    },
+    secondary: {
+      type: new GraphQLObjectType({
+        name: 'AdvancedMulticolorSecondary',
+        fields: () => ({
+          accent: { type: GraphQLString },
+          font: { type: GraphQLString },
+          background: { type: GraphQLString },
+        }),
+      }),
+    },
+  }),
+});
+
+//ApplyAccentColor Type
+const ApplyAccentColorType = new GraphQLObjectType({
+  name: 'ApplyAccentColor',
+  fields: () => ({
+    name: { type: GraphQLBoolean },
+    dots: { type: GraphQLBoolean },
+    headings: { type: GraphQLBoolean },
+    dates: { type: GraphQLBoolean },
+    headingsLine: { type: GraphQLBoolean },
+    linkIcons: { type: GraphQLBoolean },
+    headerIcons: { type: GraphQLBoolean },
+  }),
+});
+
 //Colors Type
 const ColorsType = new GraphQLObjectType({
   name: 'Colors',
@@ -202,21 +254,7 @@ const ColorsType = new GraphQLObjectType({
           selected: { type: GraphQLString },
           accent: { type: GraphQLString },
           multicolor: {
-            type: new GraphQLObjectType({
-              name: 'BasicMulticolor',
-              fields: () => ({
-                font: {
-                  type: new GraphQLObjectType({
-                    name: 'BasicMulticolorFont',
-                    fields: () => ({
-                      accent: { type: GraphQLString },
-                      primary: { type: GraphQLString },
-                    }),
-                  }),
-                },
-                background: { type: GraphQLString },
-              }),
-            }),
+            type: BasicMulticolorType,
           },
         }),
       }),
@@ -229,34 +267,13 @@ const ColorsType = new GraphQLObjectType({
           selected: { type: GraphQLString },
           accent: { type: GraphQLString },
           multicolor: {
-            type: new GraphQLObjectType({
-              name: 'AdvancedMulticolor',
-              fields: () => ({
-                font: {
-                  type: new GraphQLObjectType({
-                    name: 'AdvancedMulticolorFont',
-                    fields: () => ({
-                      accent: { type: GraphQLString },
-                      primary: { type: GraphQLString },
-                      secondary: { type: GraphQLString },
-                    }),
-                  }),
-                },
-                background: {
-                  type: new GraphQLObjectType({
-                    name: 'AdvancedMulticolorBackground',
-                    fields: () => ({
-                      primary: { type: GraphQLString },
-                      secondary: { type: GraphQLString },
-                    }),
-                  }),
-                },
-              }),
-            }),
+            type: AdvancedMulticolorType,
           },
         }),
       }),
     },
+    //applyAccentColor
+    applyAccentColor: { type: ApplyAccentColorType },
   }),
 });
 

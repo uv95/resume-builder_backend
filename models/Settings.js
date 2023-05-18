@@ -17,27 +17,46 @@ const SettingsSchema = new mongoose.Schema({
   colors: {
     mode: { type: String, enum: ['basic', 'advanced'], default: 'basic' },
     basic: {
-      selected: { type: String, enum: ['accent', 'multicolor'], default: 'accent' },
+      selected: {
+        type: String,
+        enum: ['accent', 'multicolor'],
+        default: 'accent',
+      },
       accent: { type: String },
       multicolor: {
-        font: {
-          accent: { type: String },
-          primary: { type: String },
-        },
+        accent: { type: String },
+        font: { type: String },
         background: { type: String },
       },
     },
     advanced: {
-      selected: { type: String, enum: ['accent', 'multicolor'], default: 'accent' },
+      selected: {
+        type: String,
+        enum: ['accent', 'multicolor'],
+        default: 'accent',
+      },
       accent: { type: String },
       multicolor: {
-        font: {
+        primary: {
           accent: { type: String },
-          primary: { type: String },
-          secondary: { type: String },
+          font: { type: String },
+          background: { type: String },
         },
-        background: { primary: { type: String }, secondary: { type: String } },
+        secondary: {
+          accent: { type: String },
+          font: { type: String },
+          background: { type: String },
+        },
       },
+    },
+    applyAccentColor: {
+      name: { type: Boolean, default: true },
+      dots: { type: Boolean, default: false },
+      headings: { type: Boolean, default: true },
+      dates: { type: Boolean, default: false },
+      headingsLine: { type: Boolean, default: true },
+      linkIcons: { type: Boolean, default: false },
+      headerIcons: { type: Boolean, default: false },
     },
   },
   resumeId: {

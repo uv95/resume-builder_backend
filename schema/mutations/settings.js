@@ -6,6 +6,7 @@ const {
   GraphQLInputObjectType,
   GraphQLInt,
   GraphQLEnumType,
+  GraphQLBoolean,
 } = require('graphql');
 
 const Settings = require('../../models/Settings');
@@ -14,15 +15,8 @@ const { SettingsType } = require('../types');
 const BasicMulticolorInput = new GraphQLInputObjectType({
   name: 'BasicMulticolorInput',
   fields: {
-    font: {
-      type: new GraphQLInputObjectType({
-        name: 'BasicMulticolorFontInput',
-        fields: {
-          accent: { type: GraphQLString },
-          primary: { type: GraphQLString },
-        },
-      }),
-    },
+    accent: { type: GraphQLString },
+    font: { type: GraphQLString },
     background: { type: GraphQLString },
   },
 });
@@ -30,25 +24,39 @@ const BasicMulticolorInput = new GraphQLInputObjectType({
 const AdvancedMulticolorInput = new GraphQLInputObjectType({
   name: 'AdvancedMulticolorInput',
   fields: {
-    font: {
+    primary: {
       type: new GraphQLInputObjectType({
-        name: 'AdvancedMulticolorFontInput',
+        name: 'AdvancedMulticolorPrimaryInput',
         fields: {
           accent: { type: GraphQLString },
-          primary: { type: GraphQLString },
-          secondary: { type: GraphQLString },
+          font: { type: GraphQLString },
+          background: { type: GraphQLString },
         },
       }),
     },
-    background: {
+    secondary: {
       type: new GraphQLInputObjectType({
-        name: 'AdvancedMulticolorBackgroundInput',
+        name: 'AdvancedMulticolorSecondaryInput',
         fields: {
-          primary: { type: GraphQLString },
-          secondary: { type: GraphQLString },
+          accent: { type: GraphQLString },
+          font: { type: GraphQLString },
+          background: { type: GraphQLString },
         },
       }),
     },
+  },
+});
+
+const ApplyAccentColorInput = new GraphQLInputObjectType({
+  name: 'ApplyAccentColorInput',
+  fields: {
+    name: { type: GraphQLBoolean, defaultValue: true },
+    dots: { type: GraphQLBoolean, defaultValue: false },
+    headings: { type: GraphQLBoolean, defaultValue: true },
+    dates: { type: GraphQLBoolean, defaultValue: false },
+    headingsLine: { type: GraphQLBoolean, defaultValue: true },
+    linkIcons: { type: GraphQLBoolean, defaultValue: false },
+    headerIcons: { type: GraphQLBoolean, defaultValue: false },
   },
 });
 
@@ -117,7 +125,7 @@ exports.settingsMutations = {
               type: new GraphQLInputObjectType({
                 name: 'BasicInput',
                 fields: {
-                  selected:{
+                  selected: {
                     type: new GraphQLEnumType({
                       name: 'BasicSelected',
                       values: {
@@ -139,7 +147,7 @@ exports.settingsMutations = {
               type: new GraphQLInputObjectType({
                 name: 'AdvancedInput',
                 fields: {
-                  selected:{
+                  selected: {
                     type: new GraphQLEnumType({
                       name: 'AdvancedSelected',
                       values: {
@@ -156,6 +164,8 @@ exports.settingsMutations = {
                 },
               }),
             },
+            //applyAccentColor
+            applyAccentColor: { type: ApplyAccentColorInput },
           },
         }),
       },
