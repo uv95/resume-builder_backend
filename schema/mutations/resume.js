@@ -66,6 +66,13 @@ exports.resumeMutations = {
             headerIcons: false,
           },
         },
+        spacing: {
+          fontSize: 11,
+          lineHeight: 130,
+          leftRightMargin: 18,
+          topBottomMargin: 18,
+          spaceBetweenSections: 15,
+        },
         resumeId: resume._id,
       });
       const content = new Content({

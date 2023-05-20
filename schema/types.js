@@ -277,20 +277,27 @@ const ColorsType = new GraphQLObjectType({
   }),
 });
 
+//Spacing Type
+const SpacingType = new GraphQLObjectType({
+  name: 'Spacing',
+  fields: () => ({
+    fontSize: { type: GraphQLInt },
+    lineHeight: { type: GraphQLInt },
+    leftRightMargin: { type: GraphQLInt },
+    topBottomMargin: { type: GraphQLInt },
+    spaceBetweenSections: { type: GraphQLInt },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'ResumeSettings',
   fields: () => ({
     id: { type: GraphQLID },
-    sectionsOrder: {
-      type: SectionsOrderType,
-    },
-    layout: {
-      type: LayoutType,
-    },
-    colors: {
-      type: ColorsType,
-    },
+    sectionsOrder: { type: SectionsOrderType },
+    layout: { type: LayoutType },
+    colors: { type: ColorsType },
+    spacing: { type: SpacingType },
     resume: {
       type: ResumeType,
       resolve(parent) {

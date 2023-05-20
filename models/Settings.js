@@ -59,6 +59,13 @@ const SettingsSchema = new mongoose.Schema({
       headerIcons: { type: Boolean, default: false },
     },
   },
+  spacing: {
+    fontSize: { type: Number, default: 11 },
+    lineHeight: { type: Number, default: 130 },
+    leftRightMargin: { type: Number, default: 18 },
+    topBottomMargin: { type: Number, default: 18 },
+    spaceBetweenSections: { type: Number, default: 15 },
+  },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',

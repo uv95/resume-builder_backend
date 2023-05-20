@@ -60,6 +60,22 @@ const ApplyAccentColorInput = new GraphQLInputObjectType({
   },
 });
 
+const SpacingInput = new GraphQLInputObjectType({
+  name: 'SpacingInput',
+  fields: {
+    fontSize: { type: GraphQLInt, defaultValue: 11 },
+    lineHeight: { type: GraphQLInt, defaultValue: 130 },
+    leftRightMargin: { type: GraphQLInt, defaultValue: 18 },
+    topBottomMargin: { type: GraphQLInt, defaultValue: 18 },
+    spaceBetweenSections: { type: GraphQLInt, defaultValue: 15 },
+  },
+});
+
+const selectedValues = {
+  accent: { value: 'accent' },
+  multicolor: { value: 'multicolor' },
+};
+
 exports.settingsMutations = {
   updateSettings: {
     type: SettingsType,
@@ -128,10 +144,7 @@ exports.settingsMutations = {
                   selected: {
                     type: new GraphQLEnumType({
                       name: 'BasicSelected',
-                      values: {
-                        accent: { value: 'accent' },
-                        multicolor: { value: 'multicolor' },
-                      },
+                      values: selectedValues,
                     }),
                     defaultValue: 'accent',
                   },
@@ -150,10 +163,7 @@ exports.settingsMutations = {
                   selected: {
                     type: new GraphQLEnumType({
                       name: 'AdvancedSelected',
-                      values: {
-                        accent: { value: 'accent' },
-                        multicolor: { value: 'multicolor' },
-                      },
+                      values: selectedValues,
                     }),
                     defaultValue: 'accent',
                   },
@@ -169,6 +179,8 @@ exports.settingsMutations = {
           },
         }),
       },
+      //spacing
+      spacing: { type: SpacingInput },
       //resolve
     },
     resolve(parent, args) {
@@ -178,6 +190,7 @@ exports.settingsMutations = {
           sectionsOrder: args.sectionsOrder,
           layout: args.layout,
           colors: args.colors,
+          spacing: args.spacing,
         },
         { new: true }
       );
