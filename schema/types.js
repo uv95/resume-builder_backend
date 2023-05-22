@@ -5,6 +5,7 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean,
+  GraphQLFloat,
 } = require('graphql');
 
 //Mongoose models
@@ -281,23 +282,33 @@ const ColorsType = new GraphQLObjectType({
 const SpacingType = new GraphQLObjectType({
   name: 'Spacing',
   fields: () => ({
-    fontSize: { type: GraphQLInt },
-    lineHeight: { type: GraphQLInt },
+    fontSize: { type: GraphQLFloat },
+    lineHeight: { type: GraphQLFloat },
     leftRightMargin: { type: GraphQLInt },
     topBottomMargin: { type: GraphQLInt },
     spaceBetweenSections: { type: GraphQLInt },
   }),
 });
 
+//Font Type
+const FontType = new GraphQLObjectType({
+  name: 'Font',
+  fields: () => ({
+    type: { type: GraphQLString },
+    font: { type: GraphQLString },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
-  name: 'ResumeSettings',
+  name: 'Settings',
   fields: () => ({
     id: { type: GraphQLID },
     sectionsOrder: { type: SectionsOrderType },
     layout: { type: LayoutType },
     colors: { type: ColorsType },
     spacing: { type: SpacingType },
+    font: { type: FontType },
     resume: {
       type: ResumeType,
       resolve(parent) {

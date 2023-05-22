@@ -67,12 +67,13 @@ exports.resumeMutations = {
           },
         },
         spacing: {
-          fontSize: 11,
-          lineHeight: 130,
-          leftRightMargin: 18,
-          topBottomMargin: 18,
-          spaceBetweenSections: 15,
+          fontSize: 16,
+          lineHeight: 1.3,
+          leftRightMargin: 16,
+          topBottomMargin: 16,
+          spaceBetweenSections: 22,
         },
+        font: { type: 'serif', font: 'Times New Roman' },
         resumeId: resume._id,
       });
       const content = new Content({

@@ -7,6 +7,7 @@ const {
   GraphQLInt,
   GraphQLEnumType,
   GraphQLBoolean,
+  GraphQLFloat,
 } = require('graphql');
 
 const Settings = require('../../models/Settings');
@@ -63,11 +64,19 @@ const ApplyAccentColorInput = new GraphQLInputObjectType({
 const SpacingInput = new GraphQLInputObjectType({
   name: 'SpacingInput',
   fields: {
-    fontSize: { type: GraphQLInt, defaultValue: 11 },
-    lineHeight: { type: GraphQLInt, defaultValue: 130 },
+    fontSize: { type: GraphQLFloat, defaultValue: 16 },
+    lineHeight: { type: GraphQLFloat, defaultValue: 1.3 },
     leftRightMargin: { type: GraphQLInt, defaultValue: 18 },
     topBottomMargin: { type: GraphQLInt, defaultValue: 18 },
     spaceBetweenSections: { type: GraphQLInt, defaultValue: 15 },
+  },
+});
+
+const FontInput = new GraphQLInputObjectType({
+  name: 'FontInput',
+  fields: {
+    type: { type: GraphQLString, defaultValue: 'serif' },
+    font: { type: GraphQLString, defaultValue: 'Times New Roman' },
   },
 });
 
@@ -181,8 +190,10 @@ exports.settingsMutations = {
       },
       //spacing
       spacing: { type: SpacingInput },
-      //resolve
+      //font
+      font: { type: FontInput },
     },
+    //resolve
     resolve(parent, args) {
       return Settings.findByIdAndUpdate(
         args.id,
@@ -191,6 +202,7 @@ exports.settingsMutations = {
           layout: args.layout,
           colors: args.colors,
           spacing: args.spacing,
+          font: args.font,
         },
         { new: true }
       );

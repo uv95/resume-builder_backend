@@ -60,17 +60,20 @@ const SettingsSchema = new mongoose.Schema({
     },
   },
   spacing: {
-    fontSize: { type: Number, default: 11 },
-    lineHeight: { type: Number, default: 130 },
-    leftRightMargin: { type: Number, default: 18 },
-    topBottomMargin: { type: Number, default: 18 },
-    spaceBetweenSections: { type: Number, default: 15 },
+    fontSize: { type: Number, default: 16 },
+    lineHeight: { type: Number, default: 1.3 },
+    leftRightMargin: { type: Number, default: 16 },
+    topBottomMargin: { type: Number, default: 16 },
+    spaceBetweenSections: { type: Number, default: 22 },
+  },
+  font: {
+    type: { type: String, enum: ['serif', 'sans'], default: 'serif' },
+    font: { type: String, default: 'Times New Roman' },
   },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
   },
-  //font,sizes,format etc..
 });
 
 module.exports = mongoose.model('Settings', SettingsSchema);
