@@ -299,6 +299,16 @@ const FontType = new GraphQLObjectType({
   }),
 });
 
+//Heading Type
+const HeadingType = new GraphQLObjectType({
+  name: 'Heading',
+  fields: () => ({
+    style: { type: GraphQLString },
+    uppercase: { type: GraphQLBoolean },
+    size: { type: GraphQLString },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'Settings',
@@ -309,6 +319,7 @@ const SettingsType = new GraphQLObjectType({
     colors: { type: ColorsType },
     spacing: { type: SpacingType },
     font: { type: FontType },
+    heading: { type: HeadingType },
     resume: {
       type: ResumeType,
       resolve(parent) {

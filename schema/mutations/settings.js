@@ -75,8 +75,47 @@ const SpacingInput = new GraphQLInputObjectType({
 const FontInput = new GraphQLInputObjectType({
   name: 'FontInput',
   fields: {
-    type: { type: GraphQLString, defaultValue: 'serif' },
+    type: {
+      type: new GraphQLEnumType({
+        name: 'FontType',
+        values: {
+          serif: { value: 'serif' },
+          sans: { value: 'sans' },
+        },
+      }),
+      defaultValue: 'serif',
+    },
     font: { type: GraphQLString, defaultValue: 'Times New Roman' },
+  },
+});
+
+const HeadingInput = new GraphQLInputObjectType({
+  name: 'HeadingInput',
+  fields: {
+    style: {
+      type: new GraphQLEnumType({
+        name: 'StyleType',
+        values: {
+          box: { value: 'box' },
+          simple: { value: 'simple' },
+          topBottomLine: { value: 'topBottomLine' },
+          line: { value: 'line' },
+        },
+      }),
+      defaultValue: 'line',
+    },
+    uppercase: { type: GraphQLBoolean, defaultValue: false },
+    size: {
+      type: new GraphQLEnumType({
+        name: 'SizeType',
+        values: {
+          s: { value: 'S' },
+          m: { value: 'M' },
+          l: { value: 'L' },
+        },
+      }),
+      defaultValue: 'S',
+    },
   },
 });
 
@@ -192,6 +231,8 @@ exports.settingsMutations = {
       spacing: { type: SpacingInput },
       //font
       font: { type: FontInput },
+      //heading
+      heading: { type: HeadingInput },
     },
     //resolve
     resolve(parent, args) {
@@ -203,6 +244,7 @@ exports.settingsMutations = {
           colors: args.colors,
           spacing: args.spacing,
           font: args.font,
+          heading: args.heading,
         },
         { new: true }
       );

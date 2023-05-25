@@ -70,6 +70,15 @@ const SettingsSchema = new mongoose.Schema({
     type: { type: String, enum: ['serif', 'sans'], default: 'serif' },
     font: { type: String, default: 'Times New Roman' },
   },
+  heading: {
+    style: {
+      type: String,
+      enum: ['box', 'simple', 'topBottomLine', 'line'],
+      default: 'line',
+    },
+    uppercase: { type: Boolean, default: false },
+    size: { type: String, enum: ['S', 'M', 'L'], default: 'S' },
+  },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
