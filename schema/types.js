@@ -309,6 +309,24 @@ const HeadingType = new GraphQLObjectType({
   }),
 });
 
+//Subtitle Type
+const SubtitleType = new GraphQLObjectType({
+  name: 'Subtitle',
+  fields: () => ({
+    style: { type: GraphQLString },
+    placement: { type: GraphQLString },
+  }),
+});
+//Header Type
+const HeaderType = new GraphQLObjectType({
+  name: 'Header',
+  fields: () => ({
+    position: { type: GraphQLString },
+    additionalInfoStyle: { type: GraphQLString },
+    additionalInfoOrder: { type: new GraphQLList(GraphQLString) },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'Settings',
@@ -320,6 +338,8 @@ const SettingsType = new GraphQLObjectType({
     spacing: { type: SpacingType },
     font: { type: FontType },
     heading: { type: HeadingType },
+    subtitle: {type: SubtitleType},
+    header: {type: HeaderType},
     resume: {
       type: ResumeType,
       resolve(parent) {

@@ -77,7 +77,32 @@ const SettingsSchema = new mongoose.Schema({
       default: 'line',
     },
     uppercase: { type: Boolean, default: false },
-    size: { type: String, enum: ['S', 'M', 'L'], default: 'S' },
+    size: { type: String, enum: ['s', 'm', 'l'], default: 'S' },
+  },
+  subtitle: {
+    style: {
+      type: String,
+      enum: ['normal', 'bold', 'italic'],
+      default: 'normal',
+    },
+    placement: {
+      type: String,
+      enum: ['sameLine', 'nextLine'],
+      default: 'nextLine',
+    },
+  },
+  header: {
+    position: {
+      type: String,
+      enum: ['left', 'center'],
+      default: 'center',
+    },
+    additionalInfoStyle: {
+      type: String,
+      enum: ['icon', 'bar'],
+      default: 'icon',
+    },
+    additionalInfoOrder: [{ type: String }],
   },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,

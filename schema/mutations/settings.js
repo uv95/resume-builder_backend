@@ -109,13 +109,67 @@ const HeadingInput = new GraphQLInputObjectType({
       type: new GraphQLEnumType({
         name: 'SizeType',
         values: {
-          s: { value: 'S' },
-          m: { value: 'M' },
-          l: { value: 'L' },
+          s: { value: 's' },
+          m: { value: 'm' },
+          l: { value: 'l' },
         },
       }),
-      defaultValue: 'S',
+      defaultValue: 's',
     },
+  },
+});
+
+const SubtitleInput = new GraphQLInputObjectType({
+  name: 'SubtitleInput',
+  fields: {
+    style: {
+      type: new GraphQLEnumType({
+        name: 'SubtitleStyleType',
+        values: {
+          normal: { value: 'normal' },
+          bold: { value: 'bold' },
+          italic: { value: 'italic' },
+        },
+      }),
+      defaultValue: 'normal',
+    },
+    placement: {
+      type: new GraphQLEnumType({
+        name: 'PlacementType',
+        values: {
+          sameLine: { value: 'sameLine' },
+          nextLine: { value: 'nextLine' },
+        },
+      }),
+      defaultValue: 'nextLine',
+    },
+  },
+});
+
+const HeaderInput = new GraphQLInputObjectType({
+  name: 'HeaderInput',
+  fields: {
+    position: {
+      type: new GraphQLEnumType({
+        name: 'HeaderPositionType',
+        values: {
+          left: { value: 'left' },
+          center: { value: 'center' },
+        },
+      }),
+      defaultValue: 'center',
+    },
+    additionalInfoStyle: {
+      type: new GraphQLEnumType({
+        name: 'AdditionalInfoStyleType',
+        values: {
+          icon: { value: 'icon' },
+          bar: { value: 'bar' },
+        },
+      }),
+      defaultValue: 'icon',
+    },
+    additionalInfoOrder: { type: new GraphQLList(GraphQLString) },
   },
 });
 
@@ -233,6 +287,10 @@ exports.settingsMutations = {
       font: { type: FontInput },
       //heading
       heading: { type: HeadingInput },
+      //subtitle
+      subtitle: { type: SubtitleInput },
+      //header
+      header: { type: HeaderInput },
     },
     //resolve
     resolve(parent, args) {
@@ -245,6 +303,8 @@ exports.settingsMutations = {
           spacing: args.spacing,
           font: args.font,
           heading: args.heading,
+          subtitle: args.subtitle,
+          header: args.header,
         },
         { new: true }
       );

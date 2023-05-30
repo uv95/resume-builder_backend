@@ -74,7 +74,13 @@ exports.resumeMutations = {
           spaceBetweenSections: 22,
         },
         font: { type: 'serif', font: 'Times New Roman' },
-        heading: { style: 'line', uppercase: false, size: 'S' },
+        heading: { style: 'line', uppercase: false, size: 's' },
+        subtitle: { style: 'normal', placement: 'nextLine' },
+        header: {
+          position: 'center',
+          additionalInfoStyle: 'icon',
+          additionalInfoOrder: [],
+        },
         resumeId: resume._id,
       });
       const content = new Content({
