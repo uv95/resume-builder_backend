@@ -77,7 +77,7 @@ const SettingsSchema = new mongoose.Schema({
       default: 'line',
     },
     uppercase: { type: Boolean, default: false },
-    size: { type: String, enum: ['s', 'm', 'l'], default: 'S' },
+    size: { type: String, enum: ['s', 'm', 'l'], default: 's' },
   },
   subtitle: {
     style: {
@@ -85,7 +85,7 @@ const SettingsSchema = new mongoose.Schema({
       enum: ['normal', 'bold', 'italic'],
       default: 'normal',
     },
-    placement: {
+    position: {
       type: String,
       enum: ['sameLine', 'nextLine'],
       default: 'nextLine',
@@ -103,6 +103,19 @@ const SettingsSchema = new mongoose.Schema({
       default: 'icon',
     },
     additionalInfoOrder: [{ type: String }],
+  },
+  jobTitle: {
+    size: { type: String, enum: ['s', 'm', 'l'], default: 'm' },
+    position: {
+      type: String,
+      enum: ['sameLine', 'nextLine'],
+      default: 'nextLine',
+    },
+    style: {
+      type: String,
+      enum: ['normal', 'bold', 'italic'],
+      default: 'italic',
+    },
   },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,

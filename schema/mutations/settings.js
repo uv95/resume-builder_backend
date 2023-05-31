@@ -94,7 +94,7 @@ const HeadingInput = new GraphQLInputObjectType({
   fields: {
     style: {
       type: new GraphQLEnumType({
-        name: 'StyleType',
+        name: 'HeadingStyleType',
         values: {
           box: { value: 'box' },
           simple: { value: 'simple' },
@@ -107,7 +107,7 @@ const HeadingInput = new GraphQLInputObjectType({
     uppercase: { type: GraphQLBoolean, defaultValue: false },
     size: {
       type: new GraphQLEnumType({
-        name: 'SizeType',
+        name: 'HeadingSizeType',
         values: {
           s: { value: 's' },
           m: { value: 'm' },
@@ -133,9 +133,9 @@ const SubtitleInput = new GraphQLInputObjectType({
       }),
       defaultValue: 'normal',
     },
-    placement: {
+    position: {
       type: new GraphQLEnumType({
-        name: 'PlacementType',
+        name: 'SubtitlePositionType',
         values: {
           sameLine: { value: 'sameLine' },
           nextLine: { value: 'nextLine' },
@@ -170,6 +170,44 @@ const HeaderInput = new GraphQLInputObjectType({
       defaultValue: 'icon',
     },
     additionalInfoOrder: { type: new GraphQLList(GraphQLString) },
+  },
+});
+
+const JobTitleInput = new GraphQLInputObjectType({
+  name: 'JobTitleInput',
+  fields: {
+    size: {
+      type: new GraphQLEnumType({
+        name: 'JobTitleSizeType',
+        values: {
+          s: { value: 's' },
+          m: { value: 'm' },
+          l: { value: 'l' },
+        },
+      }),
+      defaultValue: 'm',
+    },
+    position: {
+      type: new GraphQLEnumType({
+        name: 'JobTitlePositionType',
+        values: {
+          sameLine: { value: 'sameLine' },
+          nextLine: { value: 'nextLine' },
+        },
+      }),
+      defaultValue: 'nextLine',
+    },
+    style: {
+      type: new GraphQLEnumType({
+        name: 'JobTitleStyleType',
+        values: {
+          normal: { value: 'normal' },
+          bold: { value: 'bold' },
+          italic: { value: 'italic' },
+        },
+      }),
+      defaultValue: 'italic',
+    },
   },
 });
 
@@ -281,18 +319,13 @@ exports.settingsMutations = {
           },
         }),
       },
-      //spacing
       spacing: { type: SpacingInput },
-      //font
       font: { type: FontInput },
-      //heading
       heading: { type: HeadingInput },
-      //subtitle
       subtitle: { type: SubtitleInput },
-      //header
       header: { type: HeaderInput },
+      jobTitle: { type: JobTitleInput },
     },
-    //resolve
     resolve(parent, args) {
       return Settings.findByIdAndUpdate(
         args.id,
@@ -305,6 +338,7 @@ exports.settingsMutations = {
           heading: args.heading,
           subtitle: args.subtitle,
           header: args.header,
+          jobTitle: args.jobTitle,
         },
         { new: true }
       );

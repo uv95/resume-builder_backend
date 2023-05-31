@@ -314,9 +314,10 @@ const SubtitleType = new GraphQLObjectType({
   name: 'Subtitle',
   fields: () => ({
     style: { type: GraphQLString },
-    placement: { type: GraphQLString },
+    position: { type: GraphQLString },
   }),
 });
+
 //Header Type
 const HeaderType = new GraphQLObjectType({
   name: 'Header',
@@ -324,6 +325,16 @@ const HeaderType = new GraphQLObjectType({
     position: { type: GraphQLString },
     additionalInfoStyle: { type: GraphQLString },
     additionalInfoOrder: { type: new GraphQLList(GraphQLString) },
+  }),
+});
+
+//JobTitle Type
+const JobTitleType = new GraphQLObjectType({
+  name: 'JobTitle',
+  fields: () => ({
+    size: { type: GraphQLString },
+    position: { type: GraphQLString },
+    style: { type: GraphQLString },
   }),
 });
 
@@ -338,8 +349,9 @@ const SettingsType = new GraphQLObjectType({
     spacing: { type: SpacingType },
     font: { type: FontType },
     heading: { type: HeadingType },
-    subtitle: {type: SubtitleType},
-    header: {type: HeaderType},
+    subtitle: { type: SubtitleType },
+    header: { type: HeaderType },
+    jobTitle: { type: JobTitleType },
     resume: {
       type: ResumeType,
       resolve(parent) {

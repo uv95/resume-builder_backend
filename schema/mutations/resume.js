@@ -75,11 +75,16 @@ exports.resumeMutations = {
         },
         font: { type: 'serif', font: 'Times New Roman' },
         heading: { style: 'line', uppercase: false, size: 's' },
-        subtitle: { style: 'normal', placement: 'nextLine' },
+        subtitle: { style: 'normal', position: 'nextLine' },
         header: {
           position: 'center',
           additionalInfoStyle: 'icon',
           additionalInfoOrder: [],
+        },
+        jobTitle: {
+          size: 'm',
+          position: 'nextLine',
+          style: 'italic',
         },
         resumeId: resume._id,
       });
