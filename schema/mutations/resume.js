@@ -81,9 +81,12 @@ exports.resumeMutations = {
           additionalInfoStyle: 'icon',
           additionalInfoOrder: [],
         },
+        name: {
+          size: 'm',
+          style: 'bold',
+        },
         jobTitle: {
           size: 'm',
-          position: 'nextLine',
           style: 'italic',
         },
         resumeId: resume._id,

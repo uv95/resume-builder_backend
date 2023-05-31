@@ -104,13 +104,16 @@ const SettingsSchema = new mongoose.Schema({
     },
     additionalInfoOrder: [{ type: String }],
   },
+  name: {
+    size: { type: String, enum: ['s', 'm', 'l'], default: 'm' },
+    style: {
+      type: String,
+      enum: ['normal', 'bold'],
+      default: 'bold',
+    },
+  },
   jobTitle: {
     size: { type: String, enum: ['s', 'm', 'l'], default: 'm' },
-    position: {
-      type: String,
-      enum: ['sameLine', 'nextLine'],
-      default: 'nextLine',
-    },
     style: {
       type: String,
       enum: ['normal', 'bold', 'italic'],

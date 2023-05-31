@@ -173,6 +173,33 @@ const HeaderInput = new GraphQLInputObjectType({
   },
 });
 
+const NameInput = new GraphQLInputObjectType({
+  name: 'NameInput',
+  fields: {
+    size: {
+      type: new GraphQLEnumType({
+        name: 'NameSizeType',
+        values: {
+          s: { value: 's' },
+          m: { value: 'm' },
+          l: { value: 'l' },
+        },
+      }),
+      defaultValue: 'm',
+    },
+    style: {
+      type: new GraphQLEnumType({
+        name: 'NameStyleType',
+        values: {
+          normal: { value: 'normal' },
+          bold: { value: 'bold' },
+        },
+      }),
+      defaultValue: 'bold',
+    },
+  },
+});
+
 const JobTitleInput = new GraphQLInputObjectType({
   name: 'JobTitleInput',
   fields: {
@@ -186,16 +213,6 @@ const JobTitleInput = new GraphQLInputObjectType({
         },
       }),
       defaultValue: 'm',
-    },
-    position: {
-      type: new GraphQLEnumType({
-        name: 'JobTitlePositionType',
-        values: {
-          sameLine: { value: 'sameLine' },
-          nextLine: { value: 'nextLine' },
-        },
-      }),
-      defaultValue: 'nextLine',
     },
     style: {
       type: new GraphQLEnumType({
@@ -324,6 +341,7 @@ exports.settingsMutations = {
       heading: { type: HeadingInput },
       subtitle: { type: SubtitleInput },
       header: { type: HeaderInput },
+      name: { type: NameInput },
       jobTitle: { type: JobTitleInput },
     },
     resolve(parent, args) {
@@ -338,6 +356,7 @@ exports.settingsMutations = {
           heading: args.heading,
           subtitle: args.subtitle,
           header: args.header,
+          name: args.name,
           jobTitle: args.jobTitle,
         },
         { new: true }

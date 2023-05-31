@@ -328,12 +328,20 @@ const HeaderType = new GraphQLObjectType({
   }),
 });
 
+//Name Type
+const NameType = new GraphQLObjectType({
+  name: 'Name',
+  fields: () => ({
+    size: { type: GraphQLString },
+    style: { type: GraphQLString },
+  }),
+});
+
 //JobTitle Type
 const JobTitleType = new GraphQLObjectType({
   name: 'JobTitle',
   fields: () => ({
     size: { type: GraphQLString },
-    position: { type: GraphQLString },
     style: { type: GraphQLString },
   }),
 });
@@ -351,6 +359,7 @@ const SettingsType = new GraphQLObjectType({
     heading: { type: HeadingType },
     subtitle: { type: SubtitleType },
     header: { type: HeaderType },
+    name: { type: NameType },
     jobTitle: { type: JobTitleType },
     resume: {
       type: ResumeType,
