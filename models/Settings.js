@@ -120,6 +120,18 @@ const SettingsSchema = new mongoose.Schema({
       default: 'italic',
     },
   },
+  date: {
+    month: {
+      type: String,
+      enum: ['digits', 'short', 'long'],
+      default: 'digits',
+    },
+    delimiter: {
+      type: String,
+      enum: ['/ Slash', '- Hyphen', '. Dot'],
+      default: '/ Slash',
+    },
+  },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',

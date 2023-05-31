@@ -89,6 +89,7 @@ exports.resumeMutations = {
           size: 'm',
           style: 'italic',
         },
+        date: { month: 'digits', delimiter: '/ Slash' },
         resumeId: resume._id,
       });
       const content = new Content({

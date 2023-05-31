@@ -228,6 +228,34 @@ const JobTitleInput = new GraphQLInputObjectType({
   },
 });
 
+const DateInput = new GraphQLInputObjectType({
+  name: 'DateInput',
+  fields: {
+    month: {
+      type: new GraphQLEnumType({
+        name: 'Month',
+        values: {
+          digits: { value: 'digits' },
+          short: { value: 'short' },
+          long: { value: 'long' },
+        },
+      }),
+      defaultValue: 'digits',
+    },
+    delimiter: {
+      type: new GraphQLEnumType({
+        name: 'Delimiter',
+        values: {
+          slash: { value: '/ Slash' },
+          hyphen: { value: '- Hyphen' },
+          dot: { value: '. Dot' },
+        },
+      }),
+      defaultValue: '/ Slash',
+    },
+  },
+});
+
 const selectedValues = {
   accent: { value: 'accent' },
   multicolor: { value: 'multicolor' },
@@ -343,6 +371,7 @@ exports.settingsMutations = {
       header: { type: HeaderInput },
       name: { type: NameInput },
       jobTitle: { type: JobTitleInput },
+      date: { type: DateInput },
     },
     resolve(parent, args) {
       return Settings.findByIdAndUpdate(
@@ -358,6 +387,7 @@ exports.settingsMutations = {
           header: args.header,
           name: args.name,
           jobTitle: args.jobTitle,
+          date: args.date,
         },
         { new: true }
       );

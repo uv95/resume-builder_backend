@@ -346,6 +346,15 @@ const JobTitleType = new GraphQLObjectType({
   }),
 });
 
+//Date Type
+const DateType = new GraphQLObjectType({
+  name: 'Date',
+  fields: () => ({
+    month: { type: GraphQLString },
+    delimiter: { type: GraphQLString },
+  }),
+});
+
 //Settings Type
 const SettingsType = new GraphQLObjectType({
   name: 'Settings',
@@ -361,6 +370,7 @@ const SettingsType = new GraphQLObjectType({
     header: { type: HeaderType },
     name: { type: NameType },
     jobTitle: { type: JobTitleType },
+    date: { type: DateType },
     resume: {
       type: ResumeType,
       resolve(parent) {
