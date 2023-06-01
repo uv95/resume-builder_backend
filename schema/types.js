@@ -278,7 +278,6 @@ const ColorsType = new GraphQLObjectType({
   }),
 });
 
-//Spacing Type
 const SpacingType = new GraphQLObjectType({
   name: 'Spacing',
   fields: () => ({
@@ -290,7 +289,6 @@ const SpacingType = new GraphQLObjectType({
   }),
 });
 
-//Font Type
 const FontType = new GraphQLObjectType({
   name: 'Font',
   fields: () => ({
@@ -299,7 +297,6 @@ const FontType = new GraphQLObjectType({
   }),
 });
 
-//Heading Type
 const HeadingType = new GraphQLObjectType({
   name: 'Heading',
   fields: () => ({
@@ -309,7 +306,6 @@ const HeadingType = new GraphQLObjectType({
   }),
 });
 
-//Subtitle Type
 const SubtitleType = new GraphQLObjectType({
   name: 'Subtitle',
   fields: () => ({
@@ -318,7 +314,6 @@ const SubtitleType = new GraphQLObjectType({
   }),
 });
 
-//Header Type
 const HeaderType = new GraphQLObjectType({
   name: 'Header',
   fields: () => ({
@@ -328,7 +323,6 @@ const HeaderType = new GraphQLObjectType({
   }),
 });
 
-//Name Type
 const NameType = new GraphQLObjectType({
   name: 'Name',
   fields: () => ({
@@ -337,7 +331,6 @@ const NameType = new GraphQLObjectType({
   }),
 });
 
-//JobTitle Type
 const JobTitleType = new GraphQLObjectType({
   name: 'JobTitle',
   fields: () => ({
@@ -346,12 +339,50 @@ const JobTitleType = new GraphQLObjectType({
   }),
 });
 
-//Date Type
 const DateType = new GraphQLObjectType({
   name: 'Date',
   fields: () => ({
     month: { type: GraphQLString },
     delimiter: { type: GraphQLString },
+  }),
+});
+
+const SkillsSettingsType = new GraphQLObjectType({
+  name: 'SkillsSettings',
+  fields: () => ({
+    format: { type: GraphQLString },
+    textFormat: { type: GraphQLString },
+    infoItalic: { type: GraphQLBoolean },
+  }),
+});
+
+const LanguageSettingsType = new GraphQLObjectType({
+  name: 'LanguageSettings',
+  fields: () => ({
+    format: { type: GraphQLString },
+    textFormat: { type: GraphQLString },
+    infoItalic: { type: GraphQLBoolean },
+  }),
+});
+
+const ProfileSettingsType = new GraphQLObjectType({
+  name: 'ProfileSettings',
+  fields: () => ({
+    showHeading: { type: GraphQLBoolean },
+  }),
+});
+
+const EducationSettingsType = new GraphQLObjectType({
+  name: 'EducationSettings',
+  fields: () => ({
+    degreeFirst: { type: GraphQLBoolean },
+  }),
+});
+
+const ProfessionalExperienceSettingsType = new GraphQLObjectType({
+  name: 'ProfessionalExperienceSettings',
+  fields: () => ({
+    jobTitleFirst: { type: GraphQLBoolean },
   }),
 });
 
@@ -371,6 +402,11 @@ const SettingsType = new GraphQLObjectType({
     name: { type: NameType },
     jobTitle: { type: JobTitleType },
     date: { type: DateType },
+    skills: { type: SkillsSettingsType },
+    language: { type: LanguageSettingsType },
+    profile: { type: ProfileSettingsType },
+    education: { type: EducationSettingsType },
+    professionalExperience: { type: ProfessionalExperienceSettingsType },
     resume: {
       type: ResumeType,
       resolve(parent) {

@@ -256,6 +256,87 @@ const DateInput = new GraphQLInputObjectType({
   },
 });
 
+const SkillsSettingsInput = new GraphQLInputObjectType({
+  name: 'SkillsSettingsInput',
+  fields: {
+    format: {
+      type: new GraphQLEnumType({
+        name: 'SkillsFormat',
+        values: {
+          grid: { value: 'grid' },
+          level: { value: 'level' },
+          text: { value: 'text' },
+          bubble: { value: 'bubble' },
+        },
+      }),
+      defaultValue: 'level',
+    },
+    textFormat: {
+      type: new GraphQLEnumType({
+        name: 'SkillsTextFormat',
+        values: {
+          bullet: { value: 'bullet' },
+          pipe: { value: 'pipe' },
+          wrap: { value: 'wrap' },
+        },
+      }),
+      defaultValue: 'bullet',
+    },
+    infoItalic: { type: GraphQLBoolean, defaultValue: false },
+  },
+});
+
+const LanguageSettingsInput = new GraphQLInputObjectType({
+  name: 'LanguageSettingsInput',
+  fields: {
+    format: {
+      type: new GraphQLEnumType({
+        name: 'LanguageFormat',
+        values: {
+          grid: { value: 'grid' },
+          level: { value: 'level' },
+          text: { value: 'text' },
+          bubble: { value: 'bubble' },
+        },
+      }),
+      defaultValue: 'level',
+    },
+    textFormat: {
+      type: new GraphQLEnumType({
+        name: 'LanguageTextFormat',
+        values: {
+          bullet: { value: 'bullet' },
+          pipe: { value: 'pipe' },
+          wrap: { value: 'wrap' },
+        },
+      }),
+      defaultValue: 'bullet',
+    },
+    infoItalic: { type: GraphQLBoolean, defaultValue: false },
+  },
+});
+
+const ProfileSettingsInput = new GraphQLInputObjectType({
+  name: 'ProfileSettingsInput',
+  fields: {
+    showHeading: { type: GraphQLBoolean, defaultValue: true },
+  },
+});
+
+const EducationSettingsInput = new GraphQLInputObjectType({
+  name: 'EducationSettingsInput',
+  fields: {
+    degreeFirst: { type: GraphQLBoolean, defaultValue: true },
+  },
+});
+
+const ProfessionalExperienceSettingsInput = new GraphQLInputObjectType({
+  name: 'ProfessionalExperienceSettingsInput',
+  fields: {
+    jobTitleFirst: { type: GraphQLBoolean, defaultValue: true },
+  },
+});
+
 const selectedValues = {
   accent: { value: 'accent' },
   multicolor: { value: 'multicolor' },
@@ -372,6 +453,11 @@ exports.settingsMutations = {
       name: { type: NameInput },
       jobTitle: { type: JobTitleInput },
       date: { type: DateInput },
+      skills: { type: SkillsSettingsInput },
+      language: { type: LanguageSettingsInput },
+      profile: { type: ProfileSettingsInput },
+      education: { type: EducationSettingsInput },
+      professionalExperience: { type: ProfessionalExperienceSettingsInput },
     },
     resolve(parent, args) {
       return Settings.findByIdAndUpdate(
@@ -388,6 +474,11 @@ exports.settingsMutations = {
           name: args.name,
           jobTitle: args.jobTitle,
           date: args.date,
+          skills: args.skills,
+          language: args.language,
+          profile: args.profile,
+          education: args.education,
+          professionalExperience: args.professionalExperience,
         },
         { new: true }
       );

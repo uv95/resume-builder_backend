@@ -90,6 +90,11 @@ exports.resumeMutations = {
           style: 'italic',
         },
         date: { month: 'digits', delimiter: '/ Slash' },
+        skills: { format: 'level', textFormat: 'bullet', infoItalic: false },
+        language: { format: 'level', textFormat: 'bullet', infoItalic: false },
+        profile: { showHeading: true },
+        education: { degreeFirst: true },
+        professionalExperience: { jobTitleFirst: true },
         resumeId: resume._id,
       });
       const content = new Content({

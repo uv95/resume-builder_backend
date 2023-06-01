@@ -132,6 +132,56 @@ const SettingsSchema = new mongoose.Schema({
       default: '/ Slash',
     },
   },
+  skills: {
+    format: {
+      type: String,
+      enum: ['grid', 'level', 'text', 'bubble'],
+      default: 'level',
+    },
+    textFormat: {
+      type: String,
+      enum: ['bullet', 'pipe', 'wrap'],
+      default: 'bullet',
+    },
+    infoItalic: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  language: {
+    format: {
+      type: String,
+      enum: ['grid', 'level', 'text', 'bubble'],
+      default: 'level',
+    },
+    textFormat: {
+      type: String,
+      enum: ['bullet', 'pipe', 'wrap'],
+      default: 'bullet',
+    },
+    infoItalic: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  profile: {
+    showHeading: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  education: {
+    degreeFirst: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  professionalExperience: {
+    jobTitleFirst: {
+      type: Boolean,
+      default: true,
+    },
+  },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',
