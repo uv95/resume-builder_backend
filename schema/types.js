@@ -351,6 +351,7 @@ const SkillsSettingsType = new GraphQLObjectType({
   name: 'SkillsSettings',
   fields: () => ({
     format: { type: GraphQLString },
+    gridCols: { type: GraphQLBoolean },
     textFormat: { type: GraphQLString },
     infoItalic: { type: GraphQLBoolean },
   }),
@@ -360,6 +361,7 @@ const LanguageSettingsType = new GraphQLObjectType({
   name: 'LanguageSettings',
   fields: () => ({
     format: { type: GraphQLString },
+    gridCols: { type: GraphQLBoolean },
     textFormat: { type: GraphQLString },
     infoItalic: { type: GraphQLBoolean },
   }),

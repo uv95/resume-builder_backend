@@ -138,6 +138,11 @@ const SettingsSchema = new mongoose.Schema({
       enum: ['grid', 'level', 'text', 'bubble'],
       default: 'level',
     },
+    gridCols: {
+      type: Number,
+      enum: [1, 2, 3, 4],
+      default: 4,
+    },
     textFormat: {
       type: String,
       enum: ['bullet', 'pipe', 'wrap'],
@@ -153,6 +158,11 @@ const SettingsSchema = new mongoose.Schema({
       type: String,
       enum: ['grid', 'level', 'text', 'bubble'],
       default: 'level',
+    },
+    gridCols: {
+      type: Number,
+      enum: [1, 2, 3, 4],
+      default: 4,
     },
     textFormat: {
       type: String,

@@ -271,6 +271,18 @@ const SkillsSettingsInput = new GraphQLInputObjectType({
       }),
       defaultValue: 'level',
     },
+    gridCols: {
+      type: new GraphQLEnumType({
+        name: 'SkillsGridCols',
+        values: {
+          1: { value: 1 },
+          2: { value: 2 },
+          3: { value: 3 },
+          4: { value: 4 },
+        },
+      }),
+      defaultValue: 4,
+    },
     textFormat: {
       type: new GraphQLEnumType({
         name: 'SkillsTextFormat',
@@ -300,6 +312,18 @@ const LanguageSettingsInput = new GraphQLInputObjectType({
         },
       }),
       defaultValue: 'level',
+    },
+    gridCols: {
+      type: new GraphQLEnumType({
+        name: 'LanguageGridCols',
+        values: {
+          1: { value: 1 },
+          2: { value: 2 },
+          3: { value: 3 },
+          4: { value: 4 },
+        },
+      }),
+      defaultValue: 4,
     },
     textFormat: {
       type: new GraphQLEnumType({
