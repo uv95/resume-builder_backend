@@ -7,17 +7,21 @@ const {
 } = require('graphql');
 const PersonalDetails = require('../../models/PersonalDetails');
 const Resume = require('../../models/Resume');
-const { PersonalDetailsType } = require('../types');
+const { PersonalDetailsType } = require('../types/types');
+
+const personalDetailsScalarProps = {
+  fullName: { type: GraphQLNonNull(GraphQLString) },
+  jobTitle: { type: GraphQLNonNull(GraphQLString) },
+  email: { type: GraphQLString },
+  phone: { type: GraphQLString },
+  address: { type: GraphQLString },
+};
 
 exports.personalDetailsMutations = {
   addPersonalDetails: {
     type: PersonalDetailsType,
     args: {
-      fullName: { type: GraphQLNonNull(GraphQLString) },
-      jobTitle: { type: GraphQLNonNull(GraphQLString) },
-      email: { type: GraphQLString },
-      phone: { type: GraphQLString },
-      address: { type: GraphQLString },
+      ...personalDetailsScalarProps,
       additionalInfo: {
         type: new GraphQLList(
           new GraphQLInputObjectType({
@@ -51,11 +55,7 @@ exports.personalDetailsMutations = {
     type: PersonalDetailsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      fullName: { type: GraphQLString },
-      jobTitle: { type: GraphQLString },
-      email: { type: GraphQLString },
-      phone: { type: GraphQLString },
-      address: { type: GraphQLString },
+      ...personalDetailsScalarProps,
       additionalInfo: {
         type: new GraphQLList(
           new GraphQLInputObjectType({
@@ -84,3 +84,5 @@ exports.personalDetailsMutations = {
     },
   },
 };
+
+module.exports = { personalDetailsScalarProps };

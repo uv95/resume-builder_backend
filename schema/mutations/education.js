@@ -1,19 +1,23 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const Education = require('../../models/Education');
 const Resume = require('../../models/Resume');
-const { EducationType } = require('../types');
+const { EducationType } = require('../types/types');
+
+const educationScalarProps = {
+  degree: { type: GraphQLNonNull(GraphQLString) },
+  school: { type: GraphQLNonNull(GraphQLString) },
+  city: { type: GraphQLString },
+  country: { type: GraphQLString },
+  startDate: { type: GraphQLString },
+  endDate: { type: GraphQLString },
+  description: { type: GraphQLString },
+};
 
 exports.educationMutations = {
   addEducation: {
     type: EducationType,
     args: {
-      degree: { type: GraphQLNonNull(GraphQLString) },
-      school: { type: GraphQLNonNull(GraphQLString) },
-      city: { type: GraphQLString },
-      country: { type: GraphQLString },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...educationScalarProps,
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
     async resolve(parent, args) {
@@ -47,13 +51,7 @@ exports.educationMutations = {
     type: EducationType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      degree: { type: GraphQLNonNull(GraphQLString) },
-      school: { type: GraphQLNonNull(GraphQLString) },
-      city: { type: GraphQLString },
-      country: { type: GraphQLString },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...educationScalarProps,
     },
     resolve(parent, args) {
       return Education.findByIdAndUpdate(
@@ -72,3 +70,5 @@ exports.educationMutations = {
     },
   },
 };
+
+module.exports = { educationScalarProps };

@@ -7,25 +7,30 @@ const {
 const Resume = require('../../models/Resume');
 
 const Skills = require('../../models/Skills');
-const { SkillsType } = require('../types');
+const { SkillsType } = require('../types/types');
+
+const skillsScalarProps = {
+  skill: { type: GraphQLNonNull(GraphQLString) },
+  info: { type: GraphQLString },
+};
+const skillsLevelEnumValues = {
+  novice: { value: 'Novice' },
+  beginner: { value: 'Beginner' },
+  skillful: { value: 'Skillful' },
+  experienced: { value: 'Experienced' },
+  expert: { value: 'Expert' },
+  default: { value: '' },
+};
 
 exports.skillsMutations = {
   addSkill: {
     type: SkillsType,
     args: {
-      skill: { type: GraphQLNonNull(GraphQLString) },
-      info: { type: GraphQLString },
+      ...skillsScalarProps,
       skillLevel: {
         type: new GraphQLEnumType({
           name: 'SkillLevel',
-          values: {
-            novice: { value: 'Novice' },
-            beginner: { value: 'Beginner' },
-            skillful: { value: 'Skillful' },
-            experienced: { value: 'Experienced' },
-            expert: { value: 'Expert' },
-            default: { value: '' },
-          },
+          values: skillsLevelEnumValues,
         }),
         defaultValue: '',
       },
@@ -58,19 +63,11 @@ exports.skillsMutations = {
     type: SkillsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      skill: { type: GraphQLString },
-      info: { type: GraphQLString },
+      ...skillsScalarProps,
       skillLevel: {
         type: new GraphQLEnumType({
           name: 'SkillLevelUpdate',
-          values: {
-            novice: { value: 'Novice' },
-            beginner: { value: 'Beginner' },
-            skillful: { value: 'Skillful' },
-            experienced: { value: 'Experienced' },
-            expert: { value: 'Expert' },
-            default: { value: '' },
-          },
+          values: skillsLevelEnumValues,
         }),
       },
     },
@@ -87,3 +84,5 @@ exports.skillsMutations = {
     },
   },
 };
+
+module.exports = { skillsScalarProps, skillsLevelEnumValues };

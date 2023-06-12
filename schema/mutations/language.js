@@ -7,29 +7,34 @@ const {
 
 const Language = require('../../models/Language');
 const Resume = require('../../models/Resume');
-const { LanguageType } = require('../types');
+const { LanguageType } = require('../types/types');
+
+const languageScalarProps = {
+  language: { type: GraphQLNonNull(GraphQLString) },
+  info: { type: GraphQLString },
+};
+const languageLevelEnumValues = {
+  beginner: { value: 'Beginner (A1)' },
+  elementary: { value: 'Elementary (A2)' },
+  limited: { value: 'Limited working proficiency (B1)' },
+  highlyProficient: { value: 'Highly proficient (B2-C1)' },
+  fullProficiency: {
+    value: 'Native / full working proficiency (C2)',
+  },
+  default: {
+    value: '',
+  },
+};
 
 exports.languageMutations = {
   addLanguage: {
     type: LanguageType,
     args: {
-      language: { type: GraphQLNonNull(GraphQLString) },
-      info: { type: GraphQLString },
+      ...languageScalarProps,
       languageLevel: {
         type: new GraphQLEnumType({
           name: 'LanguageLevel',
-          values: {
-            beginner: { value: 'Beginner (A1)' },
-            elementary: { value: 'Elementary (A2)' },
-            limited: { value: 'Limited working proficiency (B1)' },
-            highlyProficient: { value: 'Highly proficient (B2-C1)' },
-            fullProficiency: {
-              value: 'Native / full working proficiency (C2)',
-            },
-            default: {
-              value: '',
-            },
-          },
+          values: languageLevelEnumValues,
         }),
         defaultValue: '',
       },
@@ -62,23 +67,11 @@ exports.languageMutations = {
     type: LanguageType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      language: { type: GraphQLString },
-      info: { type: GraphQLString },
+      ...languageScalarProps,
       languageLevel: {
         type: new GraphQLEnumType({
           name: 'LanguageLevelUpdate',
-          values: {
-            beginner: { value: 'Beginner (A1)' },
-            elementary: { value: 'Elementary (A2)' },
-            limited: { value: 'Limited working proficiency (B1)' },
-            highlyProficient: { value: 'Highly proficient (B2-C1)' },
-            fullProficiency: {
-              value: 'Native / full working proficiency (C2)',
-            },
-            default: {
-              value: '',
-            },
-          },
+          values: languageLevelEnumValues,
         }),
       },
     },
@@ -95,3 +88,5 @@ exports.languageMutations = {
     },
   },
 };
+
+module.exports = { languageScalarProps, languageLevelEnumValues };

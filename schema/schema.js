@@ -7,7 +7,7 @@ const {
 
 const Resume = require('../models/Resume');
 const { mutation } = require('./mutations');
-const { ResumeType } = require('./types');
+const { ResumeType } = require('./types/types');
 
 //ROOT Query
 const RootQuery = new GraphQLObjectType({

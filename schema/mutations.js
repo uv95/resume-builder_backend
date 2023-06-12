@@ -10,6 +10,7 @@ const {
 } = require('./mutations/professionalExperience');
 const { projectMutations } = require('./mutations/project');
 const { settingsMutations } = require('./mutations/settings');
+const { contentMutations } = require('./mutations/content');
 
 const allMutations = {
   ...educationMutations,
@@ -21,6 +22,7 @@ const allMutations = {
   ...projectMutations,
   ...professionalExperienceMutations,
   ...settingsMutations,
+  ...contentMutations,
 };
 
 exports.mutation = new GraphQLObjectType({

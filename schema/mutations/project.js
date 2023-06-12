@@ -1,16 +1,20 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const Project = require('../../models/Project');
 const Resume = require('../../models/Resume');
-const { ProjectType } = require('../types');
+const { ProjectType } = require('../types/types');
+
+const projectScalarProps = {
+  title: { type: GraphQLNonNull(GraphQLString) },
+  startDate: { type: GraphQLString },
+  endDate: { type: GraphQLString },
+  description: { type: GraphQLString },
+};
 
 exports.projectMutations = {
   addProject: {
     type: ProjectType,
     args: {
-      title: { type: GraphQLNonNull(GraphQLString) },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...projectScalarProps,
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
     async resolve(parent, args) {
@@ -41,10 +45,7 @@ exports.projectMutations = {
     type: ProjectType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      title: { type: GraphQLString },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...projectScalarProps,
     },
     resolve(parent, args) {
       return Project.findByIdAndUpdate(
@@ -60,3 +61,5 @@ exports.projectMutations = {
     },
   },
 };
+
+module.exports = { projectScalarProps };

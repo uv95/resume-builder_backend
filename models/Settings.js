@@ -139,9 +139,9 @@ const SettingsSchema = new mongoose.Schema({
       default: 'level',
     },
     gridCols: {
-      type: Number,
-      enum: [1, 2, 3, 4],
-      default: 4,
+      type: String,
+      enum: ['one', 'two', 'three', 'four'],
+      default: 'four',
     },
     textFormat: {
       type: String,
@@ -160,9 +160,9 @@ const SettingsSchema = new mongoose.Schema({
       default: 'level',
     },
     gridCols: {
-      type: Number,
-      enum: [1, 2, 3, 4],
-      default: 4,
+      type: String,
+      enum: ['one', 'two', 'three', 'four'],
+      default: 'four',
     },
     textFormat: {
       type: String,

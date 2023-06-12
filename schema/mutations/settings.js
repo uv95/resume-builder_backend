@@ -11,7 +11,7 @@ const {
 } = require('graphql');
 
 const Settings = require('../../models/Settings');
-const { SettingsType } = require('../types');
+const { SettingsType } = require('../types/types');
 
 const BasicMulticolorInput = new GraphQLInputObjectType({
   name: 'BasicMulticolorInput',
@@ -275,13 +275,13 @@ const SkillsSettingsInput = new GraphQLInputObjectType({
       type: new GraphQLEnumType({
         name: 'SkillsGridCols',
         values: {
-          1: { value: 1 },
-          2: { value: 2 },
-          3: { value: 3 },
-          4: { value: 4 },
+          one: { value: 'one' },
+          two: { value: 'two' },
+          three: { value: 'three' },
+          four: { value: 'four' },
         },
       }),
-      defaultValue: 4,
+      defaultValue: 'four',
     },
     textFormat: {
       type: new GraphQLEnumType({
@@ -317,13 +317,13 @@ const LanguageSettingsInput = new GraphQLInputObjectType({
       type: new GraphQLEnumType({
         name: 'LanguageGridCols',
         values: {
-          1: { value: 1 },
-          2: { value: 2 },
-          3: { value: 3 },
-          4: { value: 4 },
+          one: { value: 'one' },
+          two: { value: 'two' },
+          three: { value: 'three' },
+          four: { value: 'four' },
         },
       }),
-      defaultValue: 4,
+      defaultValue: 'four',
     },
     textFormat: {
       type: new GraphQLEnumType({

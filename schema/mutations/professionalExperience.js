@@ -1,19 +1,23 @@
 const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const ProfessionalExperience = require('../../models/ProfessionalExperience');
 const Resume = require('../../models/Resume');
-const { ProfessionalExperienceType } = require('../types');
+const { ProfessionalExperienceType } = require('../types/types');
+
+const professionalExperienceScalarProps = {
+  jobTitle: { type: GraphQLNonNull(GraphQLString) },
+  employer: { type: GraphQLString },
+  city: { type: GraphQLString },
+  country: { type: GraphQLString },
+  startDate: { type: GraphQLString },
+  endDate: { type: GraphQLString },
+  description: { type: GraphQLString },
+};
 
 exports.professionalExperienceMutations = {
   addProfessionalExperience: {
     type: ProfessionalExperienceType,
     args: {
-      jobTitle: { type: GraphQLNonNull(GraphQLString) },
-      employer: { type: GraphQLString },
-      city: { type: GraphQLString },
-      country: { type: GraphQLString },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...professionalExperienceScalarProps,
       resumeId: { type: GraphQLNonNull(GraphQLID) },
     },
     async resolve(parent, args) {
@@ -47,13 +51,7 @@ exports.professionalExperienceMutations = {
     type: ProfessionalExperienceType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      jobTitle: { type: GraphQLString },
-      employer: { type: GraphQLString },
-      city: { type: GraphQLString },
-      country: { type: GraphQLString },
-      startDate: { type: GraphQLString },
-      endDate: { type: GraphQLString },
-      description: { type: GraphQLString },
+      ...professionalExperienceScalarProps,
     },
     resolve(parent, args) {
       return ProfessionalExperience.findByIdAndUpdate(
@@ -72,3 +70,5 @@ exports.professionalExperienceMutations = {
     },
   },
 };
+
+module.exports = { professionalExperienceScalarProps };

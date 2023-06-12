@@ -9,7 +9,7 @@ const Project = require('../../models/Project');
 const Resume = require('../../models/Resume');
 const Settings = require('../../models/Settings');
 const Skills = require('../../models/Skills');
-const { ResumeType } = require('../types');
+const { ResumeType } = require('../types/types');
 
 exports.resumeMutations = {
   addResume: {
@@ -92,13 +92,13 @@ exports.resumeMutations = {
         date: { month: 'digits', delimiter: '/ Slash' },
         skills: {
           format: 'level',
-          gridCols: 4,
+          gridCols: 'four',
           textFormat: 'bullet',
           infoItalic: false,
         },
         language: {
           format: 'level',
-          gridCols: 4,
+          gridCols: 'four',
           textFormat: 'bullet',
           infoItalic: false,
         },

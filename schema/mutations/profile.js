@@ -2,7 +2,7 @@ const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 
 const Profile = require('../../models/Profile');
 const Resume = require('../../models/Resume');
-const { ProfileType } = require('../types');
+const { ProfileType } = require('../types/types');
 
 exports.profileMutations = {
   addProfile: {
