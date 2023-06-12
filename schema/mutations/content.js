@@ -21,11 +21,12 @@ exports.contentMutations = {
   updateContent: {
     type: ContentType,
     args: {
-      id: { type: GraphQLID },
+      id: { type: GraphQLNonNull(GraphQLID) },
       personalDetails: {
         type: new GraphQLInputObjectType({
           name: 'PersonalDetailsInput',
           fields: {
+            id: { type: GraphQLNonNull(GraphQLID) },
             ...personalDetailsScalarProps,
             additionalInfo: {
               type: new GraphQLList(
@@ -46,6 +47,7 @@ exports.contentMutations = {
           new GraphQLInputObjectType({
             name: 'SkillsInput',
             fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
               ...skillsScalarProps,
               skillLevel: {
                 type: new GraphQLEnumType({
@@ -62,6 +64,7 @@ exports.contentMutations = {
           new GraphQLInputObjectType({
             name: 'LanguageInput',
             fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
               ...languageScalarProps,
               languageLevel: {
                 type: new GraphQLEnumType({
@@ -77,7 +80,10 @@ exports.contentMutations = {
         type: new GraphQLList(
           new GraphQLInputObjectType({
             name: 'ProfessionalExperienceInput',
-            fields: { ...professionalExperienceScalarProps },
+            fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
+              ...professionalExperienceScalarProps,
+            },
           })
         ),
       },
@@ -86,6 +92,7 @@ exports.contentMutations = {
           new GraphQLInputObjectType({
             name: 'ProfileInput',
             fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
               text: { type: GraphQLNonNull(GraphQLString) },
             },
           })
@@ -95,7 +102,10 @@ exports.contentMutations = {
         type: new GraphQLList(
           new GraphQLInputObjectType({
             name: 'EducationInput',
-            fields: { ...educationScalarProps },
+            fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
+              ...educationScalarProps,
+            },
           })
         ),
       },
@@ -103,7 +113,10 @@ exports.contentMutations = {
         type: new GraphQLList(
           new GraphQLInputObjectType({
             name: 'ProjectInput',
-            fields: { ...projectScalarProps },
+            fields: {
+              id: { type: GraphQLNonNull(GraphQLID) },
+              ...projectScalarProps,
+            },
           })
         ),
       },

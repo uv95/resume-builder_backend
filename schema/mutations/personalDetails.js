@@ -17,7 +17,7 @@ const personalDetailsScalarProps = {
   address: { type: GraphQLString },
 };
 
-exports.personalDetailsMutations = {
+const personalDetailsMutations = {
   addPersonalDetails: {
     type: PersonalDetailsType,
     args: {
@@ -39,9 +39,9 @@ exports.personalDetailsMutations = {
       const personalDetails = new PersonalDetails({
         fullName: args.fullName,
         jobTitle: args.jobTitle,
-        email: args.email || '',
-        phone: args.phone || '',
-        address: args.address || '',
+        email: args.email,
+        phone: args.phone,
+        address: args.address,
         additionalInfo: args.additionalInfo || [],
         resumeId: args.resumeId,
       });
@@ -85,4 +85,4 @@ exports.personalDetailsMutations = {
   },
 };
 
-module.exports = { personalDetailsScalarProps };
+module.exports = { personalDetailsScalarProps, personalDetailsMutations };

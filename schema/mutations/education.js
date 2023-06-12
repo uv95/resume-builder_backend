@@ -13,7 +13,7 @@ const educationScalarProps = {
   description: { type: GraphQLString },
 };
 
-exports.educationMutations = {
+const educationMutations = {
   addEducation: {
     type: EducationType,
     args: {
@@ -71,4 +71,4 @@ exports.educationMutations = {
   },
 };
 
-module.exports = { educationScalarProps };
+module.exports = { educationScalarProps, educationMutations };

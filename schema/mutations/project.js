@@ -10,7 +10,7 @@ const projectScalarProps = {
   description: { type: GraphQLString },
 };
 
-exports.projectMutations = {
+const projectMutations = {
   addProject: {
     type: ProjectType,
     args: {
@@ -62,4 +62,4 @@ exports.projectMutations = {
   },
 };
 
-module.exports = { projectScalarProps };
+module.exports = { projectScalarProps, projectMutations };

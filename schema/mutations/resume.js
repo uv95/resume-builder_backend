@@ -18,17 +18,15 @@ exports.resumeMutations = {
       const resume = new Resume({
         name: 'My Resume',
       });
+      const personalDetails = new PersonalDetails({
+        fullName: '',
+        jobTitle: '',
+        email: '',
+        phone: '',
+        address: '',
+        resumeId: resume._id,
+      });
       const settings = new Settings({
-        sectionsOrder: {
-          top: [],
-          left: { leftSide: [], rightSide: [] },
-          right: { leftSide: [], rightSide: [] },
-        },
-        layout: {
-          columns: 1,
-          position: 'top',
-          columnWidth: { left: 50, right: 50 },
-        },
         colors: {
           mode: 'basic',
           basic: {
@@ -56,60 +54,13 @@ exports.resumeMutations = {
               },
             },
           },
-          applyAccentColor: {
-            name: true,
-            dots: false,
-            headings: true,
-            dates: false,
-            headingsLine: true,
-            linkIcons: false,
-            headerIcons: false,
-          },
         },
-        spacing: {
-          fontSize: 16,
-          lineHeight: 1.3,
-          leftRightMargin: 16,
-          topBottomMargin: 16,
-          spaceBetweenSections: 22,
-        },
-        font: { type: 'serif', font: 'Times New Roman' },
-        heading: { style: 'line', uppercase: false, size: 's' },
-        subtitle: { style: 'normal', position: 'nextLine' },
-        header: {
-          position: 'center',
-          additionalInfoStyle: 'icon',
-          additionalInfoOrder: [],
-        },
-        name: {
-          size: 'm',
-          style: 'bold',
-        },
-        jobTitle: {
-          size: 'm',
-          style: 'italic',
-        },
-        date: { month: 'digits', delimiter: '/ Slash' },
-        skills: {
-          format: 'level',
-          gridCols: 'four',
-          textFormat: 'bullet',
-          infoItalic: false,
-        },
-        language: {
-          format: 'level',
-          gridCols: 'four',
-          textFormat: 'bullet',
-          infoItalic: false,
-        },
-        profile: { showHeading: true },
-        education: { degreeFirst: true },
-        professionalExperience: { jobTitleFirst: true },
         resumeId: resume._id,
       });
       const content = new Content({
         resumeId: resume._id,
       });
+      personalDetails.save();
       content.save();
       settings.save();
       return resume.save();

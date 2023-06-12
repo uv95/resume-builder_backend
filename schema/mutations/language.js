@@ -26,7 +26,7 @@ const languageLevelEnumValues = {
   },
 };
 
-exports.languageMutations = {
+const languageMutations = {
   addLanguage: {
     type: LanguageType,
     args: {
@@ -89,4 +89,8 @@ exports.languageMutations = {
   },
 };
 
-module.exports = { languageScalarProps, languageLevelEnumValues };
+module.exports = {
+  languageScalarProps,
+  languageLevelEnumValues,
+  languageMutations,
+};

@@ -22,7 +22,7 @@ const skillsLevelEnumValues = {
   default: { value: '' },
 };
 
-exports.skillsMutations = {
+const skillsMutations = {
   addSkill: {
     type: SkillsType,
     args: {
@@ -63,7 +63,8 @@ exports.skillsMutations = {
     type: SkillsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      ...skillsScalarProps,
+      skill: { type: GraphQLNonNull(GraphQLString) },
+      info: { type: GraphQLString },
       skillLevel: {
         type: new GraphQLEnumType({
           name: 'SkillLevelUpdate',
@@ -85,4 +86,4 @@ exports.skillsMutations = {
   },
 };
 
-module.exports = { skillsScalarProps, skillsLevelEnumValues };
+module.exports = { skillsScalarProps, skillsLevelEnumValues, skillsMutations };

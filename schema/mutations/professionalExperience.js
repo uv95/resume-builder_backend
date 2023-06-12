@@ -13,7 +13,7 @@ const professionalExperienceScalarProps = {
   description: { type: GraphQLString },
 };
 
-exports.professionalExperienceMutations = {
+const professionalExperienceMutations = {
   addProfessionalExperience: {
     type: ProfessionalExperienceType,
     args: {
@@ -71,4 +71,7 @@ exports.professionalExperienceMutations = {
   },
 };
 
-module.exports = { professionalExperienceScalarProps };
+module.exports = {
+  professionalExperienceScalarProps,
+  professionalExperienceMutations,
+};
