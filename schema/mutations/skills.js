@@ -3,16 +3,20 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLEnumType,
+  GraphQLInt,
 } = require('graphql');
 const Resume = require('../../models/Resume');
 
 const Skills = require('../../models/Skills');
 const { SkillsType } = require('../types/types');
+const { updateAll } = require('./handlerFactory');
 
 const skillsScalarProps = {
   skill: { type: GraphQLNonNull(GraphQLString) },
   info: { type: GraphQLString },
+  index: { type: GraphQLInt },
 };
+
 const skillsLevelEnumValues = {
   novice: { value: 'Novice' },
   beginner: { value: 'Beginner' },
@@ -41,6 +45,7 @@ const skillsMutations = {
         skill: args.skill,
         info: args.info || '',
         skillLevel: args.skillLevel,
+        index: args.index,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -63,8 +68,7 @@ const skillsMutations = {
     type: SkillsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      skill: { type: GraphQLNonNull(GraphQLString) },
-      info: { type: GraphQLString },
+      ...skillsScalarProps,
       skillLevel: {
         type: new GraphQLEnumType({
           name: 'SkillLevelUpdate',
@@ -79,11 +83,28 @@ const skillsMutations = {
           skill: args.skill,
           info: args.info,
           skillLevel: args.skillLevel,
+          index: args.index,
         },
         { new: true }
       );
     },
   },
+
+  updateAllSkills: updateAll({
+    type: SkillsType,
+    inputTypeName: 'SkillsTypeAll',
+    fields: {
+      ...skillsScalarProps,
+      skillLevel: {
+        type: new GraphQLEnumType({
+          name: 'SkillLevelUpdateAll',
+          values: skillsLevelEnumValues,
+        }),
+      },
+    },
+    argsList: ['skill', 'info', 'skillLevel', 'index'],
+    Model: Skills,
+  }),
 };
 
 module.exports = { skillsScalarProps, skillsLevelEnumValues, skillsMutations };

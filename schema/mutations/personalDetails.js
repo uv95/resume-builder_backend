@@ -69,6 +69,7 @@ const personalDetailsMutations = {
       },
     },
     resolve(parent, args) {
+      console.log(parent, args);
       return PersonalDetails.findByIdAndUpdate(
         args.id,
         {

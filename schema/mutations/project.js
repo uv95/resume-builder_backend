@@ -1,13 +1,20 @@
-const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
+const {
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLID,
+  GraphQLInt,
+} = require('graphql');
 const Project = require('../../models/Project');
 const Resume = require('../../models/Resume');
 const { ProjectType } = require('../types/types');
+const { updateAll } = require('./handlerFactory');
 
 const projectScalarProps = {
   title: { type: GraphQLNonNull(GraphQLString) },
   startDate: { type: GraphQLString },
   endDate: { type: GraphQLString },
   description: { type: GraphQLString },
+  index: { type: GraphQLInt },
 };
 
 const projectMutations = {
@@ -23,6 +30,7 @@ const projectMutations = {
         startDate: args.startDate || '',
         endDate: args.endDate || '',
         description: args.description || '',
+        index: args.index,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -55,11 +63,22 @@ const projectMutations = {
           startDate: args.startDate,
           endDate: args.endDate,
           description: args.description,
+          index: args.index,
         },
         { new: true }
       );
     },
   },
+
+  updateAllProjects: updateAll({
+    type: ProjectType,
+    inputTypeName: 'ProjectTypeAll',
+    fields: {
+      ...projectScalarProps,
+    },
+    argsList: ['title', 'startDate', 'endDate', 'description', 'index'],
+    Model: Project,
+  }),
 };
 
 module.exports = { projectScalarProps, projectMutations };

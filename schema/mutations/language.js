@@ -2,16 +2,19 @@ const {
   GraphQLString,
   GraphQLNonNull,
   GraphQLID,
+  GraphQLInt,
   GraphQLEnumType,
 } = require('graphql');
 
 const Language = require('../../models/Language');
 const Resume = require('../../models/Resume');
 const { LanguageType } = require('../types/types');
+const { updateAll } = require('./handlerFactory');
 
 const languageScalarProps = {
   language: { type: GraphQLNonNull(GraphQLString) },
   info: { type: GraphQLString },
+  index: { type: GraphQLInt },
 };
 const languageLevelEnumValues = {
   beginner: { value: 'Beginner (A1)' },
@@ -45,6 +48,7 @@ const languageMutations = {
         language: args.language,
         info: args.info || '',
         languageLevel: args.languageLevel,
+        index: args.index,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -82,11 +86,28 @@ const languageMutations = {
           language: args.language,
           info: args.info,
           languageLevel: args.languageLevel,
+          index: args.index,
         },
         { new: true }
       );
     },
   },
+
+  updateAllLanguages: updateAll({
+    type: LanguageType,
+    inputTypeName: 'LanguageTypeAll',
+    fields: {
+      ...languageScalarProps,
+      skillLevel: {
+        type: new GraphQLEnumType({
+          name: 'LanguageLevelUpdateAll',
+          values: languageLevelEnumValues,
+        }),
+      },
+    },
+    argsList: ['language', 'info', 'languageLevel', 'index'],
+    Model: Language,
+  }),
 };
 
 module.exports = {

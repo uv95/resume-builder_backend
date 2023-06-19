@@ -1,7 +1,15 @@
-const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
+const {
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLInputObjectType,
+} = require('graphql');
 const ProfessionalExperience = require('../../models/ProfessionalExperience');
 const Resume = require('../../models/Resume');
 const { ProfessionalExperienceType } = require('../types/types');
+const { updateAll } = require('./handlerFactory');
 
 const professionalExperienceScalarProps = {
   jobTitle: { type: GraphQLNonNull(GraphQLString) },
@@ -11,6 +19,7 @@ const professionalExperienceScalarProps = {
   startDate: { type: GraphQLString },
   endDate: { type: GraphQLString },
   description: { type: GraphQLString },
+  index: { type: GraphQLInt },
 };
 
 const professionalExperienceMutations = {
@@ -29,6 +38,7 @@ const professionalExperienceMutations = {
         startDate: args.startDate || '',
         endDate: args.endDate || '',
         description: args.description || '',
+        index: args.index,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -64,11 +74,31 @@ const professionalExperienceMutations = {
           startDate: args.startDate,
           endDate: args.endDate,
           description: args.description,
+          index: args.index,
         },
         { new: true }
       );
     },
   },
+
+  updateAllProfessionalExperience: updateAll({
+    type: ProfessionalExperienceType,
+    inputTypeName: 'ProfessionalExperienceTypeAll',
+    fields: {
+      ...professionalExperienceScalarProps,
+    },
+    argsList: [
+      'jobTitle',
+      'employer',
+      'city',
+      'country',
+      'startDate',
+      'endDate',
+      'description',
+      'index',
+    ],
+    Model: ProfessionalExperience,
+  }),
 };
 
 module.exports = {

@@ -1,7 +1,13 @@
-const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
+const {
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLID,
+  GraphQLInt,
+} = require('graphql');
 const Education = require('../../models/Education');
 const Resume = require('../../models/Resume');
 const { EducationType } = require('../types/types');
+const { updateAll } = require('./handlerFactory');
 
 const educationScalarProps = {
   degree: { type: GraphQLNonNull(GraphQLString) },
@@ -11,6 +17,7 @@ const educationScalarProps = {
   startDate: { type: GraphQLString },
   endDate: { type: GraphQLString },
   description: { type: GraphQLString },
+  index: { type: GraphQLInt },
 };
 
 const educationMutations = {
@@ -29,6 +36,7 @@ const educationMutations = {
         startDate: args.startDate || '',
         endDate: args.endDate || '',
         description: args.description || '',
+        index: args.index,
         resumeId: args.resumeId,
       });
       const resume = await Resume.findById(args.resumeId);
@@ -64,11 +72,31 @@ const educationMutations = {
           startDate: args.startDate,
           endDate: args.endDate,
           description: args.description,
+          index: args.index,
         },
         { new: true }
       );
     },
   },
+
+  updateAllEducations: updateAll({
+    type: EducationType,
+    inputTypeName: 'EducationTypeAll',
+    fields: {
+      ...educationScalarProps,
+    },
+    argsList: [
+      'degree',
+      'school',
+      'city',
+      'country',
+      'startDate',
+      'endDate',
+      'description',
+      'index',
+    ],
+    Model: Education,
+  }),
 };
 
 module.exports = { educationScalarProps, educationMutations };

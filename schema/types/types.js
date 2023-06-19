@@ -3,6 +3,7 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLList,
+  GraphQLInt,
 } = require('graphql');
 
 //Mongoose models
@@ -43,6 +44,7 @@ const ProjectType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent, args) {
@@ -63,6 +65,7 @@ const EducationType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent, args) {
@@ -112,6 +115,7 @@ const ProfessionalExperienceType = new GraphQLObjectType({
     startDate: { type: GraphQLString },
     endDate: { type: GraphQLString },
     description: { type: GraphQLString },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent) {
@@ -130,6 +134,7 @@ const SkillsType = new GraphQLObjectType({
     skillLevel: {
       type: GraphQLString,
     },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent) {
@@ -138,6 +143,7 @@ const SkillsType = new GraphQLObjectType({
     },
   }),
 });
+//SORT ARRAYS OF CONTENT BASED ON INDEX PROP!! FOR PROPER FRONTEND
 
 const LanguageType = new GraphQLObjectType({
   name: 'Language',
@@ -148,6 +154,7 @@ const LanguageType = new GraphQLObjectType({
     languageLevel: {
       type: GraphQLString,
     },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent) {
@@ -162,6 +169,7 @@ const ProfileType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     text: { type: GraphQLString },
+    index: { type: GraphQLInt },
     resume: {
       type: ResumeType,
       resolve(parent) {
@@ -213,37 +221,49 @@ const ContentType = new GraphQLObjectType({
     skills: {
       type: new GraphQLList(SkillsType),
       resolve(parent) {
-        return Skills.find({ resumeId: parent.resumeId });
+        return Skills.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     language: {
       type: new GraphQLList(LanguageType),
       resolve(parent) {
-        return Language.find({ resumeId: parent.resumeId });
+        return Language.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     professionalExperience: {
       type: new GraphQLList(ProfessionalExperienceType),
       resolve(parent) {
-        return ProfessionalExperience.find({ resumeId: parent.resumeId });
+        return ProfessionalExperience.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     profile: {
       type: new GraphQLList(ProfileType),
       resolve(parent) {
-        return Profile.find({ resumeId: parent.resumeId });
+        return Profile.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     education: {
       type: new GraphQLList(EducationType),
       resolve(parent) {
-        return Education.find({ resumeId: parent.resumeId });
+        return Education.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     project: {
       type: new GraphQLList(ProjectType),
       resolve(parent) {
-        return Project.find({ resumeId: parent.resumeId });
+        return Project.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
       },
     },
     resume: {

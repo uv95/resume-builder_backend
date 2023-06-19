@@ -8,6 +8,7 @@ const SkillsSchema = new mongoose.Schema({
     enum: ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert', ''],
     default: '',
   },
+  index: { type: Number },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',

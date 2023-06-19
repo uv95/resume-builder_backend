@@ -8,6 +8,7 @@ const EducationSchema = new mongoose.Schema({
   startDate: { type: String },
   endDate: { type: String },
   description: { type: String },
+  index: { type: Number },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resume',

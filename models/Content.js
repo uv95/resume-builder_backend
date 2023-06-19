@@ -23,10 +23,12 @@ const ContentSchema = new mongoose.Schema({
       ref: 'ProfessionalExperience',
     },
   ],
-  profile: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Profile',
-  },
+  profile: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Profile',
+    },
+  ],
   education: [
     {
       type: mongoose.Schema.Types.ObjectId,
