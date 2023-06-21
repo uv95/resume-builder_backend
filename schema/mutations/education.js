@@ -1,13 +1,11 @@
 const {
   GraphQLString,
   GraphQLNonNull,
-  GraphQLID,
   GraphQLInt,
 } = require('graphql');
-const Education = require('../../models/Education');
-const Resume = require('../../models/Resume');
-const { EducationType } = require('../types/types');
-const { updateAll } = require('./handlerFactory');
+const { Education, EducationItem } = require('../../models/Education');
+const { EducationType, EducationItemType } = require('../types/types');
+const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const educationScalarProps = {
   degree: { type: GraphQLNonNull(GraphQLString) },
@@ -20,81 +18,54 @@ const educationScalarProps = {
   index: { type: GraphQLInt },
 };
 
+const argsList = [
+  'degree',
+  'school',
+  'city',
+  'country',
+  'startDate',
+  'endDate',
+  'description',
+  'index',
+]
+
 const educationMutations = {
-  addEducation: {
+  updateSectionNameEducation: updateSectionName({
     type: EducationType,
-    args: {
-      ...educationScalarProps,
-      resumeId: { type: GraphQLNonNull(GraphQLID) },
-    },
-    async resolve(parent, args) {
-      const education = new Education({
-        degree: args.degree,
-        school: args.school,
-        city: args.city || '',
-        country: args.country || '',
-        startDate: args.startDate || '',
-        endDate: args.endDate || '',
-        description: args.description || '',
-        index: args.index,
-        resumeId: args.resumeId,
-      });
-      const resume = await Resume.findById(args.resumeId);
-      if (!resume) throw new Error('Resume does not exist!');
-      return education.save();
-    },
-  },
+    Model: Education
+  }),
 
-  deleteEducation: {
-    type: EducationType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
+  addEducation: addOne({
+    type: EducationItemType,
+    fields: {
+      ...educationScalarProps
     },
-    resolve(parent, args) {
-      return Education.findByIdAndRemove(args.id);
-    },
-  },
+    argsList,
+    Model: EducationItem
+  }
+  ),
 
-  updateEducation: {
-    type: EducationType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
-      ...educationScalarProps,
-    },
-    resolve(parent, args) {
-      return Education.findByIdAndUpdate(
-        args.id,
-        {
-          degree: args.degree,
-          school: args.school,
-          city: args.city,
-          country: args.country,
-          startDate: args.startDate,
-          endDate: args.endDate,
-          description: args.description,
-          index: args.index,
-        },
-        { new: true }
-      );
-    },
-  },
+  deleteEducation: deleteOne({
+    type: EducationItemType,
+    Model: EducationItem
+  }),
 
-  updateAllEducations: updateAll({
+  updateEducation: updateOne({
+    type: EducationItemType,
+    fields: {
+      ...educationScalarProps
+    },
+    argsList,
+    Model: EducationItem
+  }),
+
+  updateEducationOrder: updateOrder({
     type: EducationType,
     inputTypeName: 'EducationTypeAll',
     fields: {
       ...educationScalarProps,
     },
-    argsList: [
-      'degree',
-      'school',
-      'city',
-      'country',
-      'startDate',
-      'endDate',
-      'description',
-      'index',
-    ],
+    argsList,
     Model: Education,
   }),
 };

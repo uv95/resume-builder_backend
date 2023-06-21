@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
-const ProjectSchema = new mongoose.Schema({
-  title: { type: String },
+const EducationItemSchema = new mongoose.Schema({
+  degree: { type: String },
+  school: { type: String },
+  city: { type: String },
+  country: { type: String },
   startDate: { type: String },
   endDate: { type: String },
   description: { type: String },
@@ -12,4 +15,4 @@ const ProjectSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Project', ProjectSchema);
+module.exports = mongoose.model('EducationItem', EducationItemSchema);

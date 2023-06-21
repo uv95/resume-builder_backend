@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const LanguageSchema = new mongoose.Schema({
+const LanguageItemSchema = new mongoose.Schema({
   language: { type: String },
   info: { type: String },
   languageLevel: {
@@ -22,4 +22,4 @@ const LanguageSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Language', LanguageSchema);
+module.exports = mongoose.model('LanguageItem', LanguageItemSchema);

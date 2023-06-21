@@ -1,15 +1,13 @@
 const {
   GraphQLString,
   GraphQLNonNull,
-  GraphQLID,
   GraphQLInt,
   GraphQLEnumType,
 } = require('graphql');
 
-const Language = require('../../models/Language');
-const Resume = require('../../models/Resume');
-const { LanguageType } = require('../types/types');
-const { updateAll } = require('./handlerFactory');
+const { Language, LanguageItem } = require('../../models/Language');
+const { LanguageType, LanguageItemType } = require('../types/types');
+const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const languageScalarProps = {
   language: { type: GraphQLNonNull(GraphQLString) },
@@ -28,11 +26,17 @@ const languageLevelEnumValues = {
     value: '',
   },
 };
+const argsList = ['language', 'info', 'languageLevel', 'index'];
 
 const languageMutations = {
-  addLanguage: {
+  updateSectionNameLanguage: updateSectionName({
     type: LanguageType,
-    args: {
+    Model: Language
+  }),
+
+  addLanguage: addOne({
+    type: LanguageItemType,
+    fields: {
       ...languageScalarProps,
       languageLevel: {
         type: new GraphQLEnumType({
@@ -40,72 +44,46 @@ const languageMutations = {
           values: languageLevelEnumValues,
         }),
         defaultValue: '',
-      },
-      resumeId: { type: GraphQLNonNull(GraphQLID) },
+      }
     },
-    async resolve(parent, args) {
-      const language = new Language({
-        language: args.language,
-        info: args.info || '',
-        languageLevel: args.languageLevel,
-        index: args.index,
-        resumeId: args.resumeId,
-      });
-      const resume = await Resume.findById(args.resumeId);
-      if (!resume) throw new Error('Resume does not exist!');
-      return language.save();
-    },
-  },
+    argsList,
+    Model: LanguageItem
+  }
+  ),
 
-  deleteLanguage: {
-    type: LanguageType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
-    },
-    resolve(parent, args) {
-      return Language.findByIdAndRemove(args.id);
-    },
-  },
+  deleteLanguage: deleteOne({
+    type: LanguageItemType,
+    Model: LanguageItem
+  }),
 
-  updateLanguage: {
-    type: LanguageType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
+  updateLanguage: updateOne({
+    type: LanguageItemType,
+    fields: {
       ...languageScalarProps,
       languageLevel: {
         type: new GraphQLEnumType({
           name: 'LanguageLevelUpdate',
           values: languageLevelEnumValues,
         }),
-      },
+      }
     },
-    resolve(parent, args) {
-      return Language.findByIdAndUpdate(
-        args.id,
-        {
-          language: args.language,
-          info: args.info,
-          languageLevel: args.languageLevel,
-          index: args.index,
-        },
-        { new: true }
-      );
-    },
-  },
+    argsList,
+    Model: LanguageItem
+  }),
 
-  updateAllLanguages: updateAll({
+  updateLanguagesOrder: updateOrder({
     type: LanguageType,
     inputTypeName: 'LanguageTypeAll',
     fields: {
       ...languageScalarProps,
-      skillLevel: {
+      languageLevel: {
         type: new GraphQLEnumType({
           name: 'LanguageLevelUpdateAll',
           values: languageLevelEnumValues,
         }),
       },
     },
-    argsList: ['language', 'info', 'languageLevel', 'index'],
+    argsList,
     Model: Language,
   }),
 };

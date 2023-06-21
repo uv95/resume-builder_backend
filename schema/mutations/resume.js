@@ -1,68 +1,29 @@
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
 const Content = require('../../models/Content');
-const Education = require('../../models/Education');
-const Language = require('../../models/Language');
+const { Education } = require('../../models/Education');
+const { Language } = require('../../models/Language');
 const PersonalDetails = require('../../models/PersonalDetails');
-const ProfessionalExperience = require('../../models/ProfessionalExperience');
-const Profile = require('../../models/Profile');
-const Project = require('../../models/Project');
+const { ProfessionalExperience } = require('../../models/ProfessionalExperience');
+const { Profile } = require('../../models/Profile');
+const { Project } = require('../../models/Project');
 const Resume = require('../../models/Resume');
 const Settings = require('../../models/Settings');
-const Skills = require('../../models/Skills');
+const { Skills } = require('../../models/Skills');
 const { ResumeType } = require('../types/types');
 
 exports.resumeMutations = {
   addResume: {
     type: ResumeType,
     resolve() {
-      const resume = new Resume({
-        name: 'My Resume',
-      });
-      const personalDetails = new PersonalDetails({
-        fullName: '',
-        jobTitle: '',
-        email: '',
-        phone: '',
-        address: '',
-        resumeId: resume._id,
-      });
-      const settings = new Settings({
-        colors: {
-          mode: 'basic',
-          basic: {
-            selected: 'accent',
-            accent: '#000000',
-            multicolor: {
-              accent: '#f55c69',
-              font: '#323d5e',
-              background: '#ffffff',
-            },
-          },
-          advanced: {
-            selected: 'accent',
-            accent: '#000000',
-            multicolor: {
-              primary: {
-                accent: '#f55c69',
-                font: '#fffcfa',
-                background: '#323d5e',
-              },
-              secondary: {
-                accent: '#f55c69',
-                font: '#323d5e',
-                background: '#fffcfa',
-              },
-            },
-          },
-        },
-        resumeId: resume._id,
-      });
-      const content = new Content({
-        resumeId: resume._id,
-      });
-      personalDetails.save();
-      content.save();
-      settings.save();
+      const resume = new Resume()
+      const newDocs = [Settings, Content, PersonalDetails, Skills, Education, Project, Language, ProfessionalExperience, Profile];
+      for (Model of newDocs) {
+        const newDoc = new Model({
+          resumeId: resume._id
+        })
+        newDoc.save()
+      }
+
       return resume.save();
     },
   },

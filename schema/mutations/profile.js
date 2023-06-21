@@ -1,70 +1,57 @@
 const {
   GraphQLString,
   GraphQLNonNull,
-  GraphQLID,
+
   GraphQLInt,
-  GraphQLList,
-  GraphQLInputObjectType,
+
 } = require('graphql');
 
-const Profile = require('../../models/Profile');
-const Resume = require('../../models/Resume');
-const { ProfileType } = require('../types/types');
-const { updateAll } = require('./handlerFactory');
+const { Profile, ProfileItem } = require('../../models/Profile');
+const { ProfileType, ProfileItemType } = require('../types/types');
+const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
+
+const argsList = ['text', 'index']
 
 exports.profileMutations = {
-  addProfile: {
+  updateSectionNameProfile: updateSectionName({
     type: ProfileType,
-    args: {
+    Model: Profile
+  }),
+
+  addProfile: addOne({
+    type: ProfileItemType,
+    fields: {
       text: { type: GraphQLNonNull(GraphQLString) },
-      index: { type: GraphQLInt },
-      resumeId: { type: GraphQLNonNull(GraphQLID) },
+      index: { type: GraphQLInt }
     },
-    async resolve(parent, args) {
-      const profile = new Profile(args);
-      const resume = await Resume.findById(args.resumeId);
-      if (!resume) throw new Error('Resume does not exist!');
-      return profile.save();
-    },
-  },
+    argsList,
+    Model: ProfileItem
+  }
+  ),
 
-  deleteProfile: {
-    type: ProfileType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
-    },
-    resolve(parent, args) {
-      return Profile.findByIdAndRemove(args.id);
-    },
-  },
+  deleteProfile: deleteOne({
+    type: ProfileItemType,
+    Model: ProfileItem
+  }),
 
-  updateProfile: {
-    type: ProfileType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
+  updateProfile: updateOne({
+    type: ProfileItemType,
+    fields: {
       text: { type: GraphQLNonNull(GraphQLString) },
-      index: { type: GraphQLInt },
+      index: { type: GraphQLInt }
     },
-    resolve(parent, args) {
-      return Profile.findByIdAndUpdate(
-        args.id,
-        {
-          text: args.text,
-          index: args.index,
-        },
-        { new: true }
-      );
-    },
-  },
+    argsList,
+    Model: ProfileItem
+  }),
 
-  updateAllProfiles: updateAll({
+  updateProfileOrder: updateOrder({
     type: ProfileType,
     inputTypeName: 'ProfileTypeAll',
     fields: {
       text: { type: GraphQLNonNull(GraphQLString) },
       index: { type: GraphQLInt },
     },
-    argsList: ['text', 'index'],
+    argsList,
     Model: Profile,
   }),
 };

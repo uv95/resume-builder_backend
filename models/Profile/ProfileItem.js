@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ProfileSchema = new mongoose.Schema({
+const ProfileItemSchema = new mongoose.Schema({
   text: { type: String },
   index: { type: Number },
   resumeId: {
@@ -9,4 +9,4 @@ const ProfileSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Profile', ProfileSchema);
+module.exports = mongoose.model('ProfileItem', ProfileItemSchema);

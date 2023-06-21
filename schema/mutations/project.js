@@ -1,13 +1,11 @@
 const {
   GraphQLString,
   GraphQLNonNull,
-  GraphQLID,
   GraphQLInt,
 } = require('graphql');
-const Project = require('../../models/Project');
-const Resume = require('../../models/Resume');
-const { ProjectType } = require('../types/types');
-const { updateAll } = require('./handlerFactory');
+const { Project, ProjectItem } = require('../../models/Project');
+const { ProjectType, ProjectItemType } = require('../types/types');
+const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const projectScalarProps = {
   title: { type: GraphQLNonNull(GraphQLString) },
@@ -16,67 +14,46 @@ const projectScalarProps = {
   description: { type: GraphQLString },
   index: { type: GraphQLInt },
 };
+const argsList = ['title', 'startDate', 'endDate', 'description', 'index']
 
 const projectMutations = {
-  addProject: {
+  updateSectionNameProject: updateSectionName({
     type: ProjectType,
-    args: {
-      ...projectScalarProps,
-      resumeId: { type: GraphQLNonNull(GraphQLID) },
-    },
-    async resolve(parent, args) {
-      const project = new Project({
-        title: args.title,
-        startDate: args.startDate || '',
-        endDate: args.endDate || '',
-        description: args.description || '',
-        index: args.index,
-        resumeId: args.resumeId,
-      });
-      const resume = await Resume.findById(args.resumeId);
-      if (!resume) throw new Error('Resume does not exist!');
-      return project.save();
-    },
-  },
+    Model: Project
+  }),
 
-  deleteProject: {
-    type: ProjectType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
+  addProject: addOne({
+    type: ProjectItemType,
+    fields: {
+      ...projectScalarProps
     },
-    resolve(parent, args) {
-      return Project.findByIdAndRemove(args.id);
-    },
-  },
+    argsList,
+    Model: ProjectItem
+  }
+  ),
 
-  updateProject: {
-    type: ProjectType,
-    args: {
-      id: { type: GraphQLNonNull(GraphQLID) },
-      ...projectScalarProps,
-    },
-    resolve(parent, args) {
-      return Project.findByIdAndUpdate(
-        args.id,
-        {
-          title: args.title,
-          startDate: args.startDate,
-          endDate: args.endDate,
-          description: args.description,
-          index: args.index,
-        },
-        { new: true }
-      );
-    },
-  },
 
-  updateAllProjects: updateAll({
+  deleteProject: deleteOne({
+    type: ProjectItemType,
+    Model: ProjectItem
+  }),
+
+  updateProject: updateOne({
+    type: ProjectItemType,
+    fields: {
+      ...projectScalarProps
+    },
+    argsList,
+    Model: ProjectItem
+  }),
+
+  updateProjectsOrder: updateOrder({
     type: ProjectType,
     inputTypeName: 'ProjectTypeAll',
     fields: {
       ...projectScalarProps,
     },
-    argsList: ['title', 'startDate', 'endDate', 'description', 'index'],
+    argsList,
     Model: Project,
   }),
 };

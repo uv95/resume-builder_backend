@@ -7,13 +7,13 @@ const {
 } = require('graphql');
 
 //Mongoose models
-const Project = require('../../models/Project');
-const Education = require('../../models/Education');
+const { ProjectItem, Project } = require('../../models/Project');
+const { Education, EducationItem } = require('../../models/Education');
 const PersonalDetails = require('../../models/PersonalDetails');
-const Profile = require('../../models/Profile');
-const Language = require('../../models/Language');
-const Skills = require('../../models/Skills');
-const ProfessionalExperience = require('../../models/ProfessionalExperience');
+const { Profile, ProfileItem } = require('../../models/Profile');
+const { Language, LanguageItem } = require('../../models/Language');
+const { Skills, SkillsItem } = require('../../models/Skills');
+const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../models/ProfessionalExperience');
 const Resume = require('../../models/Resume');
 const Settings = require('../../models/Settings');
 const Content = require('../../models/Content');
@@ -36,8 +36,8 @@ const {
   ProfessionalExperienceSettingsType,
 } = require('./settingsTypes');
 
-const ProjectType = new GraphQLObjectType({
-  name: 'Project',
+const ProjectItemType = new GraphQLObjectType({
+  name: 'ProjectItem',
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
@@ -54,8 +54,24 @@ const ProjectType = new GraphQLObjectType({
   }),
 });
 
-const EducationType = new GraphQLObjectType({
-  name: 'Education',
+const ProjectType = new GraphQLObjectType({
+  name: 'Project',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(ProjectItemType),
+      resolve(parent) {
+        return ProjectItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
+
+const EducationItemType = new GraphQLObjectType({
+  name: 'EducationItem',
   fields: () => ({
     id: { type: GraphQLID },
     degree: { type: GraphQLString },
@@ -74,6 +90,22 @@ const EducationType = new GraphQLObjectType({
     },
   }),
 });
+
+const EducationType = new GraphQLObjectType({
+  name: 'Education',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(EducationItemType),
+      resolve(parent) {
+        return EducationItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
 
 const PersonalDetailsType = new GraphQLObjectType({
   name: 'PersonalDetails',
@@ -104,8 +136,8 @@ const PersonalDetailsType = new GraphQLObjectType({
   }),
 });
 
-const ProfessionalExperienceType = new GraphQLObjectType({
-  name: 'ProfessionalExperience',
+const ProfessionalExperienceItemType = new GraphQLObjectType({
+  name: 'ProfessionalExperienceItem',
   fields: () => ({
     id: { type: GraphQLID },
     jobTitle: { type: GraphQLString },
@@ -125,8 +157,24 @@ const ProfessionalExperienceType = new GraphQLObjectType({
   }),
 });
 
-const SkillsType = new GraphQLObjectType({
-  name: 'Skills',
+const ProfessionalExperienceType = new GraphQLObjectType({
+  name: 'ProfessionalExperience',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(ProfessionalExperienceItemType),
+      resolve(parent) {
+        return ProfessionalExperienceItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
+
+const SkillsItemType = new GraphQLObjectType({
+  name: 'SkillsItem',
   fields: () => ({
     id: { type: GraphQLID },
     skill: { type: GraphQLString },
@@ -143,10 +191,25 @@ const SkillsType = new GraphQLObjectType({
     },
   }),
 });
-//SORT ARRAYS OF CONTENT BASED ON INDEX PROP!! FOR PROPER FRONTEND
 
-const LanguageType = new GraphQLObjectType({
-  name: 'Language',
+const SkillsType = new GraphQLObjectType({
+  name: 'Skills',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(SkillsItemType),
+      async resolve(parent) {
+        return await SkillsItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
+
+const LanguageItemType = new GraphQLObjectType({
+  name: 'LanguageItem',
   fields: () => ({
     id: { type: GraphQLID },
     language: { type: GraphQLString },
@@ -164,8 +227,24 @@ const LanguageType = new GraphQLObjectType({
   }),
 });
 
-const ProfileType = new GraphQLObjectType({
-  name: 'Profile',
+const LanguageType = new GraphQLObjectType({
+  name: 'Language',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(LanguageItemType),
+      resolve(parent) {
+        return LanguageItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
+
+const ProfileItemType = new GraphQLObjectType({
+  name: 'ProfileItem',
   fields: () => ({
     id: { type: GraphQLID },
     text: { type: GraphQLString },
@@ -178,6 +257,22 @@ const ProfileType = new GraphQLObjectType({
     },
   }),
 });
+
+const ProfileType = new GraphQLObjectType({
+  name: 'Profile',
+  fields: () => ({
+    id: { type: GraphQLID },
+    sectionName: { type: GraphQLString },
+    items: {
+      type: new GraphQLList(ProfileItemType),
+      resolve(parent) {
+        return ProfileItem.find({ resumeId: parent.resumeId }).sort({
+          index: 'ascending',
+        });
+      },
+    }
+  }),
+})
 
 const SettingsType = new GraphQLObjectType({
   name: 'Settings',
@@ -207,7 +302,7 @@ const SettingsType = new GraphQLObjectType({
     },
   }),
 });
-
+// sectionName: { type: GraphQLString },
 const ContentType = new GraphQLObjectType({
   name: 'Content',
   fields: () => ({
@@ -219,51 +314,39 @@ const ContentType = new GraphQLObjectType({
       },
     },
     skills: {
-      type: new GraphQLList(SkillsType),
+      type: SkillsType,
       resolve(parent) {
-        return Skills.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return Skills.findOne({ resumeId: parent.resumeId });
       },
     },
     language: {
-      type: new GraphQLList(LanguageType),
+      type: LanguageType,
       resolve(parent) {
-        return Language.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return Language.findOne({ resumeId: parent.resumeId })
       },
     },
     professionalExperience: {
-      type: new GraphQLList(ProfessionalExperienceType),
+      type: ProfessionalExperienceType,
       resolve(parent) {
-        return ProfessionalExperience.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return ProfessionalExperience.findOne({ resumeId: parent.resumeId })
       },
     },
     profile: {
-      type: new GraphQLList(ProfileType),
+      type: ProfileType,
       resolve(parent) {
-        return Profile.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return Profile.findOne({ resumeId: parent.resumeId })
       },
     },
     education: {
-      type: new GraphQLList(EducationType),
+      type: EducationType,
       resolve(parent) {
-        return Education.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return Education.findOne({ resumeId: parent.resumeId })
       },
     },
     project: {
-      type: new GraphQLList(ProjectType),
+      type: ProjectType,
       resolve(parent) {
-        return Project.find({ resumeId: parent.resumeId }).sort({
-          index: 'ascending',
-        });
+        return Project.findOne({ resumeId: parent.resumeId })
       },
     },
     resume: {
@@ -296,12 +379,18 @@ const ResumeType = new GraphQLObjectType({
 });
 
 module.exports = {
+  ProjectItemType,
   ProjectType,
+  EducationItemType,
   EducationType,
   PersonalDetailsType,
+  ProfessionalExperienceItemType,
   ProfessionalExperienceType,
+  SkillsItemType,
   SkillsType,
+  LanguageItemType,
   LanguageType,
+  ProfileItemType,
   ProfileType,
   ResumeType,
   SettingsType,

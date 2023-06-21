@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const EducationSchema = new mongoose.Schema({
-  degree: { type: String },
-  school: { type: String },
+const ProfessionalExperienceItemSchema = new mongoose.Schema({
+  jobTitle: { type: String },
+  employer: { type: String },
   city: { type: String },
   country: { type: String },
   startDate: { type: String },
@@ -15,4 +15,7 @@ const EducationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Education', EducationSchema);
+module.exports = mongoose.model(
+  'ProfessionalExperienceItem',
+  ProfessionalExperienceItemSchema
+);
