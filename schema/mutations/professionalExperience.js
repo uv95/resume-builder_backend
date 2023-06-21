@@ -62,7 +62,7 @@ const professionalExperienceMutations = {
 
   updateProfessionalExperienceOrder: updateOrder({
     type: ProfessionalExperienceType,
-    inputTypeName: 'ProfessionalExperienceTypeAll',
+    inputTypeName: 'ProfessionalExperienceOrder',
     fields: {
       ...professionalExperienceScalarProps,
     },

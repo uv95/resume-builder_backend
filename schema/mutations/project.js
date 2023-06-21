@@ -49,7 +49,7 @@ const projectMutations = {
 
   updateProjectsOrder: updateOrder({
     type: ProjectType,
-    inputTypeName: 'ProjectTypeAll',
+    inputTypeName: 'ProjectOrder',
     fields: {
       ...projectScalarProps,
     },

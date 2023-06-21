@@ -61,7 +61,7 @@ const educationMutations = {
 
   updateEducationOrder: updateOrder({
     type: EducationType,
-    inputTypeName: 'EducationTypeAll',
+    inputTypeName: 'EducationOrder',
     fields: {
       ...educationScalarProps,
     },

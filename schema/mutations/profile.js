@@ -46,7 +46,7 @@ exports.profileMutations = {
 
   updateProfileOrder: updateOrder({
     type: ProfileType,
-    inputTypeName: 'ProfileTypeAll',
+    inputTypeName: 'ProfileOrder',
     fields: {
       text: { type: GraphQLNonNull(GraphQLString) },
       index: { type: GraphQLInt },

@@ -73,12 +73,12 @@ const languageMutations = {
 
   updateLanguagesOrder: updateOrder({
     type: LanguageType,
-    inputTypeName: 'LanguageTypeAll',
+    inputTypeName: 'LanguagesOrder',
     fields: {
       ...languageScalarProps,
       languageLevel: {
         type: new GraphQLEnumType({
-          name: 'LanguageLevelUpdateAll',
+          name: 'LanguageLevelUpdateOrder',
           values: languageLevelEnumValues,
         }),
       },
