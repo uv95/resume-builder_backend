@@ -60,13 +60,13 @@ const educationMutations = {
   }),
 
   updateEducationOrder: updateOrder({
-    type: EducationType,
+    type: EducationItemType,
     inputTypeName: 'EducationOrder',
     fields: {
       ...educationScalarProps,
     },
     argsList,
-    Model: Education,
+    Model: EducationItem,
   }),
 };
 

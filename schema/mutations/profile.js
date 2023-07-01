@@ -45,13 +45,13 @@ exports.profileMutations = {
   }),
 
   updateProfileOrder: updateOrder({
-    type: ProfileType,
+    type: ProfileItemType,
     inputTypeName: 'ProfileOrder',
     fields: {
       text: { type: GraphQLNonNull(GraphQLString) },
       index: { type: GraphQLInt },
     },
     argsList,
-    Model: Profile,
+    Model: ProfileItem,
   }),
 };

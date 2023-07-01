@@ -48,13 +48,13 @@ const projectMutations = {
   }),
 
   updateProjectsOrder: updateOrder({
-    type: ProjectType,
+    type: ProjectItemType,
     inputTypeName: 'ProjectOrder',
     fields: {
       ...projectScalarProps,
     },
     argsList,
-    Model: Project,
+    Model: ProjectItem,
   }),
 };
 

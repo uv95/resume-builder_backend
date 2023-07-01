@@ -4,6 +4,7 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLInt,
+  GraphQLBoolean,
 } = require('graphql');
 
 //Mongoose models
@@ -123,6 +124,7 @@ const PersonalDetailsType = new GraphQLObjectType({
           fields: () => ({
             name: { type: GraphQLString },
             input: { type: GraphQLString },
+            isLink: { type: GraphQLBoolean },
           }),
         })
       ),
@@ -302,7 +304,7 @@ const SettingsType = new GraphQLObjectType({
     },
   }),
 });
-// sectionName: { type: GraphQLString },
+
 const ContentType = new GraphQLObjectType({
   name: 'Content',
   fields: () => ({

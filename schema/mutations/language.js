@@ -72,7 +72,7 @@ const languageMutations = {
   }),
 
   updateLanguagesOrder: updateOrder({
-    type: LanguageType,
+    type: LanguageItemType,
     inputTypeName: 'LanguagesOrder',
     fields: {
       ...languageScalarProps,
@@ -84,7 +84,7 @@ const languageMutations = {
       },
     },
     argsList,
-    Model: Language,
+    Model: LanguageItem,
   }),
 };
 

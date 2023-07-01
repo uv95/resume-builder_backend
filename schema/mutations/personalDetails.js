@@ -4,6 +4,7 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLInputObjectType,
+  GraphQLBoolean,
 } = require('graphql');
 const PersonalDetails = require('../../models/PersonalDetails');
 const { PersonalDetailsType } = require('../types/types');
@@ -35,6 +36,7 @@ const personalDetailsMutations = {
             fields: {
               name: { type: GraphQLString },
               input: { type: GraphQLString },
+              isLink: { type: GraphQLBoolean },
             },
           })
         ),
