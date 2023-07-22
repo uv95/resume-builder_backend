@@ -6,7 +6,7 @@ const {
 } = require('graphql');
 
 const { Language, LanguageItem } = require('../../models/Language');
-const { LanguageType, LanguageItemType } = require('../types/types');
+const { LanguageType, LanguageItemType } = require('../types/content/language');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const languageScalarProps = {

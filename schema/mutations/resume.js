@@ -9,7 +9,7 @@ const { Project } = require('../../models/Project');
 const Resume = require('../../models/Resume');
 const Settings = require('../../models/Settings');
 const { Skills } = require('../../models/Skills');
-const { ResumeType } = require('../types/types');
+const { ResumeType } = require('../types/resume/resume');
 
 exports.resumeMutations = {
   addResume: {

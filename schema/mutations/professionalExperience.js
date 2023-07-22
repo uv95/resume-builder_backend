@@ -6,7 +6,7 @@ const {
 
 } = require('graphql');
 const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../models/ProfessionalExperience');
-const { ProfessionalExperienceType, ProfessionalExperienceItemType } = require('../types/types');
+const { ProfessionalExperienceType, ProfessionalExperienceItemType } = require('../types/content/professionalExperience');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const professionalExperienceScalarProps = {

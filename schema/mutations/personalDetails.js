@@ -7,7 +7,7 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 const PersonalDetails = require('../../models/PersonalDetails');
-const { PersonalDetailsType } = require('../types/types');
+const { PersonalDetailsType } = require('../types/content/personalDetails');
 const { updateOne, } = require('./handlerFactory');
 
 const personalDetailsScalarProps = {

@@ -7,7 +7,7 @@ const {
 } = require('graphql');
 
 const { Profile, ProfileItem } = require('../../models/Profile');
-const { ProfileType, ProfileItemType } = require('../types/types');
+const { ProfileType, ProfileItemType } = require('../types/content/profile');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('./handlerFactory');
 
 const argsList = ['text', 'index']

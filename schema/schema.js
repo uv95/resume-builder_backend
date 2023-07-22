@@ -7,7 +7,7 @@ const {
 
 const Resume = require('../models/Resume');
 const { mutation } = require('./mutations');
-const { ResumeType } = require('./types/types');
+const { ResumeType } = require('./types/resume/resume');
 
 //ROOT Query
 const RootQuery = new GraphQLObjectType({
@@ -16,7 +16,7 @@ const RootQuery = new GraphQLObjectType({
     resume: {
       type: ResumeType,
       args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
+       resolve(parent, args) {
         return Resume.findById(args.id);
       },
     },
