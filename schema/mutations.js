@@ -12,8 +12,10 @@ const { projectMutations } = require('./mutations/project');
 const { settingsMutations } = require('./mutations/settings');
 const { colorsMutations } = require('./mutations/settings/colors');
 const { spacingMutations } = require('./mutations/settings/spacing');
+const { layoutMutations } = require('./mutations/settings/layout');
 
 const allMutations = {
+  ...layoutMutations,
   ...spacingMutations,
   ...colorsMutations,
   ...educationMutations,

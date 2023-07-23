@@ -7,12 +7,8 @@ const SettingsSchema = new mongoose.Schema({
     right: [{ type: String }],
   },
   layout: {
-    columns: { type: Number, default: 1 },
-    position: { type: String, enum: ['top', 'left', 'right'], default: 'top' },
-    columnWidth: {
-      left: { type: Number, default: 50 },
-      right: { type: Number, default: 50 },
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Layout',
   },
   colors: {
     type: mongoose.Schema.Types.ObjectId,

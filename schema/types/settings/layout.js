@@ -1,8 +1,9 @@
-const { GraphQLObjectType, GraphQLInt, GraphQLString } = require("graphql");
+const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID } = require("graphql");
 
 exports.LayoutType = new GraphQLObjectType({
     name: 'Layout',
     fields: () => ({
+      id: { type: GraphQLID },
       columns: { type: GraphQLInt },
       position: { type: GraphQLString },
       columnWidth: {

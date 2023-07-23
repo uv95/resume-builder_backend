@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLID } = require("graphql");
 const Resume = require("../../../models/Resume");
-const {Colors, Spacing} = require("../../../models/Settings");
+const {Colors, Spacing, Layout} = require("../../../models/Settings");
 const { ColorsType } = require("./colors");
 const { DateType } = require("./date");
 const { EducationSettingsType } = require("./education");
@@ -23,7 +23,12 @@ exports.SettingsType = new GraphQLObjectType({
     fields: () => ({
       id: { type: GraphQLID },
       sectionsOrder: { type: SectionsOrderType },
-      layout: { type: LayoutType },
+      layout: { 
+        type: LayoutType,
+        resolve(parent,args){
+          return Layout.findOne({ resumeId: parent.resumeId })
+        }
+       },
       colors: { 
        type: ColorsType,
        resolve(parent,args){

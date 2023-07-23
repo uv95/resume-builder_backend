@@ -4,10 +4,8 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLInputObjectType,
-  GraphQLInt,
   GraphQLEnumType,
   GraphQLBoolean,
-  GraphQLFloat,
 } = require('graphql');
 
 const {Settings} = require('../../models/Settings');
@@ -307,7 +305,6 @@ exports.settingsMutations = {
     type: SettingsType,
     args: {
       id: { type: GraphQLNonNull(GraphQLID) },
-      //sections order
       sectionsOrder: {
         type: new GraphQLInputObjectType({
           name: 'SectionsOrderInput',
@@ -315,35 +312,6 @@ exports.settingsMutations = {
             top: { type: new GraphQLList(GraphQLString) },
             left: { type: new GraphQLList(GraphQLString) },
             right: { type: new GraphQLList(GraphQLString) },
-          },
-        }),
-      },
-      //layout
-      layout: {
-        type: new GraphQLInputObjectType({
-          name: 'LayoutInput',
-          fields: {
-            columns: { type: GraphQLInt, defaultValue: 1 },
-            position: {
-              type: new GraphQLEnumType({
-                name: 'Position',
-                values: {
-                  top: { value: 'top' },
-                  left: { value: 'left' },
-                  right: { value: 'right' },
-                },
-              }),
-              defaultValue: 'top',
-            },
-            columnWidth: {
-              type: new GraphQLInputObjectType({
-                name: 'ColumnWidthInput',
-                fields: {
-                  left: { type: GraphQLInt, defaultValue: 50 },
-                  right: { type: GraphQLInt, defaultValue: 50 },
-                },
-              }),
-            },
           },
         }),
       },
@@ -365,7 +333,6 @@ exports.settingsMutations = {
         args.id,
         {
           sectionsOrder: args.sectionsOrder,
-          layout: args.layout,
           font: args.font,
           heading: args.heading,
           subtitle: args.subtitle,
