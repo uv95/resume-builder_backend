@@ -2,7 +2,7 @@ const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt } =
 const { ProjectItem } = require("../../../models/Project");
 const Resume = require("../../../models/Resume");
 
-exports.ProjectItemType = new GraphQLObjectType({
+const ProjectItemType = new GraphQLObjectType({
     name: 'ProjectItem',
     fields: () => ({
       id: { type: GraphQLID },
@@ -20,13 +20,13 @@ exports.ProjectItemType = new GraphQLObjectType({
     }),
   });
   
-exports.ProjectType = new GraphQLObjectType({
+const ProjectType = new GraphQLObjectType({
     name: 'Project',
     fields: () => ({
       id: { type: GraphQLID },
       sectionName: { type: GraphQLString },
       items: {
-        type: new GraphQLList(this.ProjectItemType),
+        type: new GraphQLList(ProjectItemType),
         resolve(parent) {
           return ProjectItem.find({ resumeId: parent.resumeId }).sort({
             index: 'ascending',
@@ -35,3 +35,5 @@ exports.ProjectType = new GraphQLObjectType({
       }
     }),
   })
+
+  module.exports = {ProjectItemType,ProjectType}

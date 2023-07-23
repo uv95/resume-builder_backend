@@ -5,17 +5,17 @@ const { LanguageType } = require("./language");
 const { PersonalDetailsType } = require("./personalDetails");
 const { ProfessionalExperienceType } = require("./professionalExperience");
 const { ProfileType } = require("./profile");
-const { ProjectType } = require("./project");
-const { SkillsType } = require("./skills");
 const PersonalDetails=require('../../../models/PersonalDetails');
-const Skills=require('../../../models/Skills');
-const Language=require('../../../models/Language');
-const ProfessionalExperience=require('../../../models/ProfessionalExperience');
-const Profile=require('../../../models/Profile');
-const Project=require('../../../models/Project');
-const Education=require('../../../models/Education');
+const {Skills} = require('../../../models/Skills');
+const {Language} = require('../../../models/Language');
+const {ProfessionalExperience} = require('../../../models/ProfessionalExperience');
+const {Profile} = require('../../../models/Profile');
+const {Project} = require('../../../models/Project');
+const {Education} = require('../../../models/Education');
+const { SkillsType } = require("./skills");
+const { ProjectType } = require("./project");
 
-exports.ContentType = new GraphQLObjectType({
+const ContentType = new GraphQLObjectType({
     name: 'Content',
     fields: () => ({
       id: { type: GraphQLID },
@@ -69,3 +69,5 @@ exports.ContentType = new GraphQLObjectType({
     }
     }),
   });
+
+  module.exports={ContentType}

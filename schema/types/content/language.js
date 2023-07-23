@@ -1,7 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt } = require("graphql");
+const { LanguageItem } = require("../../../models/Language");
 const Resume = require("../../../models/Resume");
 
-exports.LanguageItemType = new GraphQLObjectType({
+const LanguageItemType = new GraphQLObjectType({
     name: 'LanguageItem',
     fields: () => ({
       id: { type: GraphQLID },
@@ -20,13 +21,13 @@ exports.LanguageItemType = new GraphQLObjectType({
     }),
   });
   
- exports.LanguageType = new GraphQLObjectType({
+ const LanguageType = new GraphQLObjectType({
     name: 'Language',
     fields: () => ({
       id: { type: GraphQLID },
       sectionName: { type: GraphQLString },
       items: {
-        type: new GraphQLList(this.LanguageItemType),
+        type: new GraphQLList(LanguageItemType),
         resolve(parent) {
           return LanguageItem.find({ resumeId: parent.resumeId }).sort({
             index: 'ascending',
@@ -35,3 +36,5 @@ exports.LanguageItemType = new GraphQLObjectType({
       }
     }),
   })
+
+  module.exports = {LanguageItemType,LanguageType}

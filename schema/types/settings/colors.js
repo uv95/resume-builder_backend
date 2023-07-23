@@ -1,6 +1,5 @@
-const { GraphQLObjectType, GraphQLString, GraphQLBoolean } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLID } = require('graphql');
 const Resume = require('../../../models/Resume');
-const { Settings } = require('../../../models/Settings');
 
 const BasicMulticolorType = new GraphQLObjectType({
     name: 'BasicMulticolor',
@@ -53,6 +52,7 @@ const BasicMulticolorType = new GraphQLObjectType({
  exports.ColorsType = new GraphQLObjectType({
     name: 'Colors',
     fields: () => ({
+      id: { type: GraphQLID },
       mode: { type: GraphQLString },
       //basic
       basic: {

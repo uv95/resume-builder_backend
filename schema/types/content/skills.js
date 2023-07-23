@@ -1,7 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt } = require("graphql");
 const Resume = require("../../../models/Resume");
+const { SkillsItem } = require("../../../models/Skills");
 
-exports.SkillsItemType = new GraphQLObjectType({
+const SkillsItemType = new GraphQLObjectType({
     name: 'SkillsItem',
     fields: () => ({
       id: { type: GraphQLID },
@@ -19,14 +20,14 @@ exports.SkillsItemType = new GraphQLObjectType({
     },
     }),
   });
-  
-  exports.SkillsType = new GraphQLObjectType({
+
+  const SkillsType = new GraphQLObjectType({
     name: 'Skills',
     fields: () => ({
       id: { type: GraphQLID },
       sectionName: { type: GraphQLString },
       items: {
-        type: new GraphQLList(this.SkillsItemType),
+        type: new GraphQLList(SkillsItemType),
         async resolve(parent) {
           return await SkillsItem.find({ resumeId: parent.resumeId }).sort({
             index: 'ascending',
@@ -35,3 +36,5 @@ exports.SkillsItemType = new GraphQLObjectType({
       }
     }),
   })
+  
+  module.exports = {SkillsItemType,SkillsType}

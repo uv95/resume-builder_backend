@@ -1,7 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt } = require("graphql");
+const { EducationItem } = require("../../../models/Education");
 const Resume = require("../../../models/Resume");
 
-exports.EducationItemType = new GraphQLObjectType({
+const EducationItemType = new GraphQLObjectType({
     name: 'EducationItem',
     fields: () => ({
       id: { type: GraphQLID },
@@ -22,13 +23,13 @@ exports.EducationItemType = new GraphQLObjectType({
     }),
   });
   
-exports.EducationType = new GraphQLObjectType({
+const EducationType = new GraphQLObjectType({
     name: 'Education',
     fields: () => ({
       id: { type: GraphQLID },
       sectionName: { type: GraphQLString },
       items: {
-        type: new GraphQLList(this.EducationItemType),
+        type: new GraphQLList(EducationItemType),
         resolve(parent) {
           return EducationItem.find({ resumeId: parent.resumeId }).sort({
             index: 'ascending',
@@ -37,3 +38,5 @@ exports.EducationType = new GraphQLObjectType({
       }
     }),
   })
+
+  module.exports = {EducationItemType,EducationType}

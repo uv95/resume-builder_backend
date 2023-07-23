@@ -10,8 +10,10 @@ const {
 } = require('./mutations/professionalExperience');
 const { projectMutations } = require('./mutations/project');
 const { settingsMutations } = require('./mutations/settings');
+const { colorsMutations } = require('./mutations/settings/colors');
 
 const allMutations = {
+  ...colorsMutations,
   ...educationMutations,
   ...resumeMutations,
   ...profileMutations,

@@ -1,7 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt } = require("graphql");
+const { ProfessionalExperienceItem } = require("../../../models/ProfessionalExperience");
 const Resume = require("../../../models/Resume");
 
-exports.ProfessionalExperienceItemType = new GraphQLObjectType({
+const ProfessionalExperienceItemType = new GraphQLObjectType({
     name: 'ProfessionalExperienceItem',
     fields: () => ({
       id: { type: GraphQLID },
@@ -22,13 +23,13 @@ exports.ProfessionalExperienceItemType = new GraphQLObjectType({
     }),
   });
   
-exports.ProfessionalExperienceType = new GraphQLObjectType({
+const ProfessionalExperienceType = new GraphQLObjectType({
     name: 'ProfessionalExperience',
     fields: () => ({
       id: { type: GraphQLID },
       sectionName: { type: GraphQLString },
       items: {
-        type: new GraphQLList(this.ProfessionalExperienceItemType),
+        type: new GraphQLList(ProfessionalExperienceItemType),
         resolve(parent) {
           return ProfessionalExperienceItem.find({ resumeId: parent.resumeId }).sort({
             index: 'ascending',
@@ -37,3 +38,5 @@ exports.ProfessionalExperienceType = new GraphQLObjectType({
       }
     }),
   })
+
+  module.exports = {ProfessionalExperienceType,ProfessionalExperienceItemType}

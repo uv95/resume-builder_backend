@@ -10,56 +10,9 @@ const {
   GraphQLFloat,
 } = require('graphql');
 
-const Settings = require('../../models/Settings');
+const {Settings} = require('../../models/Settings');
 const { SettingsType } = require('../types/settings/settings');
 
-const BasicMulticolorInput = new GraphQLInputObjectType({
-  name: 'BasicMulticolorInput',
-  fields: {
-    accent: { type: GraphQLString },
-    font: { type: GraphQLString },
-    background: { type: GraphQLString },
-  },
-});
-
-const AdvancedMulticolorInput = new GraphQLInputObjectType({
-  name: 'AdvancedMulticolorInput',
-  fields: {
-    primary: {
-      type: new GraphQLInputObjectType({
-        name: 'AdvancedMulticolorPrimaryInput',
-        fields: {
-          accent: { type: GraphQLString },
-          font: { type: GraphQLString },
-          background: { type: GraphQLString },
-        },
-      }),
-    },
-    secondary: {
-      type: new GraphQLInputObjectType({
-        name: 'AdvancedMulticolorSecondaryInput',
-        fields: {
-          accent: { type: GraphQLString },
-          font: { type: GraphQLString },
-          background: { type: GraphQLString },
-        },
-      }),
-    },
-  },
-});
-
-const ApplyAccentColorInput = new GraphQLInputObjectType({
-  name: 'ApplyAccentColorInput',
-  fields: {
-    name: { type: GraphQLBoolean, defaultValue: true },
-    dots: { type: GraphQLBoolean, defaultValue: false },
-    headings: { type: GraphQLBoolean, defaultValue: true },
-    dates: { type: GraphQLBoolean, defaultValue: false },
-    headingsLine: { type: GraphQLBoolean, defaultValue: true },
-    linkIcons: { type: GraphQLBoolean, defaultValue: false },
-    headerIcons: { type: GraphQLBoolean, defaultValue: false },
-  },
-});
 
 const SpacingInput = new GraphQLInputObjectType({
   name: 'SpacingInput',
@@ -361,11 +314,6 @@ const ProfessionalExperienceSettingsInput = new GraphQLInputObjectType({
   },
 });
 
-const selectedValues = {
-  accent: { value: 'accent' },
-  multicolor: { value: 'multicolor' },
-};
-
 exports.settingsMutations = {
   updateSettings: {
     type: SettingsType,
@@ -411,64 +359,6 @@ exports.settingsMutations = {
           },
         }),
       },
-      //colors
-      colors: {
-        type: new GraphQLInputObjectType({
-          name: 'ColorsInput',
-          fields: {
-            mode: {
-              type: new GraphQLEnumType({
-                name: 'Mode',
-                values: {
-                  basic: { value: 'basic' },
-                  advanced: { value: 'advanced' },
-                },
-              }),
-              defaultValue: 'basic',
-            },
-            //basic
-            basic: {
-              type: new GraphQLInputObjectType({
-                name: 'BasicInput',
-                fields: {
-                  selected: {
-                    type: new GraphQLEnumType({
-                      name: 'BasicSelected',
-                      values: selectedValues,
-                    }),
-                    defaultValue: 'accent',
-                  },
-                  accent: { type: GraphQLString },
-                  multicolor: {
-                    type: BasicMulticolorInput,
-                  },
-                },
-              }),
-            },
-            //advanced
-            advanced: {
-              type: new GraphQLInputObjectType({
-                name: 'AdvancedInput',
-                fields: {
-                  selected: {
-                    type: new GraphQLEnumType({
-                      name: 'AdvancedSelected',
-                      values: selectedValues,
-                    }),
-                    defaultValue: 'accent',
-                  },
-                  accent: { type: GraphQLString },
-                  multicolor: {
-                    type: AdvancedMulticolorInput,
-                  },
-                },
-              }),
-            },
-            //applyAccentColor
-            applyAccentColor: { type: ApplyAccentColorInput },
-          },
-        }),
-      },
       spacing: { type: SpacingInput },
       font: { type: FontInput },
       heading: { type: HeadingInput },
@@ -489,7 +379,6 @@ exports.settingsMutations = {
         {
           sectionsOrder: args.sectionsOrder,
           layout: args.layout,
-          colors: args.colors,
           spacing: args.spacing,
           font: args.font,
           heading: args.heading,

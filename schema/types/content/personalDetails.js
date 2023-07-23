@@ -1,7 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLBoolean } = require("graphql");
 const Resume = require("../../../models/Resume");
 
-exports.PersonalDetailsType = new GraphQLObjectType({
+
+const PersonalDetailsType = new GraphQLObjectType({
     name: 'PersonalDetails',
     fields: () => ({
       id: { type: GraphQLID },
@@ -30,3 +31,5 @@ exports.PersonalDetailsType = new GraphQLObjectType({
     },
     }),
   });
+
+  module.exports = {PersonalDetailsType}

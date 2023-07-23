@@ -1,14 +1,14 @@
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
 const Content = require('../../models/Content');
-const { Education } = require('../../models/Education');
-const { Language } = require('../../models/Language');
+const { Education, EducationItem } = require('../../models/Education');
+const { Language, LanguageItem } = require('../../models/Language');
 const PersonalDetails = require('../../models/PersonalDetails');
-const { ProfessionalExperience } = require('../../models/ProfessionalExperience');
-const { Profile } = require('../../models/Profile');
-const { Project } = require('../../models/Project');
+const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../models/ProfessionalExperience');
+const { Profile, ProfileItem } = require('../../models/Profile');
+const { Project, ProjectItem } = require('../../models/Project');
 const Resume = require('../../models/Resume');
-const Settings = require('../../models/Settings');
-const { Skills } = require('../../models/Skills');
+const {Settings, Colors } = require('../../models/Settings');
+const { Skills, SkillsItem } = require('../../models/Skills');
 const { ResumeType } = require('../types/resume/resume');
 
 exports.resumeMutations = {
@@ -16,7 +16,9 @@ exports.resumeMutations = {
     type: ResumeType,
     resolve() {
       const resume = new Resume()
-      const newDocs = [Settings, Content, PersonalDetails, Skills, Education, Project, Language, ProfessionalExperience, Profile];
+     
+      const newDocs = [Settings, Colors, Content, PersonalDetails, Skills, Education, Project, Language, ProfessionalExperience, Profile];
+      
       for (Model of newDocs) {
         const newDoc = new Model({
           resumeId: resume._id
@@ -34,33 +36,28 @@ exports.resumeMutations = {
       id: { type: GraphQLNonNull(GraphQLID) },
     },
     resolve(parent, args) {
-      Profile.find({ resumeId: args.id }).then((profile) =>
-        profile.forEach((p) => p.deleteOne())
-      );
-      Language.find({ resumeId: args.id }).then((languages) =>
-        languages.forEach((l) => l.deleteOne())
-      );
-      Education.find({ resumeId: args.id }).then((educations) =>
-        educations.forEach((e) => e.deleteOne())
-      );
-      ProfessionalExperience.find({ resumeId: args.id }).then((profExp) =>
-        profExp.forEach((p) => p.deleteOne())
-      );
-      PersonalDetails.find({ resumeId: args.id }).then((pd) =>
-        pd.forEach((p) => p.deleteOne())
-      );
-      Settings.find({ resumeId: args.id }).then((settings) =>
-        settings.forEach((s) => s.deleteOne())
-      );
-      Content.find({ resumeId: args.id }).then((content) =>
-        content.forEach((c) => c.deleteOne())
-      );
-      Project.find({ resumeId: args.id }).then((projects) =>
-        projects.forEach((p) => p.deleteOne())
-      );
-      Skills.find({ resumeId: args.id }).then((skills) =>
-        skills.forEach((s) => s.deleteOne())
-      );
+      const docsToDelete = [
+        Profile, 
+        Language, 
+        Education,
+        ProfessionalExperience,
+        PersonalDetails,
+        Settings,
+        Content,
+        Project,
+        Skills, 
+        ProfileItem, 
+        LanguageItem, 
+        EducationItem, 
+        ProfessionalExperienceItem, 
+        Colors, 
+        ProjectItem, 
+        SkillsItem];
+
+      for (Model of docsToDelete) {
+         Model.find({ resumeId: args.id }).then((Model) =>
+          Model.forEach((item) => item.deleteOne()))
+      }
 
       return Resume.findByIdAndRemove(args.id);
     },
