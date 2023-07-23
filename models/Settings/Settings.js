@@ -19,11 +19,8 @@ const SettingsSchema = new mongoose.Schema({
     ref: 'Colors',
   },
   spacing: {
-    fontSize: { type: Number, default: 16 },
-    lineHeight: { type: Number, default: 1.3 },
-    leftRightMargin: { type: Number, default: 16 },
-    topBottomMargin: { type: Number, default: 16 },
-    spaceBetweenSections: { type: Number, default: 22 },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Spacing',
   },
   font: {
     type: { type: String, enum: ['serif', 'sans'], default: 'serif' },

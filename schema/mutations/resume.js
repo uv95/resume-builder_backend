@@ -7,7 +7,7 @@ const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../mo
 const { Profile, ProfileItem } = require('../../models/Profile');
 const { Project, ProjectItem } = require('../../models/Project');
 const Resume = require('../../models/Resume');
-const {Settings, Colors } = require('../../models/Settings');
+const {Settings, Colors, Spacing } = require('../../models/Settings');
 const { Skills, SkillsItem } = require('../../models/Skills');
 const { ResumeType } = require('../types/resume/resume');
 
@@ -17,7 +17,7 @@ exports.resumeMutations = {
     resolve() {
       const resume = new Resume()
      
-      const newDocs = [Settings, Colors, Content, PersonalDetails, Skills, Education, Project, Language, ProfessionalExperience, Profile];
+      const newDocs = [Settings, Colors, Spacing, Content, PersonalDetails, Skills, Education, Project, Language, ProfessionalExperience, Profile];
       
       for (Model of newDocs) {
         const newDoc = new Model({
@@ -50,7 +50,8 @@ exports.resumeMutations = {
         LanguageItem, 
         EducationItem, 
         ProfessionalExperienceItem, 
-        Colors, 
+        Colors,
+        Spacing, 
         ProjectItem, 
         SkillsItem];
 

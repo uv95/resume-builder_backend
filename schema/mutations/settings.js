@@ -13,18 +13,6 @@ const {
 const {Settings} = require('../../models/Settings');
 const { SettingsType } = require('../types/settings/settings');
 
-
-const SpacingInput = new GraphQLInputObjectType({
-  name: 'SpacingInput',
-  fields: {
-    fontSize: { type: GraphQLFloat, defaultValue: 16 },
-    lineHeight: { type: GraphQLFloat, defaultValue: 1.3 },
-    leftRightMargin: { type: GraphQLInt, defaultValue: 18 },
-    topBottomMargin: { type: GraphQLInt, defaultValue: 18 },
-    spaceBetweenSections: { type: GraphQLInt, defaultValue: 15 },
-  },
-});
-
 const FontInput = new GraphQLInputObjectType({
   name: 'FontInput',
   fields: {
@@ -359,7 +347,6 @@ exports.settingsMutations = {
           },
         }),
       },
-      spacing: { type: SpacingInput },
       font: { type: FontInput },
       heading: { type: HeadingInput },
       subtitle: { type: SubtitleInput },
@@ -379,7 +366,6 @@ exports.settingsMutations = {
         {
           sectionsOrder: args.sectionsOrder,
           layout: args.layout,
-          spacing: args.spacing,
           font: args.font,
           heading: args.heading,
           subtitle: args.subtitle,
