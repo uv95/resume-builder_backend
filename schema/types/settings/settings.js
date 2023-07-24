@@ -1,22 +1,24 @@
 const { GraphQLObjectType, GraphQLID } = require("graphql");
 const Resume = require("../../../models/Resume");
-const {Colors, Spacing, Layout} = require("../../../models/Settings");
-const { ColorsType } = require("./colors");
-const { DateType } = require("./date");
-const { EducationSettingsType } = require("./education");
-const { FontType } = require("./font");
-const { HeaderType } = require("./header");
-const { HeadingType } = require("./heading");
-const { JobTitleType } = require("./jobTitle");
-const { LanguageSettingsType } = require("./language");
-const { LayoutType } = require("./layout");
-const { NameType } = require("./name");
-const { ProfessionalExperienceSettingsType } = require("./professionalExperience");
-const { ProfileSettingsType } = require("./profile");
-const { SectionsOrderType } = require("./sectionsOrder");
-const { SkillsSettingsType } = require("./skills");
-const { SpacingType } = require("./spacing");
-const { SubtitleType } = require("./subtitle");
+const {Colors, Spacing, Layout, Heading, Subtitle, Header} = require("../../../models/settings");
+const { 
+  ColorsType, 
+  DateType, 
+  EducationSettingsType, 
+  FontType,
+  HeaderType,
+  HeadingType,
+  JobTitleType,
+  LanguageSettingsType,
+  LayoutType,
+  NameType,
+  ProfessionalExperienceSettingsType,
+  ProfileSettingsType,
+  SectionsOrderType,
+  SkillsSettingsType,
+  SpacingType,
+  SubtitleType } = require("./");
+
 
 exports.SettingsType = new GraphQLObjectType({
     name: 'Settings',
@@ -42,9 +44,24 @@ exports.SettingsType = new GraphQLObjectType({
         } 
       },
       font: { type: FontType },
-      heading: { type: HeadingType },
-      subtitle: { type: SubtitleType },
-      header: { type: HeaderType },
+      heading: { 
+        type: HeadingType,
+        resolve(parent,args){
+          return Heading.findOne({ resumeId: parent.resumeId })
+        }  
+      },
+      subtitle: { 
+        type: SubtitleType,
+        resolve(parent,args){
+          return Subtitle.findOne({ resumeId: parent.resumeId })
+       } 
+      },
+      header: { 
+        type: HeaderType,
+        resolve(parent,args){
+          return Header.findOne({ resumeId: parent.resumeId })
+       } 
+      },
       name: { type: NameType },
       jobTitle: { type: JobTitleType },
       date: { type: DateType },

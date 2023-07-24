@@ -23,38 +23,16 @@ const SettingsSchema = new mongoose.Schema({
     font: { type: String, default: 'Times New Roman' },
   },
   heading: {
-    style: {
-      type: String,
-      enum: ['box', 'simple', 'topBottomLine', 'line'],
-      default: 'line',
-    },
-    uppercase: { type: Boolean, default: false },
-    size: { type: String, enum: ['s', 'm', 'l'], default: 's' },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Heading',
   },
   subtitle: {
-    style: {
-      type: String,
-      enum: ['normal', 'bold', 'italic'],
-      default: 'normal',
-    },
-    position: {
-      type: String,
-      enum: ['sameLine', 'nextLine'],
-      default: 'nextLine',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Subtitle',
   },
   header: {
-    position: {
-      type: String,
-      enum: ['left', 'center'],
-      default: 'center',
-    },
-    additionalInfoStyle: {
-      type: String,
-      enum: ['icon', 'bar'],
-      default: 'icon',
-    },
-    additionalInfoOrder: [{ type: String }],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Header',
   },
   name: {
     size: { type: String, enum: ['s', 'm', 'l'], default: 'm' },
