@@ -5,7 +5,7 @@ const {
     GraphQLInt,
     GraphQLEnumType,
   } = require('graphql');
-const Layout = require('../../../../models/settings/Layout/Layout');
+const Layout = require('../../../../models/Settings/Layout/Layout');
 const { LayoutType } = require('../../../types/settings/layout/layout');
 
   

@@ -16,12 +16,12 @@ const { SkillsSettingsType } = require("./skills/skills");
 const { SpacingType } = require("./spacing/spacing");
 const { SubtitleType } = require("./subtitle/subtitle");
 const { SectionsOrderType } = require("./sectionsOrder/sectionsOrder");
-const Layout = require("../../../models/settings/Layout/Layout");
-const Colors = require("../../../models/settings/Colors/Colors");
-const Header = require("../../../models/settings/Header/Header");
-const Heading = require("../../../models/settings/Heading/Heading");
-const Spacing = require("../../../models/settings/Spacing/Spacing");
-const Subtitle = require("../../../models/settings/Subtitle/Subtitle");
+const Layout = require("../../../models/Settings/Layout/Layout");
+const Colors = require("../../../models/Settings/Colors/Colors");
+const Header = require("../../../models/Settings/Header/Header");
+const Heading = require("../../../models/Settings/Heading/Heading");
+const Spacing = require("../../../models/Settings/Spacing/Spacing");
+const Subtitle = require("../../../models/Settings/Subtitle/Subtitle");
 
 exports.SettingsType = new GraphQLObjectType({
     name: 'Settings',

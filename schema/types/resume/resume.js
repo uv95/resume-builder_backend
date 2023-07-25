@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLID, GraphQLString } = require("graphql");
 const Content = require("../../../models/Content");
-const Settings = require("../../../models/settings/Settings");
+const Settings = require("../../../models/Settings/Settings");
 const { ContentType } = require("../content/content");
 const { SettingsType } = require("../settings/settings");
 

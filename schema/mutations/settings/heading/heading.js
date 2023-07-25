@@ -4,7 +4,7 @@ const {
     GraphQLEnumType,
     GraphQLBoolean,
   } = require('graphql');
-const Heading = require('../../../../models/settings/Heading/Heading');
+const Heading = require('../../../../models/Settings/Heading/Heading');
 const { HeadingType } = require('../../../types/settings/heading/heading');
  
   exports.headingMutations = {

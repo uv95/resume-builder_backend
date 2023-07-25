@@ -1,5 +1,5 @@
 const { GraphQLInputObjectType, GraphQLString, GraphQLBoolean, GraphQLEnumType, GraphQLNonNull, GraphQLID } = require("graphql");
-const Colors = require("../../../../models/settings/Colors/Colors");
+const Colors = require("../../../../models/Settings/Colors/Colors");
 const { ColorsType } = require("../../../types/settings/colors/colors");
 
 const BasicMulticolorInput = new GraphQLInputObjectType({

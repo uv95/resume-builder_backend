@@ -7,15 +7,15 @@ const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../mo
 const { Profile, ProfileItem } = require('../../models/Profile');
 const { Project, ProjectItem } = require('../../models/Project');
 const Resume = require('../../models/Resume');
-const Layout  = require("../../models/settings/Layout/Layout");
-const Colors  = require("../../models/settings/Colors/Colors");
-const Header  = require("../../models/settings/Header/Header");
-const Heading  = require("../../models/settings/Heading/Heading");
-const Spacing  = require("../../models/settings/Spacing/Spacing");
-const Subtitle = require("../../models/settings/Subtitle/Subtitle");
+const Layout  = require("../../models/Settings/Layout/Layout");
+const Colors  = require("../../models/Settings/Colors/Colors");
+const Header  = require("../../models/Settings/Header/Header");
+const Heading  = require("../../models/Settings/Heading/Heading");
+const Spacing  = require("../../models/Settings/Spacing/Spacing");
+const Subtitle = require("../../models/Settings/Subtitle/Subtitle");
 const { Skills, SkillsItem } = require('../../models/Skills');
 const { ResumeType } = require('../types/resume/resume');
-const Settings = require('../../models/settings/Settings');
+const Settings = require('../../models/Settings/Settings');
 
 exports.resumeMutations = {
   addResume: {
