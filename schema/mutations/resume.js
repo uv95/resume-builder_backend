@@ -7,9 +7,15 @@ const { ProfessionalExperience, ProfessionalExperienceItem } = require('../../mo
 const { Profile, ProfileItem } = require('../../models/Profile');
 const { Project, ProjectItem } = require('../../models/Project');
 const Resume = require('../../models/Resume');
-const { Settings, Colors, Spacing, Layout, Heading, Header, Subtitle} = require('../../models/settings');
+const Layout  = require("../../models/settings/Layout/Layout");
+const Colors  = require("../../models/settings/Colors/Colors");
+const Header  = require("../../models/settings/Header/Header");
+const Heading  = require("../../models/settings/Heading/Heading");
+const Spacing  = require("../../models/settings/Spacing/Spacing");
+const Subtitle = require("../../models/settings/Subtitle/Subtitle");
 const { Skills, SkillsItem } = require('../../models/Skills');
 const { ResumeType } = require('../types/resume/resume');
+const Settings = require('../../models/settings/Settings');
 
 exports.resumeMutations = {
   addResume: {

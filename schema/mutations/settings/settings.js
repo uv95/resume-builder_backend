@@ -8,7 +8,7 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 
-const {Settings} = require('../../../models/settings');
+const Settings = require('../../../models/settings/Settings');
 const { SettingsType } = require('../../types/settings/settings');
 
 const FontInput = new GraphQLInputObjectType({

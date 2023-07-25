@@ -1,6 +1,5 @@
 const { GraphQLObjectType, GraphQLID } = require("graphql");
 const Resume = require("../../../models/Resume");
-const {Colors, Spacing, Layout, Heading, Subtitle, Header} = require("../../../models/settings");
 const { ColorsType } = require("./colors/colors");
 const { DateType } = require("./date/date");
 const { EducationSettingsType } = require("./education/education");
@@ -17,6 +16,12 @@ const { SkillsSettingsType } = require("./skills/skills");
 const { SpacingType } = require("./spacing/spacing");
 const { SubtitleType } = require("./subtitle/subtitle");
 const { SectionsOrderType } = require("./sectionsOrder/sectionsOrder");
+const Layout = require("../../../models/settings/Layout/Layout");
+const Colors = require("../../../models/settings/Colors/Colors");
+const Header = require("../../../models/settings/Header/Header");
+const Heading = require("../../../models/settings/Heading/Heading");
+const Spacing = require("../../../models/settings/Spacing/Spacing");
+const Subtitle = require("../../../models/settings/Subtitle/Subtitle");
 
 exports.SettingsType = new GraphQLObjectType({
     name: 'Settings',
