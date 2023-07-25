@@ -1,24 +1,22 @@
 const { GraphQLObjectType, GraphQLID } = require("graphql");
 const Resume = require("../../../models/Resume");
 const {Colors, Spacing, Layout, Heading, Subtitle, Header} = require("../../../models/settings");
-const { 
-  ColorsType, 
-  DateType, 
-  EducationSettingsType, 
-  FontType,
-  HeaderType,
-  HeadingType,
-  JobTitleType,
-  LanguageSettingsType,
-  LayoutType,
-  NameType,
-  ProfessionalExperienceSettingsType,
-  ProfileSettingsType,
-  SectionsOrderType,
-  SkillsSettingsType,
-  SpacingType,
-  SubtitleType } = require("./");
-
+const { ColorsType } = require("./colors/colors");
+const { DateType } = require("./date/date");
+const { EducationSettingsType } = require("./education/education");
+const { FontType } = require("./font/font");
+const { HeaderType } = require("./header/header");
+const { HeadingType } = require("./heading/heading");
+const { JobTitleType } = require("./jobTitle/jobTitle");
+const { LanguageSettingsType } = require("./language/language");
+const { LayoutType } = require("./layout/layout");
+const { NameType } = require("./name/name");
+const { ProfessionalExperienceSettingsType } = require("./professionalExperience/professionalExperience");
+const { ProfileSettingsType } = require("./profile/profile");
+const { SkillsSettingsType } = require("./skills/skills");
+const { SpacingType } = require("./spacing/spacing");
+const { SubtitleType } = require("./subtitle/subtitle");
+const { SectionsOrderType } = require("./sectionsOrder/sectionsOrder");
 
 exports.SettingsType = new GraphQLObjectType({
     name: 'Settings',

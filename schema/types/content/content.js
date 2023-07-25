@@ -7,14 +7,14 @@ const {Profile} = require('../../../models/Profile');
 const { Skills } = require("../../../models/Skills");
 const {Project} = require('../../../models/Project');
 const {Education} = require('../../../models/Education');
-const {
-  SkillsType,
-  ProfileType,
-  PersonalDetailsType,
-  LanguageType,
-  ProjectType,
-  EducationType,
-  ProfessionalExperienceType } = require("./");
+const {PersonalDetailsType} = require('./personalDetails/personalDetails');
+const {SkillsType} = require('./skills/skills');
+const {LanguageType} = require('./language/language');
+const {ProfessionalExperienceType} = require('./professionalExperience/professionalExperience');
+const {ProfileType} = require('./profile/profile');
+const {ProjectType} = require('./project/project');
+const {EducationType} = require('./education/education');
+
 
 const ContentType = new GraphQLObjectType({
     name: 'Content',

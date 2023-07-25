@@ -4,7 +4,7 @@ const {
   GraphQLInt,
 } = require('graphql');
 const { Education, EducationItem } = require('../../../../models/Education');
-const { EducationType, EducationItemType } = require('../../../types/content');
+const { EducationType, EducationItemType } = require('../../../types/content/education/education');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('../../handlerFactory');
 
 const educationScalarProps = {

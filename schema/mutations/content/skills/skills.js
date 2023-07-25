@@ -5,7 +5,7 @@ const {
   GraphQLInt,
 } = require('graphql');
 const { Skills, SkillsItem } = require('../../../../models/Skills');
-const { SkillsType, SkillsItemType } = require('../../../types/content');
+const { SkillsType, SkillsItemType } = require('../../../types/content/skills/skills');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('../../handlerFactory');
 
 const skillsScalarProps = {

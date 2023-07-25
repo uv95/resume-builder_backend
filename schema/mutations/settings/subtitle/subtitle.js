@@ -4,7 +4,7 @@ const {
     GraphQLEnumType,
   } = require('graphql');
 const { Subtitle } = require('../../../../models/settings');
-const { SubtitleType } = require('../../../types/settings');
+const { SubtitleType } = require('../../../types/settings/subtitle/subtitle');
   
  exports.subtitleMutations = {
     updateSubtitle: {

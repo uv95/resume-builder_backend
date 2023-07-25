@@ -4,7 +4,7 @@ const {
   GraphQLInt,
 } = require('graphql');
 const { Project, ProjectItem } = require('../../../../models/Project');
-const { ProjectType, ProjectItemType } = require('../../../types/content');
+const { ProjectType, ProjectItemType } = require('../../../types/content/project/project');
 const { updateOrder, updateOne, deleteOne, addOne, updateSectionName } = require('../../handlerFactory');
 
 const projectScalarProps = {

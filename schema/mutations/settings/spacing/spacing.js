@@ -5,7 +5,7 @@ const {
     GraphQLFloat,
   } = require('graphql');
 const { Spacing } = require('../../../../models/settings');
-  const { SpacingType } = require('../../../types/settings');
+  const { SpacingType } = require('../../../types/settings/spacing/spacing');
   
   exports.spacingMutations = {
     updateSpacing: {

@@ -6,7 +6,7 @@ const {
     GraphQLEnumType,
   } = require('graphql');
 const { Layout } = require('../../../../models/settings');
-const { LayoutType } = require('../../../types/settings');
+const { LayoutType } = require('../../../types/settings/layout/layout');
 
   
   exports.layoutMutations = {

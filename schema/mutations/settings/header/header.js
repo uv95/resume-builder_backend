@@ -6,7 +6,7 @@ const {
     GraphQLEnumType,
   } = require('graphql');
 const { Header } = require('../../../../models/settings');
-const { HeaderType } = require('../../../types/settings');
+const { HeaderType } = require('../../../types/settings/header/header');
   
 exports.headerMutations = {
     updateHeader: {
